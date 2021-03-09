@@ -1,0 +1,13 @@
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.exe
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.deps.json
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.runtimeconfig.json
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.runtimeconfig.dev.json
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.dll
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\bin\Debug\netcoreapp3.1\Reserveringssysteem.pdb
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.csprojAssemblyReference.cache
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.AssemblyInfoInputs.cache
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.AssemblyInfo.cs
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.csproj.CoreCompileInputs.cache
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.dll
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.pdb
+C:\Users\Oscar\source\repos\Project-B-Groep-5\Reserveringssysteem\obj\Debug\netcoreapp3.1\Reserveringssysteem.genruntimeconfig.cache
