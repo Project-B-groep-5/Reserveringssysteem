@@ -1,2 +1,2 @@
 # ProjectB
-workshop git
+reserverings systeem restaurant Project B Groep 5
