@@ -1,2 +1,2 @@
 # ProjectB
-reserverings systeem restaurant Project B Groep 5
+Reserverings systeem restaurant Project B Groep 5
