@@ -4,10 +4,10 @@
     {
         public int TafelId { get; set; }
         public int Size { get; set; }
-        public Customer Customer { get; set; }
-        public Bill Bill { get; set; }
+        public Klant Customer { get; set; }
+        public Rekening Bill { get; set; }
 
-        public Tafel(int tafelId, int size, Customer customer, Bill bill)
+        public Tafel(int tafelId, int size, Klant customer, Rekening bill)
         {
             TafelId = tafelId;
             Size = size;

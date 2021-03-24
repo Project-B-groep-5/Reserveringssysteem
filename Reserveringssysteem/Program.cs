@@ -8,8 +8,9 @@ namespace Reserveringssysteem
     {
         static void Main(string[] args)
         {
-            JsonSerialize(new Tafel[] {new Tafel(1, 6, new Customer("Oscar"), new Bill(0.00)), new Tafel(2, 4, new Customer("Arjen"), new Bill(100.0)) }, "tafels.json");
-            Intro();
+            //JsonSerialize(new Tafel[] {new Tafel(1, 6, new Klant("Oscar"), new Rekening(0.00)), new Tafel(2, 4, new Klant("Arjen"), new Rekening(100.0)) }, "tafels.json");
+            //Intro();
+            Console.WriteLine(Reserveringen.genereerReserveringscode());
         }
 
         static void JsonSerialize(Object[] obj, string filename)
@@ -73,7 +74,6 @@ namespace Reserveringssysteem
                 {
                     Console.CursorTop = Console.CursorTop - optionsCount;
                 }
-                //switch
             }
         }
     }
