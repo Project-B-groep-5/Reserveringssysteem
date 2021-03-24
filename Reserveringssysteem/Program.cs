@@ -1,10 +1,29 @@
 ﻿using System;
+using System.IO;
+using System.Text.Json;
 
 namespace Reserveringssysteem
 {
     class Program
     {
         static void Main(string[] args)
+        {
+            JsonSerialize(new Tafel[] {new Tafel(1, 6, new Customer("Oscar"), new Bill(0.00)), new Tafel(2, 4, new Customer("Arjen"), new Bill(100.0)) }, "tafels.json");
+            Intro();
+        }
+
+        static void JsonSerialize(Object[] obj, string filename)
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            var jsonString = JsonSerializer.Serialize(obj, options);
+            File.WriteAllText(filename, jsonString);
+        }
+      
+        static void Intro()
         {
             int optionsCount = 4;
             int optionSelected = 0;
@@ -55,6 +74,7 @@ namespace Reserveringssysteem
                     Console.CursorTop = Console.CursorTop - optionsCount;
                 }
                 //switch
+            }
             }
          }
     }
