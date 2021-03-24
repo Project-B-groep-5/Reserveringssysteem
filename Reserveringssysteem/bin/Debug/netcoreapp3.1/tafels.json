@@ -1,0 +1,24 @@
+[
+  {
+    "TafelId": 1,
+    "Size": 6,
+    "Customer": {
+      "Name": "Oscar",
+      "Id": "Oscar_101"
+    },
+    "Bill": {
+      "ToPay": 0
+    }
+  },
+  {
+    "TafelId": 2,
+    "Size": 4,
+    "Customer": {
+      "Name": "Arjen",
+      "Id": "Arjen_101"
+    },
+    "Bill": {
+      "ToPay": 100
+    }
+  }
+]
