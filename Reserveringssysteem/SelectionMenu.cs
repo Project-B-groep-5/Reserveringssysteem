@@ -13,7 +13,7 @@ namespace Reserveringssysteem
             menuArray = array;
         }
 
-        public void Show()
+        public int Show()
         {
             var optionsCount = menuArray.Length;
             var optionSelected = 0;
@@ -64,6 +64,8 @@ namespace Reserveringssysteem
                     Console.CursorTop = Console.CursorTop - optionsCount;
                 }
             }
+            System.Console.Clear();
+            return optionSelected;
         }
     }
 }
