@@ -16,7 +16,7 @@ namespace Reserveringssysteem
             File.WriteAllText(filename, jsonString);
         }
 
-        public static Table[] DeserializeTafel()
+        public static Table[] DeserializeTable()
         {
             var json = File.ReadAllText("tables.json");
             using (JsonDocument document = JsonDocument.Parse(json))
