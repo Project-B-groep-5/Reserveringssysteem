@@ -22,6 +22,14 @@ namespace Reserveringssysteem
                 "Zondag gesloten" },
                 new string[]{ "Email : contact@dehoutenvork.nl", "Telefoonnummer : 010-0123463" })}, "restaurants.json");
             */
+            /*Serialize(new Dish[] { new Dish(
+                "Cheeseburger",
+                10.50,
+                new string[]{ "Cheese", "Meat", "Lettuce", "Onion", "Ketchup", "Tomato", "Bread" },
+                "Main",
+                new string[]{ "Meat", "Burger" }
+            )},"dishes.json");*/
+
             if (state == null)
             {
             var introMenu = new SelectionMenu(new string[4] { "1] Plaats een reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
