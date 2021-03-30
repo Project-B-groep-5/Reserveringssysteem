@@ -7,15 +7,12 @@
 
         public Customer(string name, string id = null)
         {
-            if (id == null)
-            {
-                Id = name + "_101";
-            }
-            else
-            {
-                Id = id;
-            }
+            Id = id;
             Name = name;
+        }
+        private Customer()
+        {
+
         }
     }
 }

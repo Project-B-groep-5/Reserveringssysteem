@@ -7,5 +7,6 @@
         {
             ToPay = toPay;
         }
+        private Bill() {}
     }
 }
