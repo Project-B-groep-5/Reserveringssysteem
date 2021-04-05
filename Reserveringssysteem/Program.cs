@@ -12,15 +12,7 @@ namespace Reserveringssysteem
         public static List<Reservation> ReservationList;
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Hello World!");
-
-            ReservationList = Deserialize<List<Reservation>>("reservations.json");
-            if (state == null)
-            {
-            var introMenu = new SelectionMenu(new string[4] { "1] Reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
-
-            ReservationList = Deserialize<List<Reservation>>("reservations.json");
+            //ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
             {
             var introMenu = new SelectionMenu(new string[4] { "1] Plaats een reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
@@ -30,7 +22,6 @@ namespace Reserveringssysteem
                     case 0:
                         state = "Reservating";
                         break;
-
                     case 1:
                         state = "Menu";
                         break;
@@ -40,9 +31,8 @@ namespace Reserveringssysteem
                     case 3:
                         state = "Employee";
                         break;
-
                     default:
-                        Console.WriteLine("Deze funcite is nog niet geimplementeerd.");
+                        Console.WriteLine("Deze functie is nog niet geimplementeerd.");
                         break;
                 }
             }
@@ -53,7 +43,6 @@ namespace Reserveringssysteem
                 Serialize(new List<Reservation>() { new Reservation() { Name = "Oscar", Size = 6, Date = "26-04-2021", Time = "18:00" } }, "reservations.json");
                 Reservations.Reservate();
             }
-
             else if (state == "Menu")
             {
                 Console.Write("Menukaart..");

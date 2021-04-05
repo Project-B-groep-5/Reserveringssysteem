@@ -29,7 +29,7 @@ namespace Reserveringssysteem
                _/ |                      
               |__/   Console v0.1";
 
-            Console.WriteLine(logo + "\n");
+            Console.WriteLine(logo + "\n\nWelkom bij [Restaurant]!\n");
             while (!done)
             {
                 for (int i = 0; i < optionsCount; i++)
