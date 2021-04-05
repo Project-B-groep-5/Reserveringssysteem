@@ -3,9 +3,12 @@ namespace Reserveringssysteem
 {
 	class logInEmployee
     {
-		public static void logIn()
+		string wachtwoord = "wachtwoord123";
+		
+
+		public static void Main()
         {
-			string wachtwoord = "wachtwoord123";
+			
 			Console.WriteLine("Voer wachtwoord in:");
 			string ingevoerdWachtwoord = Console.ReadLine();
 			Console.Clear();
@@ -16,14 +19,11 @@ namespace Reserveringssysteem
 			else if (ingevoerdWachtwoord != wachtwoord)
             {
 				Console.WriteLine("Probeer opnieuw.");
-				logIn();
+				Main();
             }
 
         }
-		public static void Main()
-        {
-			logIn();
-        }
+		
 
 	}
 	
