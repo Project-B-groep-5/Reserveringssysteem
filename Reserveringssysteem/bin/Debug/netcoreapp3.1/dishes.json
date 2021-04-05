@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Cheeseburger",
+    "Price": 10.5,
+    "Ingredients": [
+      "Cheese",
+      "Meat",
+      "Lettuce",
+      "Onion",
+      "Ketchup",
+      "Tomato",
+      "Bread"
+    ],
+    "Type": "Main",
+    "Tags": [
+      "Meat",
+      "Burger"
+    ]
+  }
+]
