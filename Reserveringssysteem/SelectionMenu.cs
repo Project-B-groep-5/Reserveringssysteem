@@ -56,12 +56,9 @@ namespace Reserveringssysteem
                         done = true;
                         break;
                 }
-                if (!done)
-                {
-                    Console.CursorTop = Console.CursorTop - optionsCount;
-                }
+                Console.CursorTop = Console.CursorTop - optionsCount;
             }
-            System.Console.Clear();
+            Console.Clear();
             return optionSelected;
         }
     }
