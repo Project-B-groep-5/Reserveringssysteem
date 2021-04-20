@@ -39,11 +39,26 @@ namespace Reserveringssysteem
             }
             if (state == "Reservating")
             {
-                var reservationMenu = new SelectionMenu(new string[2] { "1] Maak een reservering", "2] Annuleer een reservering" });
-                reservationMenu.Show();
-                Serialize(new List<Reservation>() { new Reservation() { Name = "Oscar", Size = 6, Date = "26-04-2021", Time = "18:00" } }, "reservations.json");
-                Reservations.Reservate();
+                var reservationMenu = new SelectionMenu(new string[3] { "1] Maak een reservering", "2] Annuleer een reservering", "3] Terug" });
+                switch (reservationMenu.Show())
+                {
+                    case 0:
+                        state = "Reservate";
+                        Serialize(new List<Reservation>() { new Reservation() { Name = "Oscar", Size = 6, Date = "26-04-2021", Time = "18:00" } }, "reservations.json");
+                        Reservations.Reservate();
+                        break;
+                    case 1:
+                        state = "Cancel";
+                        Console.WriteLine("Annuleer uw reservering."); 
+                        break;
+                    case 2:
+                        state = "Home" ;
+                        //goto case 0; //Case 2 moet terug naar homescreen gaan tho
+                        break; 
+
+                }
             }
+
             else if (state == "Menu")
             {
                 Console.Write("Menukaart..");
