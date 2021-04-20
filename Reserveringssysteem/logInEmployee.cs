@@ -1,11 +1,12 @@
 using System;
-using System.IO:
+using System.IO;
+
 namespace Reserveringssysteem
 {
-	class logInEmployee
+	public class LogInEmployee
     {
 
-		public static void Main()
+		public static void LogIn()
         {
 			string password = File.ReadAllText("password.txt");
 			Console.WriteLine("Voer wachtwoord in:");
@@ -15,10 +16,10 @@ namespace Reserveringssysteem
             {
 				Console.WriteLine("Naar medewerkers omgeving.");
             }
-			else if (ingevoerdWachtwoord != password)
+			else 
             {
 				Console.WriteLine("Probeer opnieuw.");
-				Main();
+				LogIn();
             }
 
         }

@@ -15,7 +15,7 @@ namespace Reserveringssysteem
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
             {
-            var introMenu = new SelectionMenu(new string[4] { "1] Plaats een reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
+            var introMenu = new SelectionMenu(new string[4] { "1] Reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
 
                 switch (introMenu.Show())
                 {
@@ -30,6 +30,7 @@ namespace Reserveringssysteem
                         break;
                     case 3:
                         state = "Employee";
+                        LogInEmployee.LogIn();
                         break;
                     default:
                         Console.WriteLine("Deze functie is nog niet geimplementeerd.");
