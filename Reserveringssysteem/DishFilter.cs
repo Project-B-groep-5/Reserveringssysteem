@@ -19,7 +19,6 @@ namespace Reserveringssysteem
         {
             string result = "";
             result += "\nNaam: " + DishList[i].Name + "\n" + "Prijs: " + DishList[i].Price.ToString("0.00") + " euro\n";
-
             int check = 0;
             if (DishList[i].Ingredients.Length != 0)
             {
