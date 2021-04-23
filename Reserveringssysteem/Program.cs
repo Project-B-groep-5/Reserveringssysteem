@@ -40,7 +40,7 @@ namespace Reserveringssysteem
             }
             if (state == "Reservating")
             {
-                var reservationMenu = new SelectionMenu(new string[3] { "1] Maak een reservering", "2] Annuleer een reservering", "3] Terug" });
+                var reservationMenu = new ReservationMenu(new string[3] { "1] Maak een reservering", "2] Annuleer een reservering", "3] Terug" });
                 switch (reservationMenu.Show())
                 {
                     case 0:

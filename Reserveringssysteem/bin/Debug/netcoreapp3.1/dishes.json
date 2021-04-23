@@ -1,23 +1,21 @@
 [
   {
     "Name": "Cheeseburger",
-    "Price": 10.5,
+    "Price": 12.5,
     "Ingredients": [
-      "Cheese",
-      "Meat",
-      "Lettuce",
-      "Onion",
+      "Kaas",
+      "Vlees",
+      "Sla",
+      "Ui",
       "Ketchup",
-      "Tomato",
-      "Bread"
+      "Tomaat",
+      "Brood"
     ],
-    "Type": "Main",
+    "Type": "Hoofdgerecht",
     "Tags": [
-      "Meat",
+      "Vlees",
       "Burger"
     ]
-<<<<<<< Updated upstream
-=======
   },
   
   {
@@ -69,6 +67,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Frisdrank",
         "Prik"
@@ -80,6 +79,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Frisdrank",
         "Prik"
@@ -91,6 +91,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Frisdrank",
         "Prik"
@@ -102,6 +103,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Frisdrank",
         "Prik"
@@ -113,6 +115,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Frisdrank",
     ]
@@ -123,6 +126,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Warme dranken",
         "Zoet"
@@ -134,6 +138,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
+
         "Koude dranken",
         "Zoet"
     ]
@@ -155,7 +160,6 @@
     "Type": "Dranken",
     "Tags": [
         "Warme dranken",
-
     ]
   },
   {
@@ -202,7 +206,6 @@
     "Type": "Dranken",
     "Tags": [
         "Warme dranken",
-        
     ]
   },
   {
