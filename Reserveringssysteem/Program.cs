@@ -50,7 +50,7 @@ namespace Reserveringssysteem
                         break;
                     case 1:
                         state = "Cancel";
-                        Console.WriteLine("Annuleer uw reservering."); 
+                        CancelReservation.cancelReservation();
                         break;
                     case 2:
                         state = null ;
