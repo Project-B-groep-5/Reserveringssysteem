@@ -1,20 +1,166 @@
 [
   {
     "Name": "Cheeseburger",
+    "Price": 12.5,
+    "Ingredients": [
+      "Kaas",
+      "Vlees",
+      "Sla",
+      "Ui",
+      "Ketchup",
+      "Tomaat",
+      "Brood"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Vlees",
+      "Burger"
+    ]
+  }, 
+  {
+    "Name": "Maaltijdsalade",
+    "Price": 8.5,
+    "Ingredients": [
+      "Sla",
+      "Tomaat",
+      "Augurk",
+      "Komkommer",
+      "Pijnboompitten",
+      "Tomaat",
+      "Rode biet"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Vegan",
+      "Veganistisch",
+      "Salade"
+    ]
+  }
+  {,
+    "Name": "Kogelbiefstuk",
+    "Price": 20.5,
+    "Ingredients": [
+      "Biefstuk",
+      "Pepersaus",
+      "Groenten",
+      "Patat"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Biefstuk",
+      "Patat",
+      "Friet",
+      "Rund",
+      "Rundvlees"
+    ]
+  }
+  {
+    "Name": "Pizza margherita",
+    "Price": 10,
+    "Ingredients": [
+      "Kaas",
+      "Tomatensaus",
+      "Basilicum",
+      "Pizzadeeg",
+      "Mozzarella",
+      "Olijfolie",
+      "Peper",
+      "Zout"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Pizza",
+      "Vegetarisch"
+    ]
+  },
+  {
+    "Name": "Spareribs",
+    "Price": 14.5,
+    "Ingredients": [
+      "Spareribs",
+      "Ketjap",
+      "Honing",
+      "Knoflook",
+      "Tomatenpuree",
+      "Rozemarijn",
+      "Worcestersaus"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Spareribs",
+      "Varken",
+      "Varkensvlees"
+    ]
+  },
+  {
+    "Name": "Broodmandje",
+    "Price": 6.5,
+    "Ingredients": [
+      "Brood",
+      "Kruidenboter",
+      "Tapenade",
+      "Knoflook",
+      "Aioli"
+    ],
+    "Type": "Voorgerecht",
+    "Tags": [
+      "Brood",
+      "Voorgerecht"
+    ]
+  },
+  {
+    "Name": "Carpaccio",
+    "Price": 9.5,
+    "Ingredients": [
+      "Ossenhaas",
+      "Parmezaanse kaas",
+      "Truffelsaus",
+      "Pijnboompitten",
+      "Rucola",
+      "Peper",
+      "Zout"
+    ],
+    "Type": "Voorgerecht",
+    "Tags": [
+      "Ossenhaas",
+      "Voorgerecht"
+    ]
+  },
+  {
+    "Name": "Cheesecake",
+    "Price": 6.5,
+    "Ingredients": [
+      "Koekkruimels",
+      "Boter",
+      "Creamcheese",
+      "Suiker",
+      "Zure room",
+      "Eieren",
+      "Vanille"
+    ],
+    "Type": "Nagerecht",
+    "Tags": [
+      "Nagerecht",
+      "Dessert"
+    ]
+  },
+  {
+    "Name": "Dame Blanche",
     "Price": 10.5,
     "Ingredients": [
-      "Cheese",
-      "Meat",
-      "Lettuce",
-      "Onion",
-      "Ketchup",
-      "Tomato",
-      "Bread"
+      "Amandelen",
+      "Vanille ijs",
+      "Chocoladesaus",
+      "Crème chantilly",
+      "Slagroom",
+      "Chocola",
+      "Chocoladesaus"
     ],
-    "Type": "Main",
+    "Type": "Nagerecht",
     "Tags": [
-      "Meat",
-      "Burger"
+      "Nagerecht",
+      "Dessert",
+      "Chocola"
     ]
   }
 ]
