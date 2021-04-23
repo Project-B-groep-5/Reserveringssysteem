@@ -16,5 +16,441 @@
       "Meat",
       "Burger"
     ]
+<<<<<<< Updated upstream
+=======
+  },
+  
+  {
+    "Name": "Spa Blauw",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+      "Koude dranken"
+    ]
+  },
+  {
+    "Name": "Spa Rood",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Bubbels",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Coca Cola",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Coca Cola Zero",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Suiker vrij",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Coca Cola Light",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "7-up",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Cassis",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Fanta",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+        "Prik"
+    ]
+  },
+  {
+    "Name": "Ice Tea",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Frisdrank",
+    ]
+  },
+  {
+    "Name": "Chocomel",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Warme dranken",
+        "Zoet"
+    ]
+  },
+  {
+    "Name": "Appelsap",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Koude dranken",
+        "Zoet"
+    ]
+  },
+  {
+    "Name": "Thee",
+    "Price": 1.80,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Warme dranken",
+        "Zoet"
+    ]
+  },
+  {
+    "Name": "Koffie",
+    "Price": 1.80,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Warme dranken",
+
+    ]
+  },
+  {
+    "Name": "Cappuccino",
+    "Price": 2.00,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+      "Warme dranken"
+    ]
+  },
+  {
+    "Name": "Espresso",
+    "Price": 2.00,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+      "Warme dranken"
+    ]
+  },
+  {
+    "Name": "Warme Chocomel",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Warme dranken",
+        "Zoet"
+    ]
+  },
+  {
+    "Name": "Latte Machiato",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+      "Warme dranken"
+    ]
+  },
+  {
+    "Name": "Koffie verkeerd",
+    "Price": 2.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Warme dranken",
+        
+    ]
+  },
+  {
+    "Name": "Heineken (0%)",
+    "Price": 3.0,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol vrij"
+    ]
+  },
+  {
+    "Name": "Heineken",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Amstel Radler (0%)",
+    "Price": 3.0,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol vrij"
+    ]
+  },
+  {
+    "Name": "Amstel Radler",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Palm",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Brand",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Grolsch",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Bieren",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Witte wijn",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Wijnen",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Rode wijn",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Wijnen",
+        "Alcohol"
+    ]
+  },
+  {
+    "Name": "Rose",
+    "Price": 3.20,
+    "Ingredients": [],
+    "Type": "Dranken",
+    "Tags": [
+        "Wijnen",
+        "Alcohol"
+    ]
+  }, 
+  {
+    "Name": "Maaltijdsalade",
+    "Price": 8.5,
+    "Ingredients": [
+      "Sla",
+      "Tomaat",
+      "Augurk",
+      "Komkommer",
+      "Pijnboompitten",
+      "Tomaat",
+      "Rode biet"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Vegan",
+      "Veganistisch",
+       "Salade",
+       "Digna"
+    ]
+  },
+  {
+    "Name": "Kogelbiefstuk",
+    "Price": 20.5,
+    "Ingredients": [
+      "Biefstuk",
+      "Pepersaus",
+      "Groenten",
+      "Patat"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Biefstuk",
+      "Patat",
+      "Friet",
+      "Rund",
+      "Rundvlees"
+    ]
+  },
+  {
+    "Name": "Pizza margherita",
+    "Price": 10,
+    "Ingredients": [
+      "Kaas",
+      "Tomatensaus",
+      "Basilicum",
+      "Pizzadeeg",
+      "Mozzarella",
+      "Olijfolie",
+      "Peper",
+      "Zout"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+        "Pizza",
+        "Vegetarisch",
+        "Digna"
+    ]
+  },
+  {
+    "Name": "Spareribs",
+    "Price": 14.5,
+    "Ingredients": [
+      "Spareribs",
+      "Ketjap",
+      "Honing",
+      "Knoflook",
+      "Tomatenpuree",
+      "Rozemarijn",
+      "Worcestersaus"
+    ],
+    "Type": "Hoofdgerecht",
+    "Tags": [
+      "Spareribs",
+      "Varken",
+      "Varkensvlees"
+    ]
+  },
+  {
+    "Name": "Broodmandje",
+    "Price": 6.5,
+    "Ingredients": [
+      "Brood",
+      "Kruidenboter",
+      "Tapenade",
+      "Knoflook",
+      "Aioli"
+    ],
+    "Type": "Voorgerecht",
+    "Tags": [
+      "Brood",
+      "Voorgerecht"
+    ]
+  },
+  {
+    "Name": "Carpaccio",
+    "Price": 9.5,
+    "Ingredients": [
+      "Ossenhaas",
+      "Parmezaanse kaas",
+      "Truffelsaus",
+      "Pijnboompitten",
+      "Rucola",
+      "Peper",
+      "Zout"
+    ],
+    "Type": "Voorgerecht",
+    "Tags": [
+      "Ossenhaas",
+      "Voorgerecht"
+    ]
+  },
+  {
+    "Name": "Cheesecake",
+    "Price": 6.5,
+    "Ingredients": [
+      "Koekkruimels",
+      "Boter",
+      "Creamcheese",
+      "Suiker",
+      "Zure room",
+      "Eieren",
+      "Vanille"
+    ],
+    "Type": "Nagerecht",
+    "Tags": [
+      "Nagerecht",
+      "Dessert"
+    ]
+  },
+  {
+    "Name": "Dame Blanche",
+    "Price": 10.5,
+    "Ingredients": [
+      "Amandelen",
+      "Vanille ijs",
+      "Chocoladesaus",
+      "Creme chantilly",
+      "Slagroom",
+      "Chocola",
+      "Chocoladesaus"
+    ],
+    "Type": "Nagerecht",
+    "Tags": [
+      "Nagerecht",
+      "Dessert",
+      "Chocola"
+    ]
   }
 ]
