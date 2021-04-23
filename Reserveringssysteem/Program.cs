@@ -78,8 +78,7 @@ namespace Reserveringssysteem
             }
             else if (state == "Information")
             {
-                Console.WriteLine("Over ons..");
-                Console.ReadLine();
+                InfoScherm.ShowInfo(); 
             }
             else if (state == "Employee")
             {
