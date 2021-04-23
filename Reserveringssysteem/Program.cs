@@ -10,6 +10,7 @@ namespace Reserveringssysteem
     {
         public static string state;
         public static List<Reservation> ReservationList;
+        public static List<Dish> dishList;
         static void Main(string[] args)
         {
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
@@ -52,7 +53,7 @@ namespace Reserveringssysteem
                         Console.WriteLine("Annuleer uw reservering."); 
                         break;
                     case 2:
-                        state = "Home" ;
+                        state = null ;
                         //goto case 0; //Case 2 moet terug naar homescreen gaan tho
                         break; 
 
@@ -60,9 +61,20 @@ namespace Reserveringssysteem
             }
 
             else if (state == "Menu")
-            {
-                Console.Write("Menukaart..");
-                Console.ReadLine();
+            { 
+                var dishMenu = new DishMenu(new string[3] { "1] Bekijk de menukaart", "2] Zoeken op termen", "3] Terug" });
+                switch (dishMenu.Show())
+                {
+                    case 0:
+                        break; //oscar zn shit
+                    case 1:
+                        state = "DishFilter";
+                        break;
+                    case 2:
+                        state = "Home"; // werkt niet
+                        break;
+
+                }
             }
             else if (state == "Information")
             {
@@ -73,6 +85,13 @@ namespace Reserveringssysteem
             {
                 Console.WriteLine("Medewerker?");
                 Console.ReadLine();
+            }
+            if(state == "DishFilter")
+            {
+                Console.WriteLine("Voer een term in:");
+                string keyWord = Console.ReadLine();
+                var dishFilter = new DishFilter();
+                dishFilter.Search(keyWord);
             }
         }
     }
