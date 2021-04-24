@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Reserveringssysteem
 {
-    class InfoScherm
+    public class InfoScherm
     {
         public static void ShowInfo()
         {

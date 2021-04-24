@@ -51,7 +51,8 @@ namespace Reserveringssysteem
                         Console.ReadLine();
                         break;
                     case 1:
-                        Console.WriteLine("Annuleer uw reservering."); 
+                        CancelReservation.cancelReservation();
+                        Console.ReadLine();
                         break;
                     case 2:
                         state = null ;
