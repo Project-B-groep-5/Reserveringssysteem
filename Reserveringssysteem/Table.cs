@@ -14,9 +14,5 @@
             Customer = customer;
             Bill = bill;
         }
-        private Table()
-        {
-
-        }
     }
 }

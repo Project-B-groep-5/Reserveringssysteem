@@ -7,10 +7,14 @@ namespace Reserveringssysteem
     class SelectionMenu
     {
         private string[] menuArray;
+        private string menuLogo;
+        private string menuTitle;
 
-        public SelectionMenu(string[] array)
+        public SelectionMenu(string[] array, string logo, string title)
         {
             menuArray = array;
+            menuLogo = logo;
+            menuTitle = title;
         }
 
         public int Show()
@@ -19,14 +23,7 @@ namespace Reserveringssysteem
             var optionSelected = 0;
             var done = false;
             var menuArrow = "-> ";
-            var logo = @"
-██     ██ ███████ ██      ██   ██  ██████  ███    ███ ██ 
-██     ██ ██      ██      ██  ██  ██    ██ ████  ████ ██ 
-██  █  ██ █████   ██      █████   ██    ██ ██ ████ ██ ██ 
-██ ███ ██ ██      ██      ██  ██  ██    ██ ██  ██  ██    
- ███ ███  ███████ ███████ ██   ██  ██████  ██      ██ ██ ";
-
-            Console.WriteLine(logo + "\n\nWelkom bij [Restaurant]!\n");
+            Console.WriteLine(menuLogo + menuTitle);
             while (!done)
             {
                 for (int i = 0; i < optionsCount; i++)

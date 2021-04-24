@@ -10,9 +10,5 @@
             Id = id;
             Name = name;
         }
-        private Customer()
-        {
-
-        }
     }
 }

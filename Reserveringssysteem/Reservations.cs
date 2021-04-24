@@ -6,16 +6,9 @@ namespace Reserveringssysteem
 {
     public class Reservations
     {
-        public static void reservateTitle() // Call deze method om de onderstaande header te krijgen
+        public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
-            var header = @"
-    ____                                               
-   / __ \___  ________  ______   _____  ________  ____ 
-  / /_/ / _ \/ ___/ _ \/ ___/ | / / _ \/ ___/ _ \/ __ \
- / _, _/  __(__  )  __/ /   | |/ /  __/ /  /  __/ / / /
-/_/ |_|\___/____/\___/_/    |___/\___/_/   \___/_/ /_/ 
-                                                      ";
-            Console.WriteLine(header); 
+            Console.WriteLine(Logo.Reserveren); 
         }
         public static void Reservate()
         {
@@ -24,7 +17,7 @@ namespace Reserveringssysteem
             string date;
             string time = "" ;
             Reservation reservation;
-            reservateTitle();
+            ReservateTitle();
             Console.WriteLine("Wat is uw naam?");
             name = Console.ReadLine();
             while (true)
@@ -33,7 +26,7 @@ namespace Reserveringssysteem
                 if (name.Length == 0)
                 {
                     Console.Clear();
-                    reservateTitle(); 
+                    ReservateTitle(); 
                     Console.WriteLine("Geen naam ingevuld. Probeer opnieuw : \n");
                     name = Console.ReadLine();
                 }
@@ -47,7 +40,7 @@ namespace Reserveringssysteem
             
 
             
-            reservateTitle();
+            ReservateTitle();
             Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
             while (size == 0)
             {
@@ -63,12 +56,12 @@ namespace Reserveringssysteem
                 }
             }
             Console.Clear();
-            reservateTitle();
+            ReservateTitle();
             Console.WriteLine("Voor wanneer wilt u reserveren?");
             Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ");
             date = Console.ReadLine();
             Console.Clear();
-            var timeMenu = new ReservationMenu(new string[7] { "1] 17:00", "2] 17:30", "3] 18:00", "4] 18:30", "5] 19:00", "6] 19:30", "7] 20:00" });
+            var timeMenu = new SelectionMenu(new string[7] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" }, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n");
             switch (timeMenu.Show())
             {
                 case 0:
@@ -92,7 +85,6 @@ namespace Reserveringssysteem
                 case 6:
                     time = "20:00";
                     break;
-
             }
             Console.Clear();
             reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };

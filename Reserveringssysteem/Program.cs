@@ -16,7 +16,7 @@ namespace Reserveringssysteem
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
             {
-            var introMenu = new SelectionMenu(new string[4] { "1] Reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
+            var introMenu = new SelectionMenu(new string[4] { "Reservering", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\n\nWelkom bij [Restaurant]!\n");
             Console.Clear();
 
                 switch (introMenu.Show())
@@ -42,7 +42,7 @@ namespace Reserveringssysteem
             }
             if (state == "Reservating")
             {
-                var reservationMenu = new ReservationMenu(new string[3] { "1] Maak een reservering", "2] Annuleer een reservering", "3] Terug" });
+                var reservationMenu = new SelectionMenu(new string[3] { "Maak een reservering", "Annuleer een reservering", "Terug" }, Logo.Reserveren, "\nKies een optie\n");
                 Console.Clear();
                 switch (reservationMenu.Show())
                 {
