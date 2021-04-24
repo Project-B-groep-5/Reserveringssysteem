@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using static Reserveringssysteem.Json;
-using Newtonsoft.Json;
-using System.Linq;
-using System.Reflection;
 
 namespace Reserveringssysteem
 {
@@ -40,13 +33,11 @@ namespace Reserveringssysteem
 
         public void Search(string keyWord)
         {
-            DishList = JsonConvert.DeserializeObject<List<Dish>>(File.ReadAllText("dishes.json"));
+            DishList = Deserialize<List<Dish>>("dishes.json");
             string result = "";
-            bool check = true;
-
             for (int i = 0; i < DishList.Count; i++)
             {
-                check = true;
+                bool check = true;
                 if (DishList[i].Name.ToLower().Contains(keyWord.ToLower()) || DishList[i].Type.ToLower().Contains(keyWord.ToLower()))
                 {
                     result += Show(i);
@@ -71,7 +62,6 @@ namespace Reserveringssysteem
                         if (DishList[i].Ingredients[j].ToLower().Contains(keyWord.ToLower()))
                         {
                             result += Show(i);
-                            check = false;
                             break;
                         }
                     }

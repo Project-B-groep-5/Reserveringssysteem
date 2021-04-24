@@ -17,6 +17,7 @@ namespace Reserveringssysteem
             if (state == null)
             {
             var introMenu = new SelectionMenu(new string[4] { "1] Reservering", "2] Bekijk de menukaart", "3] Informatie over ons", "[Voor Medewerkers]" });
+            Console.Clear();
 
                 switch (introMenu.Show())
                 {
@@ -27,11 +28,12 @@ namespace Reserveringssysteem
                         state = "Menu";
                         break;
                     case 2:
-                        state = "Information";
+                        InfoScherm.ShowInfo();
+                        Console.ReadLine();
                         break;
                     case 3:
-                        state = "Employee";
                         LogInEmployee.LogIn();
+                        Console.ReadLine();
                         break;
                     default:
                         Console.WriteLine("Deze functie is nog niet geimplementeerd.");
@@ -41,20 +43,18 @@ namespace Reserveringssysteem
             if (state == "Reservating")
             {
                 var reservationMenu = new ReservationMenu(new string[3] { "1] Maak een reservering", "2] Annuleer een reservering", "3] Terug" });
+                Console.Clear();
                 switch (reservationMenu.Show())
                 {
                     case 0:
-                        state = "Reservate";
-                        Serialize(new List<Reservation>() { new Reservation() { Name = "Oscar", Size = 6, Date = "26-04-2021", Time = "18:00" } }, "reservations.json");
                         Reservations.Reservate();
+                        Console.ReadLine();
                         break;
                     case 1:
-                        state = "Cancel";
                         Console.WriteLine("Annuleer uw reservering."); 
                         break;
                     case 2:
                         state = null ;
-                        //goto case 0; //Case 2 moet terug naar homescreen gaan tho
                         break; 
 
                 }
@@ -66,32 +66,21 @@ namespace Reserveringssysteem
                 switch (dishMenu.Show())
                 {
                     case 0:
-                        break; //oscar zn shit
+                        break;
                     case 1:
-                        state = "DishFilter";
+                        Console.WriteLine("Voer een term in:");
+                        string keyWord = Console.ReadLine();
+                        var dishFilter = new DishFilter();
+                        dishFilter.Search(keyWord);
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     case 2:
-                        state = "Home"; // werkt niet
+                        state = null;
                         break;
-
                 }
             }
-            else if (state == "Information")
-            {
-                InfoScherm.ShowInfo(); 
-            }
-            else if (state == "Employee")
-            {
-                Console.WriteLine("Medewerker?");
-                Console.ReadLine();
-            }
-            if(state == "DishFilter")
-            {
-                Console.WriteLine("Voer een term in:");
-                string keyWord = Console.ReadLine();
-                var dishFilter = new DishFilter();
-                dishFilter.Search(keyWord);
-            }
+            Main(args);
         }
     }
 }
