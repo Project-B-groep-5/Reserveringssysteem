@@ -52,6 +52,7 @@ namespace Reserveringssysteem
                 catch
                 {
                     Console.Clear();
+                    ReservateTitle();
                     Console.WriteLine($"{input} is geen correcte waarde.\nVul alstublieft een getal in.");
                 }
             }
@@ -60,7 +61,22 @@ namespace Reserveringssysteem
             Console.WriteLine("Voor wanneer wilt u reserveren?");
             Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ");
             date = Console.ReadLine();
-            Console.Clear();
+            while (true)
+            {
+                if (date.Length != 10)
+                {
+                    Console.Clear();
+                    ReservateTitle();
+                    Console.WriteLine("Houd je aan de format aub: DD-MM-JJJJ, Probeer opnieuw:");
+                    date = Console.ReadLine();
+                }
+                else
+                {
+                    Console.Clear();
+                    break;
+                }
+            }
+            
             var timeMenu = new SelectionMenu(new string[7] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" }, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n");
             switch (timeMenu.Show())
             {
@@ -87,8 +103,26 @@ namespace Reserveringssysteem
                     break;
             }
             Console.Clear();
-            reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
-            Console.WriteLine($"Je hebt een reservering gemaakt op : {date} om : {time} uur!\nJe reserveringscode is : {reservation.ReservationId}");
+            
+            if (ReservationCheck.Check(date, time, size))
+            {
+                reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
+                Console.WriteLine($"Je hebt een reservering gemaakt op : {date} om : {time} uur!\nJe reserveringscode is : {reservation.ReservationId}");
+            }
+            else
+            {
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen"}, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
+                switch (optionMenu.Show())
+                {
+                    case 0:
+                        Reservate();
+                        break;
+                    case 1:
+                        Program.state = null;
+                        break;
+                    
+                }
+            }
         }
     }
 }
