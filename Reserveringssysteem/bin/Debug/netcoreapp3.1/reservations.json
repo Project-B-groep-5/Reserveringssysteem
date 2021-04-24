@@ -1,1 +1,22 @@
-[{"ReservationId":"DGYE","Name":"Oscar","Date":"26-04-2021","Time":"18:00","Size":6,"TookDiscountMenu":false,"Comments":null,"OrderStatus":"ACCEPTED"}]
+[
+  {
+    "ReservationId": "DGYE",
+    "Name": "Oscar",
+    "Date": "26-04-2021",
+    "Time": "18:00",
+    "Size": 6,
+    "TookDiscountMenu": false,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "IDRC",
+    "Name": "Test",
+    "Date": "27-04-2021",
+    "Time": "18:00",
+    "Size": 100,
+    "TookDiscountMenu": false,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  }
+]
