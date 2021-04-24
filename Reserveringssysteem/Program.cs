@@ -42,7 +42,7 @@ namespace Reserveringssysteem
             }
             if (state == "Reservating")
             {
-                var reservationMenu = new SelectionMenu(new string[3] { "Maak een reservering", "Annuleer een reservering", "Terug" }, Logo.Reserveren, "\nKies een optie\n");
+                var reservationMenu = new SelectionMenu(new string[3] { "Maak een reservering", "Annuleer een reservering", "Terug" }, Logo.Reserveren, "\n\nKies een optie\n");
                 Console.Clear();
                 switch (reservationMenu.Show())
                 {
@@ -63,7 +63,7 @@ namespace Reserveringssysteem
 
             else if (state == "Menu")
             { 
-                var dishMenu = new DishMenu(new string[3] { "1] Bekijk de menukaart", "2] Zoeken op termen", "3] Terug" });
+                var dishMenu = new SelectionMenu(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, Logo.MenuKaart, "\n\nKies een optie\n");
                 switch (dishMenu.Show())
                 {
                     case 0:
