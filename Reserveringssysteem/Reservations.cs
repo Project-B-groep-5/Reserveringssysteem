@@ -52,7 +52,7 @@ namespace Reserveringssysteem
                 catch
                 {
                     Console.Clear();
-                    Console.WriteLine($"{input} is geen correcte waarde.\nVul alstublieft een getal in.");
+                    Console.WriteLine($"{Logo.Reserveren}\n{input} is geen correcte waarde.\nVul alstublieft een getal in.");
                 }
             }
             Console.Clear();
