@@ -75,8 +75,12 @@ namespace Reserveringssysteem
                 catch
                 {
                     Console.Clear();
+
                     ReservateTitle();
-                    Console.WriteLine($"{input} is geen correcte waarde.\nVoor hoeveel mensen wilt u een reservering maken ? "); 
+
+
+                    Console.WriteLine($"{Logo.Reserveren}\n{input} is geen correcte waarde.\nVul alstublieft een getal in.");
+
                 }
             }
             Console.Clear();
