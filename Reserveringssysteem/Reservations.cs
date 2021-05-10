@@ -12,7 +12,7 @@ namespace Reserveringssysteem
         {
             Console.WriteLine(Logo.Reserveren); 
         }
-        public static void sendEmail(string emailAddress, string reservationCode, string name, string time, string date) // Method om mail te sturen met de bevestigingscode, indien de klant dit graag wilt.
+        public static void sendEmail(string emailAddress, string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {
             Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"
