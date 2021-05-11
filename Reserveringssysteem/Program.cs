@@ -14,8 +14,7 @@ namespace Reserveringssysteem
         {
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
-            { 
-                Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
+            {
                 var introMenu = new SelectionMenu(new string[5] { "Reservering maken","Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\nKies een optie\n");
                 Console.Clear();
 
@@ -43,7 +42,6 @@ namespace Reserveringssysteem
             }
             else if (state == "Menu")
             {
-                Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
                 var dishMenu = new SelectionMenu(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, Logo.MenuKaart, "\n\nKies een optie\n");
                 switch (dishMenu.Show())
                 {
