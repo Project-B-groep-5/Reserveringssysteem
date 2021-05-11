@@ -8,6 +8,7 @@ namespace Reserveringssysteem
     public class MenuShow
     {
         public static List<Dish> DishList;
+        public static List<VoordeelMenu> VoordeelMenus;
 
         public static string Show(int i)
         {
@@ -39,6 +40,17 @@ namespace Reserveringssysteem
             for (int i = 0; i < DishList.Count; i++)
             {
                 result += Show(i);
+            }
+            return result;
+        }
+
+        public static string VoordeelMenuShow()
+        {
+            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
+            string result = "";
+            for (int i = 0; i < VoordeelMenus.Count; i++)
+            {
+                result += "?";
             }
             return result;
         }

@@ -135,14 +135,14 @@ namespace Reserveringssysteem
 
             //Voordeelmenu sectie
             bool loop = true;
-            VoordeelMenus = Deserialize<List<VoordeelMenu>>("VoordeelMenus.json");
+            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
             var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "Geen voordeelmenu" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
             while (loop)
             {
                 switch (voordeelMenuKeuze.Show())
                 {
                     case 0:
-                        Console.WriteLine(MenuShow.CompleteMenuShow());
+                        Console.WriteLine(MenuShow.VoordeelMenuShow());
                         Console.WriteLine("Druk op 'enter' om terug te gaan.");
                         Console.Read();
                         Console.Clear();
