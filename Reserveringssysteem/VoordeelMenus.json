@@ -1,0 +1,59 @@
+[
+    {
+        "VoorGerecht": {
+            "Name": "Broodmandje",
+            "Price": 6.5,
+            "Ingredients": [
+                "Brood",
+                "Kruidenboter",
+                "Tapenade",
+                "Knoflook",
+                "Aioli"
+            ],
+            "Type": "Voorgerecht",
+            "Tags": [
+                "Brood",
+                "Voorgerecht"
+            ]
+        },
+        "HoofdGerecht": {
+            "Name": "Maaltijdsalade",
+            "Price": 8.5,
+            "Ingredients": [
+                "Sla",
+                "Tomaat",
+                "Augurk",
+                "Komkommer",
+                "Pijnboompitten",
+                "Tomaat",
+                "Rode biet"
+            ],
+            "Type": "Hoofdgerecht",
+            "Tags": [
+                "Vegan",
+                "Veganistisch",
+                "Salade"
+
+            ]
+        },
+        "NaGerecht": {
+            "Name": "Cheesecake",
+            "Price": 6.5,
+            "Ingredients": [
+                "Koekkruimels",
+                "Boter",
+                "Creamcheese",
+                "Suiker",
+                "Zure room",
+                "Eieren",
+                "Vanille"
+            ],
+            "Type": "Nagerecht",
+            "Tags": [
+                "Nagerecht",
+                "Dessert"
+            ]
+        }
+        "Prijs": 19.0
+    },
+]

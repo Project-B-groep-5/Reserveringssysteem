@@ -8,6 +8,7 @@ namespace Reserveringssysteem
 {
     public class Reservations
     {
+        public static List<VoordeelMenu> VoordeelMenus;
         public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
             Console.WriteLine(Logo.Reserveren); 
@@ -34,6 +35,7 @@ namespace Reserveringssysteem
             Console.Clear();
             Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
         }
+
         public static void Reservate()
         {
             string name;
@@ -130,6 +132,30 @@ namespace Reserveringssysteem
                     break;
             }
             Console.Clear();
+
+            //Voordeelmenu sectie
+            bool loop = true;
+            VoordeelMenus = Deserialize<List<VoordeelMenu>>("VoordeelMenus.json");
+            var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "Geen voordeelmenu" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
+            while (loop)
+            {
+                switch (voordeelMenuKeuze.Show())
+                {
+                    case 0:
+                        Console.WriteLine(MenuShow.CompleteMenuShow());
+                        Console.WriteLine("Druk op 'enter' om terug te gaan.");
+                        Console.Read();
+                        Console.Clear();
+                        break;
+                    case 1:
+                        loop = false;
+                        break;
+                    case 2:
+                        loop = false;
+                        break;
+                }
+            }
+
             reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
             ReservateTitle();
             Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
