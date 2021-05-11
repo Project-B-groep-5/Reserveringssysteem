@@ -17,6 +17,7 @@ namespace Reserveringssysteem
                 "Adress: ........\n" +
                 "Telefoonnummer: ........\n" +
                 "E-mail: ........ ");
+            Utils.EnterTerug();
         }
     }
 }

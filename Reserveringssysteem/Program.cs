@@ -31,19 +31,15 @@ namespace Reserveringssysteem
                         break;
                     case 3:
                         InfoScherm.ShowInfo();
-                        Console.ReadLine();
                         break;
                     case 4:
                         LogInEmployee.LogIn();
-                        Console.ReadLine();
                         break;
                     default:
                         Console.WriteLine("Deze functie is nog niet geimplementeerd.");
                         break;
                 }
             }
-            
-           
             else if (state == "Menu")
             { 
                 var dishMenu = new SelectionMenu(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, Logo.MenuKaart, "\n\nKies een optie\n");
@@ -56,8 +52,6 @@ namespace Reserveringssysteem
                         string keyWord = Console.ReadLine();
                         var dishFilter = new DishFilter();
                         dishFilter.Search(keyWord);
-                        Console.ReadLine();
-                        Console.Clear();
                         break;
                     case 2:
                         state = null;
