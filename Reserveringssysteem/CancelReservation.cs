@@ -47,6 +47,7 @@ namespace Reserveringssysteem
                     }
                
             }
+            Utils.EnterTerug();
         }
 
     }
