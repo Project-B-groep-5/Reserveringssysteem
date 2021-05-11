@@ -8,29 +8,6 @@ namespace Reserveringssysteem
     {
         public static List<Dish> DishList;
 
-        private string Show(int i)
-        {
-            string result = "";
-            result += "\nNaam: " + DishList[i].Name + "\n" + "Prijs: " + DishList[i].Price.ToString("0.00") + " euro\n";
-            int check = 0;
-            if (DishList[i].Ingredients.Length != 0)
-            {
-                result += "Ingredienten: ";
-                foreach (string ingredient in DishList[i].Ingredients)
-                {
-                    if (check == DishList[i].Ingredients.Length - 1)
-                        result += ingredient;
-                    else
-                        result += ingredient + ", ";
-                    check++;
-                }
-                result += "\n";
-            }
-            result += "Type: " + DishList[i].Type + "\n";
-            result += "______________________________________\n";
-            return result;
-        }
-
         public void Search(string keyWord)
         {
             DishList = Deserialize<List<Dish>>("dishes.json");
@@ -40,7 +17,7 @@ namespace Reserveringssysteem
                 bool check = true;
                 if (DishList[i].Name.ToLower().Contains(keyWord.ToLower()) || DishList[i].Type.ToLower().Contains(keyWord.ToLower()))
                 {
-                    result += Show(i);
+                    result += MenuShow.Show(i);
                     check = false;
                 }
                 if (check)
@@ -49,7 +26,7 @@ namespace Reserveringssysteem
                     {
                         if (DishList[i].Tags[j].ToLower().Contains(keyWord.ToLower()))
                         {
-                            result += Show(i);
+                            result += MenuShow.Show(i);
                             check = false;
                             break;
                         }
@@ -61,7 +38,7 @@ namespace Reserveringssysteem
                     {
                         if (DishList[i].Ingredients[j].ToLower().Contains(keyWord.ToLower()))
                         {
-                            result += Show(i);
+                            result += MenuShow.Show(i);
                             break;
                         }
                     }
