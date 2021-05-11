@@ -23,7 +23,7 @@ namespace Reserveringssysteem
             var optionSelected = 0;
             var done = false;
             var menuArrow = "-> ";
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(menuLogo);
             Console.ResetColor();
             Console.WriteLine(menuTitle);
@@ -33,14 +33,14 @@ namespace Reserveringssysteem
                 {
                     if (optionSelected == i)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.Write(menuArrow);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write("   ");
                     }
                     else
                     {
-                        Console.Write("   "); //length of the menuArrow in spaces
+                        Console.Write("  ");
                     }
-                    Console.WriteLine(menuArray[i]);
+                    Console.WriteLine(menuArray[i] + ' ');
                     Console.ResetColor();
                 }
 

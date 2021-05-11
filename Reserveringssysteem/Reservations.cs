@@ -10,7 +10,7 @@ namespace Reserveringssysteem
     {
         public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
-            Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
+            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
             Console.WriteLine(Logo.Reserveren);
             Console.ResetColor();
         }
