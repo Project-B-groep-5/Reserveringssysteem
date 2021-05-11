@@ -11,8 +11,7 @@ namespace Reserveringssysteem
         public static void cancelReservation()
         {
             Console.Clear();
-            Console.Write(Logo.Reserveren);
-            Console.WriteLine("\nVul je reserveringscode in: ");
+            Console.WriteLine(Logo.Annuleren + "\nVul je reserveringscode in : ");
             string input = Console.ReadLine();
             while (true)
             {
