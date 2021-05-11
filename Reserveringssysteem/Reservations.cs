@@ -19,7 +19,7 @@ namespace Reserveringssysteem
                                 Beste {name},
 
                                 Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
-                                Uw reserveringscode is : {reservationCode} , bewaar deze code goed. 
+                                Uw reserveringscode is: {reservationCode}, bewaar deze code goed. 
 
                                 Tot dan!
                                 ";
@@ -53,7 +53,7 @@ namespace Reserveringssysteem
                 {
                     Console.Clear();
                     ReservateTitle(); 
-                    Console.WriteLine("Geen naam ingevuld. Probeer opnieuw : \n");
+                    Console.WriteLine("Geen naam ingevuld. Probeer opnieuw: \n");
                     name = Console.ReadLine();
                 }
                 else
@@ -65,22 +65,23 @@ namespace Reserveringssysteem
             }
             ReservateTitle();
             Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
-            while (size == 0)
+            while (size <= 0)
             {
                 var input = Console.ReadLine();
+               
                 try
                 {
                     size = int.Parse(input);
                 }
                 catch
                 {
+                    size = 0;
+                }
+                if (size <= 0)
+                {
                     Console.Clear();
-
-                    ReservateTitle();
-
-
-                    Console.WriteLine($"{Logo.Reserveren}\n{input} is geen correcte waarde.\nVul alstublieft een getal in.");
-
+                    Console.WriteLine($"{Logo.Reserveren}\nJe moet voor minimaal één persoon reserveren.");
+                    Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
                 }
             }
             Console.Clear();
@@ -93,7 +94,7 @@ namespace Reserveringssysteem
             {
                 if (!DateTime.TryParse(date, out dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag) )
                 {
-                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is : DD-MM-JJJJ");
+                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is: DD-MM-JJJJ");
                     date = Console.ReadLine();
                 }
                 else
@@ -133,13 +134,13 @@ namespace Reserveringssysteem
             reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
             ReservateTitle();
             Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
-            Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen? : \n");
+            Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
             var emailAddress = Console.ReadLine();
             while (true)
             {
                 if (emailAddress.Length == 0)
                 {
-                    Console.WriteLine("Geen email ingevuld. Probeer opnieuw : \n");
+                    Console.WriteLine("Geen email ingevuld. Probeer opnieuw: \n");
                     emailAddress = Console.ReadLine();
                 }
                 else
@@ -148,7 +149,7 @@ namespace Reserveringssysteem
             Console.Clear();
                 //Functie om mail te versturen
                 sendEmail(emailAddress, reservation.ReservationId, name, date, time);
-            Console.WriteLine($"Je hebt een reservering gemaakt op : {date} om : {time} uur!\nJe reserveringscode is : {reservation.ReservationId} \n\nDruk op 'enter' om terug te gaan");
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId} \n\nDruk op 'enter' om terug te gaan");
         }
     }
 }
