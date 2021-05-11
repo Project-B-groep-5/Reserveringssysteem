@@ -142,6 +142,7 @@ namespace Reserveringssysteem
                 switch (voordeelMenuKeuze.Show())
                 {
                     case 0:
+                        ReservateTitle();
                         Console.WriteLine(MenuShow.VoordeelMenuShow());
                         Console.WriteLine("Druk op 'enter' om terug te gaan.");
                         Console.Read();
