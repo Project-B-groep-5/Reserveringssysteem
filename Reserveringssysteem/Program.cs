@@ -10,7 +10,6 @@ namespace Reserveringssysteem
     {
         public static string state;
         public static List<Reservation> ReservationList;
-        public static List<Dish> dishList;
         static void Main(string[] args)
         {
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
