@@ -16,13 +16,12 @@ namespace Reserveringssysteem
         {
             Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"
-                                Beste {name},
+Beste {name},
 
-                                Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
-                                Uw reserveringscode is: {reservationCode}, bewaar deze code goed. 
+Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
+Uw reserveringscode is: {reservationCode}, bewaar deze code goed. 
 
-                                Tot dan!
-                                ";
+Tot dan!";
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -136,6 +135,13 @@ namespace Reserveringssysteem
             Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
             Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
             var emailAddress = Console.ReadLine();
+            while (!Utils.IsValidEmail(emailAddress))
+            {
+                Console.Clear();
+                Console.WriteLine($"{Logo.Reserveren}\n{emailAddress} is geen geldig mail adres.");
+                Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
+                emailAddress = Console.ReadLine();
+            }
             while (true)
             {
                 if (emailAddress.Length == 0)
@@ -149,7 +155,8 @@ namespace Reserveringssysteem
             Console.Clear();
                 //Functie om mail te versturen
                 sendEmail(emailAddress, reservation.ReservationId, name, date, time);
-            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId} \n\nDruk op 'enter' om terug te gaan");
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            Utils.EnterTerug();        
         }
     }
 }

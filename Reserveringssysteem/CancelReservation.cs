@@ -10,20 +10,43 @@ namespace Reserveringssysteem
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
         {
+            Console.Clear();
             Console.WriteLine(Logo.Annuleren + "\nVul je reserveringscode in : ");
             string input = Console.ReadLine();
+            while (true)
+            {
+                if (input.ToLower().Length != 4)
+                {
+                    Console.Clear();
+                    Console.WriteLine(Logo.Reserveren + "\nReserveringscode moet uit 4 symbolen bestaan\nVul je reserveringscode in : ");
+                    input = Console.ReadLine();
+                }
+                if (input.ToLower().Length == 4)
+                {
+                    Console.Clear();
+                    break;
+                }
+            }
             // Zit die erin? Vraag om Extra gegevens om te controleren?
             // Zit die er niet in? Nog een keer reservingscode invullen?
             ReservationsList = Deserialize<List<Reservation>>("reservations.json");
-            for (int i = 0; i < ReservationsList.Count; i++)
-            {
-                if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())
+                for (int i = 0; i < ReservationsList.Count; i++)
                 {
-                    Console.WriteLine("AYY HET LUKT");
-                }
-                else
-                    Console.WriteLine("Het lukt niet!");
+                    if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ga naar annuleerfunctie");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine(Logo.Reserveren + "\nReserveringscode niet herkend.. Probeer opnieuw of ga terug: ");
+                        input = Console.ReadLine();
+                        //break;
+                    }
+               
             }
+            Utils.EnterTerug();
         }
 
     }
