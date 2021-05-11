@@ -10,7 +10,7 @@ namespace Reserveringssysteem
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
         {
-            Console.WriteLine(Logo.Reserveren + "\nVul je reserveringscode in : ");
+            Console.WriteLine(Logo.Annuleren + "\nVul je reserveringscode in : ");
             string input = Console.ReadLine();
             // Zit die erin? Vraag om Extra gegevens om te controleren?
             // Zit die er niet in? Nog een keer reservingscode invullen?
