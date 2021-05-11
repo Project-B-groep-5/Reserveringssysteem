@@ -25,7 +25,7 @@ Tot dan!";
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "Test12345XX"),
+                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "NieuwWachtwoord1337"),
                 EnableSsl = true,
             };
 
