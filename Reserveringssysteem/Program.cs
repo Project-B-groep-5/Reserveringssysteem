@@ -21,10 +21,10 @@ namespace Reserveringssysteem
                 switch (introMenu.Show())
                 {
                     case 0:
-                        state = "Reservating";
+                        Reservations.Reservate();
                         break;
                     case 1:
-                        state = "Reservering annuleren";
+                        CancelReservation.cancelReservation();
                         break;
                     case 2:
                         state = "Menu";
@@ -42,18 +42,8 @@ namespace Reserveringssysteem
                         break;
                 }
             }
-            if (state == "Reservating")
-            {
-                Reservations.Reservate();
-                
-
-            }
-            else if (state ==  "Reservering annuleren")
-            {
-                CancelReservation.cancelReservation();
-                
-            }
-
+            
+           
             else if (state == "Menu")
             { 
                 var dishMenu = new SelectionMenu(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, Logo.MenuKaart, "\n\nKies een optie\n");
