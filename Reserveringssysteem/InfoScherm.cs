@@ -8,7 +8,7 @@ namespace Reserveringssysteem
     {
         public static void ShowInfo()
         {
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Logo.OverOns);
             Console.ResetColor();
             Console.WriteLine("\nRestaurant informatie:\n" +

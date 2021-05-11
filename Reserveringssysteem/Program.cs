@@ -12,6 +12,7 @@ namespace Reserveringssysteem
         public static List<Reservation> ReservationList;
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
             {
@@ -21,10 +22,14 @@ namespace Reserveringssysteem
                 switch (introMenu.Show())
                 {
                     case 0:
+                        Console.CursorVisible = true;
                         Reservations.Reservate();
+                        Console.CursorVisible = false;
                         break;
                     case 1:
+                        Console.CursorVisible = true;
                         CancelReservation.cancelReservation();
+                        Console.CursorVisible = false;
                         break;
                     case 2:
                         state = "Menu";
@@ -33,6 +38,7 @@ namespace Reserveringssysteem
                         InfoScherm.ShowInfo();
                         break;
                     case 4:
+                        Console.CursorVisible = true;
                         LogInEmployee.LogIn();
                         break;
                     default:
@@ -48,13 +54,15 @@ namespace Reserveringssysteem
                     case 0:
                         break;
                     case 1:
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine(Logo.MenuKaart);
                         Console.ResetColor();
+                        Console.CursorVisible = true;
                         Console.WriteLine("\nVoer een term in: \n");
                         string keyWord = Console.ReadLine();
                         var dishFilter = new DishFilter();
                         dishFilter.Search(keyWord);
+                        Console.CursorVisible = false;
                         break;
                     case 2:
                         state = null;
