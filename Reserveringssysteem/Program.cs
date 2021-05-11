@@ -15,7 +15,7 @@ namespace Reserveringssysteem
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
             {
-            var introMenu = new SelectionMenu(new string[4] { "Reservering", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\n\nWelkom bij [Restaurant]!\n");
+            var introMenu = new SelectionMenu(new string[5] { "Reservering maken","Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\n\nWelkom bij [Restaurant]!\n");
             Console.Clear();
 
                 switch (introMenu.Show())
@@ -24,12 +24,15 @@ namespace Reserveringssysteem
                         state = "Reservating";
                         break;
                     case 1:
-                        state = "Menu";
+                        state = "Reservering annuleren";
                         break;
                     case 2:
-                        InfoScherm.ShowInfo();
+                        state = "Menu";
                         break;
                     case 3:
+                        InfoScherm.ShowInfo();
+                        break;
+                    case 4:
                         LogInEmployee.LogIn();
                         break;
                     default:
@@ -39,21 +42,12 @@ namespace Reserveringssysteem
             }
             if (state == "Reservating")
             {
-                var reservationMenu = new SelectionMenu(new string[3] { "Maak een reservering", "Annuleer een reservering", "Terug" }, Logo.Reserveren, "\n\nKies een optie\n");
-                Console.Clear();
-                switch (reservationMenu.Show())
-                {
-                    case 0:
-                        Reservations.Reservate();
-                        break;
-                    case 1:
-                        CancelReservation.cancelReservation();
-                        break;
-                    case 2:
-                        state = null ;
-                        break; 
-
-                }
+                Reservations.Reservate();
+            }
+            else if (state ==  "Reservering annuleren")
+            {
+                CancelReservation.cancelReservation();
+                
             }
 
             else if (state == "Menu")

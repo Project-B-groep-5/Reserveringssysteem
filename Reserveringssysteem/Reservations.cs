@@ -43,7 +43,7 @@ Tot dan!";
             var datumVandaag = DateTime.UtcNow.ToString("dd-MM-yyyy");
             Reservation reservation;
             ReservateTitle();
-            Console.WriteLine("Wat is uw naam?");
+            Console.WriteLine("Wat is uw voornaam?");
             name = Console.ReadLine();
             while (true)
             {
