@@ -93,7 +93,7 @@ Tot dan!";
             {
                 if (!DateTime.TryParse(date, out dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag) )
                 {
-                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is: DD-MM-JJJJ");
+                    Console.WriteLine("Opgegeven datum is in het verleden, bestaat niet of is niet gelijk aan het format. Het format is: DD-MM-JJJJ");
                     date = Console.ReadLine();
                 }
                 else
