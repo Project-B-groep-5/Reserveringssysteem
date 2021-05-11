@@ -28,11 +28,9 @@ namespace Reserveringssysteem
                         break;
                     case 2:
                         InfoScherm.ShowInfo();
-                        Console.ReadLine();
                         break;
                     case 3:
                         LogInEmployee.LogIn();
-                        Console.ReadLine();
                         break;
                     default:
                         Console.WriteLine("Deze functie is nog niet geimplementeerd.");
@@ -47,11 +45,9 @@ namespace Reserveringssysteem
                 {
                     case 0:
                         Reservations.Reservate();
-                        Console.ReadLine();
                         break;
                     case 1:
                         CancelReservation.cancelReservation();
-                        Console.ReadLine();
                         break;
                     case 2:
                         state = null ;
@@ -72,8 +68,6 @@ namespace Reserveringssysteem
                         string keyWord = Console.ReadLine();
                         var dishFilter = new DishFilter();
                         dishFilter.Search(keyWord);
-                        Console.ReadLine();
-                        Console.Clear();
                         break;
                     case 2:
                         state = null;

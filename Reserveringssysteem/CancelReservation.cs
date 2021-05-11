@@ -24,6 +24,7 @@ namespace Reserveringssysteem
                 else
                     Console.WriteLine("Het lukt niet!");
             }
+            Utils.EnterTerug();
         }
 
     }
