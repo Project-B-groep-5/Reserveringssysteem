@@ -10,11 +10,14 @@ namespace Reserveringssysteem
     {
         public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
-            Console.WriteLine(Logo.Reserveren); 
+            Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
+            Console.WriteLine(Logo.Reserveren);
+            Console.ResetColor();
         }
         public static void sendEmail(string emailAddress, string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {
-            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
+            ReservateTitle();
+            Console.WriteLine("\nDe bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"
 Beste {name},
 
@@ -31,7 +34,8 @@ Tot dan!";
 
             smtpClient.Send("RestaurantProjectB@gmail.com", emailAddress, "Uw reservering is bevestigd!", mailMessage);
             Console.Clear();
-            Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
+            ReservateTitle();
+            Console.WriteLine("\nBevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
         }
         public static void Reservate()
         {
@@ -43,7 +47,7 @@ Tot dan!";
             var datumVandaag = DateTime.UtcNow.ToString("dd-MM-yyyy");
             Reservation reservation;
             ReservateTitle();
-            Console.WriteLine("Wat is uw voornaam?");
+            Console.WriteLine("\nWat is uw naam?\n");
             name = Console.ReadLine();
             while (true)
             {
@@ -52,7 +56,7 @@ Tot dan!";
                 {
                     Console.Clear();
                     ReservateTitle(); 
-                    Console.WriteLine("Geen naam ingevuld. Probeer opnieuw: \n");
+                    Console.WriteLine("\nGeen naam ingevuld. Probeer opnieuw: \n");
                     name = Console.ReadLine();
                 }
                 else
@@ -63,7 +67,7 @@ Tot dan!";
 
             }
             ReservateTitle();
-            Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
+            Console.WriteLine("\nVoor hoeveel mensen wilt u een reservering maken?\n");
             while (size <= 0)
             {
                 var input = Console.ReadLine();
@@ -79,21 +83,23 @@ Tot dan!";
                 if (size <= 0)
                 {
                     Console.Clear();
-                    Console.WriteLine($"{Logo.Reserveren}\nJe moet voor minimaal één persoon reserveren.");
-                    Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
+                    ReservateTitle();
+                    Console.WriteLine($"\nJe moet voor minimaal één persoon reserveren.");
+                    Console.WriteLine("\nVoor hoeveel mensen wilt u een reservering maken?\n");
                 }
             }
             Console.Clear();
             ReservateTitle();
-            Console.WriteLine("Voor wanneer wilt u reserveren?");
-            Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ");
+            Console.WriteLine("\nVoor wanneer wilt u reserveren?");
             Console.WriteLine("De datum van vandaag is {0}", datumVandaag);
+            Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ\n");
+
             date = Console.ReadLine();
             while (true)
             {
                 if (!DateTime.TryParse(date, out dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag) )
                 {
-                    Console.WriteLine("Opgegeven datum is in het verleden, bestaat niet of is niet gelijk aan het format. Het format is: DD-MM-JJJJ");
+                    Console.WriteLine("\nOpgegeven datum is in het verleden, bestaat niet of is niet gelijk aan het format. Het format is: DD-MM-JJJJ\n");
                     date = Console.ReadLine();
                 }
                 else
@@ -104,6 +110,8 @@ Tot dan!";
             }
 
             Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             var timeMenu = new SelectionMenu(new string[7] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" }, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n");
             switch (timeMenu.Show())
             {
@@ -132,13 +140,14 @@ Tot dan!";
             Console.Clear();
             reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
             ReservateTitle();
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
+            Console.WriteLine("\nOm uw reservering te bevestigen hebben wij uw mail adres nodig.");
             Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
             var emailAddress = Console.ReadLine();
             while (!Utils.IsValidEmail(emailAddress))
             {
                 Console.Clear();
-                Console.WriteLine($"{Logo.Reserveren}\n{emailAddress} is geen geldig mail adres.");
+                ReservateTitle();
+                Console.WriteLine($"\n{emailAddress} is geen geldig mail adres.");
                 Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
                 emailAddress = Console.ReadLine();
             }
@@ -155,8 +164,8 @@ Tot dan!";
             Console.Clear();
                 //Functie om mail te versturen
                 sendEmail(emailAddress, reservation.ReservationId, name, date, time);
-            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
-            Utils.EnterTerug();        
+                Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+                Utils.EnterTerug();        
         }
     }
 }

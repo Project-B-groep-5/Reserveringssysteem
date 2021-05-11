@@ -14,9 +14,10 @@ namespace Reserveringssysteem
         {
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
             if (state == null)
-            {
-            var introMenu = new SelectionMenu(new string[5] { "Reservering maken","Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\n\nWelkom bij [Restaurant]!\n");
-            Console.Clear();
+            { 
+                Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
+                var introMenu = new SelectionMenu(new string[5] { "Reservering maken","Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]" }, Logo.Welkom, "\nKies een optie\n");
+                Console.Clear();
 
                 switch (introMenu.Show())
                 {
@@ -41,14 +42,18 @@ namespace Reserveringssysteem
                 }
             }
             else if (state == "Menu")
-            { 
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen; // Maakt de kleur van header groen
                 var dishMenu = new SelectionMenu(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, Logo.MenuKaart, "\n\nKies een optie\n");
                 switch (dishMenu.Show())
                 {
                     case 0:
                         break;
                     case 1:
-                        Console.WriteLine("Voer een term in:");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine(Logo.MenuKaart);
+                        Console.ResetColor();
+                        Console.WriteLine("\nVoer een term in: \n");
                         string keyWord = Console.ReadLine();
                         var dishFilter = new DishFilter();
                         dishFilter.Search(keyWord);
