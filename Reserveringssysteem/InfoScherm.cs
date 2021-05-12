@@ -4,6 +4,7 @@ using System.Data;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Globalization;
 
 //API = AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A
 
@@ -11,6 +12,7 @@ namespace Reserveringssysteem
 {
     public class InfoScherm
     {
+        public static Location point2 = new Location(51.9116, 4.4713); // Locatie voor restaurant, hardcoded op Dijkzigt voor testen.. 
         public static DataTable GetCoordinates(string address)
         {
             string url = "https://maps.google.com/maps/api/geocode/xml?address=" + address + "&key=AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A";
@@ -30,12 +32,19 @@ namespace Reserveringssysteem
                     new DataColumn("Longitude",typeof(string)) });
                     foreach (DataRow row in dsResult.Tables["result"].Rows)
                     {
-                        //string coordinaat1 = dsResult.Tables["geometry"].Select ;
                         string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
                         DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
                         dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
-                        Console.WriteLine("\nLatitude = " + location[0]);
-                        Console.WriteLine("\nLongitude = " + location[1]);
+                        //Console.WriteLine("\nLatitude = " + location[0]); // Print check om te kijken of Latitude klopt
+                        //Console.WriteLine("\nLongitude = " + location[1]); // Print check om te kijken of Longitude klopt
+                        var inputLatitude = location[0] ;
+                        double convertedLatitude = Convert.ToDouble(inputLatitude, System.Globalization.CultureInfo.InvariantCulture);
+                        var inputLongitude = location[1] ;
+                        double convertedLongitude = Convert.ToDouble(inputLongitude, System.Globalization.CultureInfo.InvariantCulture);
+                        Location point1 = new Location(convertedLatitude, convertedLongitude);
+                        double DistanceToRest = CalculateDistance(point1, point2);
+                        var roundedNumber = String.Format("{0:0.00}", DistanceToRest);  //Afronding van de double op twee decimalen
+                        Console.WriteLine("\nDe Afstand vanaf het door u opgegeven adres en het restaurant is: " + roundedNumber + " kilometer");
                     }
                     return dtCoordinates;
                 }
@@ -49,7 +58,7 @@ namespace Reserveringssysteem
             var num2 = point2.longitude * (Math.PI / 180.0) - num1;
             var d3 = Math.Pow(Math.Sin((d2 - d1) / 2.0), 2.0) +
                      Math.Cos(d1) * Math.Cos(d2) * Math.Pow(Math.Sin(num2 / 2.0), 2.0);
-            return 6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)));
+            return (6376500.0 * (2.0 * Math.Atan2(Math.Sqrt(d3), Math.Sqrt(1.0 - d3)))) / 1000;
         }
 
         public class Location
@@ -63,12 +72,6 @@ namespace Reserveringssysteem
                 this.longitude = longitude;
             }
         }
-
-        public static Location point1 = new Location(40.7128, 74.0060);
-        public static Location point2 = new Location(36.7783, 119.4179);
-        public static double DistanceToRest = CalculateDistance(point1, point2);
-
-
         public static void ShowInfo()
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -87,6 +90,10 @@ namespace Reserveringssysteem
 
             if (antwoord == "ja")
             {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine(Logo.OverOns);
+                Console.ResetColor();
                 Console.WriteLine("\nVul uw straatnaam in: \n");
                 string straatnaam = Console.ReadLine();
                 Console.WriteLine("\nVul uw plaatsnaam in: \n");
@@ -94,7 +101,6 @@ namespace Reserveringssysteem
                 string inputForSite = straatnaam + "%20" + plaatsnaam ;  
                 DataTable InputAdres = GetCoordinates(inputForSite);
                 Console.WriteLine(InputAdres);
-                Console.WriteLine("\nUw afstand tot het restaurant is: " + DistanceToRest + " meter.");
             }
             else
             {
