@@ -5,13 +5,15 @@ using System.IO;
 using System.Net;
 using System.Text;
 
+//API = AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A
+
 namespace Reserveringssysteem
 {
     public class InfoScherm
     {
         public static DataTable GetCoordinates(string address)
         {
-            string url = "http://maps.google.com/maps/api/geocode/xml?address=" + address + "&sensor=false";
+            string url = "https://maps.google.com/maps/api/geocode/xml?address=" + address + "&key=AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A";
             WebRequest request = WebRequest.Create(url);
 
             using (WebResponse response = (HttpWebResponse)request.GetResponse())
@@ -21,7 +23,8 @@ namespace Reserveringssysteem
                     DataSet dsResult = new DataSet();
                     dsResult.ReadXml(reader);
                     DataTable dtCoordinates = new DataTable();
-                    dtCoordinates.Columns.AddRange(new DataColumn[4] { new DataColumn("Id", typeof(int)),
+                    dtCoordinates.Columns.AddRange(new DataColumn[4] { 
+                    new DataColumn("Id", typeof(int)),
                     new DataColumn("Address", typeof(string)),
                     new DataColumn("Latitude",typeof(string)),
                     new DataColumn("Longitude",typeof(string)) });
@@ -30,16 +33,12 @@ namespace Reserveringssysteem
                         string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
                         DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
                         dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
+                        Console.WriteLine(geometry_id);
                     }
-
                     return dtCoordinates;
                 }
             }
         }
-
-            
-
-
         public static double CalculateDistance(Location point1, Location point2)
         {
             var d1 = point1.latitude * (Math.PI / 180.0);
@@ -86,7 +85,8 @@ namespace Reserveringssysteem
 
             if (antwoord == "ja")
             {
-                DataTable InputAdres = GetCoordinates("Leeuwerikstraat 120"); 
+                DataTable InputAdres = GetCoordinates("Leeuwerikstraat");
+                Console.WriteLine(InputAdres);
                 Console.WriteLine("\nUw afstand tot het restaurant is: " + DistanceToRest + " meter.");
             }
             else
