@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Globalization;
+using System.Linq;
 
 //API = AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A
 
@@ -90,21 +91,60 @@ namespace Reserveringssysteem
 
             if (antwoord == "ja")
             {
+                bool isIntString; 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine(Logo.OverOns);
                 Console.ResetColor();
                 Console.WriteLine("\nVul uw straatnaam in: \n");
                 string straatnaam = Console.ReadLine();
+                while (true)
+                {
+                    isIntString = straatnaam.Any(letter => char.IsDigit(letter));
+                    if (isIntString == true)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine(Logo.OverOns);
+                        Console.ResetColor();
+                        Console.WriteLine("\nGraag enkel de straatnaam, zonder integers");
+                        Console.WriteLine("\nVul uw straatnaam in: \n");
+                        straatnaam = Console.ReadLine();
+                    }
+                    else
+                        break;
+                }
                 Console.WriteLine("\nVul uw plaatsnaam in: \n");
+                isIntString = true;
                 string plaatsnaam = Console.ReadLine();
-                string inputForSite = straatnaam + "%20" + plaatsnaam ;  
+                while (isIntString == true)
+                {
+                    isIntString = plaatsnaam.Any(letter => char.IsDigit(letter));
+                    if (isIntString == true)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine(Logo.OverOns);
+                        Console.ResetColor();
+                        Console.WriteLine("\nGraag enkel de plaatsnaam, zonder integers");
+                        Console.WriteLine("\nVul uw plaatsnaam in: \n");
+                        plaatsnaam = Console.ReadLine();
+                    }
+                    else
+                        break;
+                }
+                string inputForSite = straatnaam + "%20" + plaatsnaam ;
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine(Logo.OverOns);
+                Console.ResetColor();
+                Console.WriteLine($"\nAfstand tot restaurant berekenen vanaf {straatnaam}, {plaatsnaam}.....\n");
                 DataTable InputAdres = GetCoordinates(inputForSite);
                 Console.WriteLine(InputAdres);
             }
             else
             {
-                Console.WriteLine("Jammer man");
+                Console.WriteLine();
             }
             Utils.EnterTerug();
         }
