@@ -30,10 +30,12 @@ namespace Reserveringssysteem
                     new DataColumn("Longitude",typeof(string)) });
                     foreach (DataRow row in dsResult.Tables["result"].Rows)
                     {
+                        //string coordinaat1 = dsResult.Tables["geometry"].Select ;
                         string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
                         DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
                         dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
-                        Console.WriteLine(geometry_id);
+                        Console.WriteLine("\nLatitude = " + location[0]);
+                        Console.WriteLine("\nLongitude = " + location[1]);
                     }
                     return dtCoordinates;
                 }
@@ -85,7 +87,12 @@ namespace Reserveringssysteem
 
             if (antwoord == "ja")
             {
-                DataTable InputAdres = GetCoordinates("Leeuwerikstraat");
+                Console.WriteLine("\nVul uw straatnaam in: \n");
+                string straatnaam = Console.ReadLine();
+                Console.WriteLine("\nVul uw plaatsnaam in: \n");
+                string plaatsnaam = Console.ReadLine();
+                string inputForSite = straatnaam + "%20" + plaatsnaam ;  
+                DataTable InputAdres = GetCoordinates(inputForSite);
                 Console.WriteLine(InputAdres);
                 Console.WriteLine("\nUw afstand tot het restaurant is: " + DistanceToRest + " meter.");
             }
