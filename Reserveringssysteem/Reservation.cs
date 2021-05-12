@@ -23,8 +23,7 @@ namespace Reserveringssysteem
         }
 
         public static string GenerateReservationCode()
-        {
-            
+        {            
             int counter = 0;
             while (counter < 1000)
             {
@@ -43,6 +42,13 @@ namespace Reserveringssysteem
                 counter++;
             }
             return null;
+        }
+
+        public void Save()
+        {
+            var reservations = Deserialize<List<Reservation>>("reservations.json");
+            reservations.Add(this);
+            Serialize(reservations, "reservations.json");
         }
     }
 }
