@@ -8,9 +8,7 @@ namespace Reserveringssysteem
 
         public static void Serialize(object obj, string filename)
         {
-            var serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
-            File.WriteAllText(filename, JsonConvert.SerializeObject(obj));
+            File.WriteAllText(filename, JsonConvert.SerializeObject(obj, Formatting.Indented));
         }
 
         public static T Deserialize<T>(string filename) => JsonConvert.DeserializeObject<T>(File.ReadAllText(filename));
