@@ -162,10 +162,11 @@ Tot dan!";
                     break;
             }
             Console.Clear();
-                //Functie om mail te versturen
-                sendEmail(emailAddress, reservation.ReservationId, name, date, time);
-                Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
-                Utils.EnterTerug();        
+            //Functie om mail te versturen
+            sendEmail(emailAddress, reservation.ReservationId, name, date, time);
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            reservation.Save();
+            Utils.EnterTerug();        
         }
     }
 }
