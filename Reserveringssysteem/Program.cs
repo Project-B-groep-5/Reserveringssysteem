@@ -52,6 +52,10 @@ namespace Reserveringssysteem
                 switch (dishMenu.Show())
                 {
                     case 0:
+                        Console.WriteLine(MenuShow.CompleteMenuShow());
+                        Console.WriteLine("Klik op 'enter' om terug te gaan.");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     case 1:
                         Console.ForegroundColor = ConsoleColor.Blue;
