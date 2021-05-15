@@ -14,7 +14,7 @@ namespace Reserveringssysteem
             Console.ResetColor();
             Restaurant restaurant = Deserialize<Restaurant>("restaurant.json");
             Location address = restaurant.Address;
-            String[] openingHours = restaurant.OpeningHours;
+            string[] openingHours = restaurant.OpeningHours;
             Console.WriteLine($@"{restaurant.Name}
 
 {restaurant.Description}

@@ -18,5 +18,72 @@
     "DiscountMenus": null,
     "Comments": null,
     "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "BM6F",
+    "Name": "Oscar",
+    "Date": "15-05-2021",
+    "Time": "20:00",
+    "Size": 3,
+    "DiscountMenus": null,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "L3CI",
+    "Name": "Oscar",
+    "Date": "26-04-2022",
+    "Time": "18:30",
+    "Size": 3,
+    "DiscountMenus": null,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "2H8W",
+    "Name": "t",
+    "Date": "27-05-2021",
+    "Time": "19:00",
+    "Size": 2,
+    "DiscountMenus": null,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "P5AP",
+    "Name": "Oscar",
+    "Date": "26-05-2021",
+    "Time": "18:00",
+    "Size": 2,
+    "DiscountMenus": null,
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "ETEJ",
+    "Name": "-",
+    "Date": "16-05-2021",
+    "Time": "18:00",
+    "Size": 2,
+    "DiscountMenus": [
+      "Gezonde Hap",
+      "Vette Hap"
+    ],
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
+  },
+  {
+    "ReservationId": "7GCF",
+    "Name": "Oscar",
+    "Date": "16-05-2021",
+    "Time": "19:00",
+    "Size": 3,
+    "DiscountMenus": [
+      "Vette Hap",
+      "Gezonde Hap",
+      "Geen voordeelmenu"
+    ],
+    "Comments": null,
+    "OrderStatus": "ACCEPTED"
   }
 ]

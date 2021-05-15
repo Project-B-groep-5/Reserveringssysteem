@@ -11,53 +11,48 @@ namespace Reserveringssysteem
         public static List<VoordeelMenu> VoordeelMenus;
         public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Logo.Reserveren + "\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public static void sendEmail(string emailAddress, string reservationCode, string name, string time, string date) // Method om de mail te sturen.
-        {
-            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
-            string mailMessage = @$"
-                                Beste {name},
-
-                                Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
-                                Uw reserveringscode is : {reservationCode} , bewaar deze code goed. 
-
-                                Tot dan!
-                                ";
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "NieuwWachtwoord1337"),
-                EnableSsl = true,
-            };
-
-            smtpClient.Send("RestaurantProjectB@gmail.com", emailAddress, "Uw reservering is bevestigd!", mailMessage);
-            Console.Clear();
-            Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
-        }
 
         public static void Reservate()
         {
-            Console.CursorVisible = true;
-            string name;
-            int size = 0;
-            string date;
-            string time = "" ;
-            DateTime dDate;
-            var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
-            Reservation reservation;
+            string name = GetName();
+            int amountPeople = GetAmountOfPeople();
+            string date = GetDate();
+
+            string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
+            string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
+
+            string[] choices = GetDiscountMenus(amountPeople);
+
+            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices };
+
+            SendEmail(reservation.ReservationId, name, time, date);
+
             ReservateTitle();
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            reservation.Save();
+
+            Utils.EnterTerug();
+        }
+
+
+        private static string GetName()
+        {
+            ReservateTitle();
+            Console.CursorVisible = true;
             Console.WriteLine("Wat is uw naam?");
-            name = Console.ReadLine();
+            string name = Console.ReadLine();
             while (true)
             {
 
                 if (name.Length == 0)
                 {
                     Console.Clear();
-                    ReservateTitle(); 
+                    ReservateTitle();
                     Console.WriteLine("Geen naam ingevuld. Probeer opnieuw : \n");
                     name = Console.ReadLine();
                 }
@@ -68,99 +63,84 @@ namespace Reserveringssysteem
                 }
 
             }
+            Console.CursorVisible = false;
+            return name;
+        }
+        private static int GetAmountOfPeople()
+        {
+            int amountPeople = 0;
             ReservateTitle();
+            Console.CursorVisible = true;
             Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
-            while (size == 0)
+            while (amountPeople <= 0)
             {
                 var input = Console.ReadLine();
                 try
                 {
-                    size = int.Parse(input);
+                    amountPeople = int.Parse(input);
                 }
                 catch
                 {
-                    Console.Clear();
-
+                    amountPeople = 0;
+                }
+                if (amountPeople <= 0)
+                {
                     ReservateTitle();
-
-
-                    Console.WriteLine($"{Logo.Reserveren}\n{input} is geen correcte waarde.\nVul alstublieft een getal in.");
-
+                    Console.WriteLine($"Je moet voor minimaal één persoon reserveren.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
                 }
             }
-            Console.Clear();
+            Console.CursorVisible = false;
+            return amountPeople;
+        }
+
+        private static string GetDate()
+        {
+            var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
             ReservateTitle();
+            Console.CursorVisible = true;
             Console.WriteLine("Voor wanneer wilt u reserveren?");
-            Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ");
-            Console.WriteLine("De datum van vandaag is {0}", datumVandaag);
-            date = Console.ReadLine();
+            Console.WriteLine("Gebruik alstublieft het format: dd-MM-jjjj");
+            Console.WriteLine($"\nDe datum van vandaag is {datumVandaag}");
+            var date = Console.ReadLine();
             while (true)
             {
-                if (!DateTime.TryParse(date, out dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag) )
+                if (!DateTime.TryParse(date, out DateTime dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag))
                 {
-                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is : DD-MM-JJJJ");
+                    ReservateTitle();
+                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is : dd-MM-jjjj");
                     date = Console.ReadLine();
                 }
                 else
                 {
-                    String.Format("{0:dd/MM/yyyy}", dDate);
-                    break;
+                    Console.CursorVisible = false;
+                    return string.Format("{0:dd/MM/yyyy}", dDate);
                 }
             }
+        }
 
-            Console.Clear();
-            var timeMenu = new SelectionMenu(new string[7] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" }, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n");
-            switch (timeMenu.Show())
-            {
-                case 0:
-                    time = "17:00";
-                    break; 
-                case 1:
-                    time = "17:30";
-                    break;
-                case 2:
-                    time = "18:00";
-                    break;
-                case 3:
-                    time = "18:30";
-                    break;
-                case 4:
-                    time = "19:00";
-                    break;
-                case 5:
-                    time = "19:30";
-                    break;
-                case 6:
-                    time = "20:00";
-                    break;
-            }
-            Console.Clear();
-
-            //Voordeelmenu sectie
-            bool loop = true;
+        public static string[] GetDiscountMenus(int amountPeople)
+        {
             VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
-            string[] Menus = new string[VoordeelMenus.Count+1];
+            string[] Menus = new string[VoordeelMenus.Count + 1];
             for (int i = 0; i < VoordeelMenus.Count; i++)
             {
                 Menus[i] = VoordeelMenus[i].Name;
             }
-            Menus[Menus.Length - 1] = "Geen voordeelmenu";
-            string[] choices = null;
+            Menus[^1] = "Geen voordeelmenu";
             var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "Geen voordeelmenu" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
-            while (loop)
+            string[] choices;
+            while (true)
             {
                 switch (voordeelMenuKeuze.Show())
                 {
                     case 0:
                         ReservateTitle();
                         Console.WriteLine(MenuShow.VoordeelMenuShow());
-                        Console.WriteLine("Druk op 'enter' om terug te gaan.");
-                        Console.Read();
-                        Console.Clear();
+                        Utils.EnterTerug();
                         break;
                     case 1:
-                        choices = new string[size];
-                        for (int i = 0; i < size; i++)
+                        choices = new string[amountPeople];
+                        for (int i = 0; i < amountPeople; i++)
                         {
                             var voordeelKeuzes = new SelectionMenu(Menus, Logo.Reserveren, $"\nKies voor persoon { i + 1 } het voordeelmenu\n");
                             var keuze = voordeelKeuzes.Show();
@@ -169,41 +149,50 @@ namespace Reserveringssysteem
                         bool emptyChoice = true;
                         foreach (var str in choices)
                         {
-                            if (!(str == "Geen voordeelmenu"))
+                            if (str != "Geen voordeelmenu")
                                 emptyChoice = false;
-                                break;
+                            break;
                         }
                         if (emptyChoice)
                             choices = null;
-                        loop = false;
-                        break;
+                        return choices;
                     case 2:
-                        loop = false;
-                        break;
+                        return null;
                 }
             }
+        }
 
-            reservation = new Reservation { Name = name, Date = date, Time = time, Size = size, DiscountMenus = choices };
+        public static void SendEmail(string reservationCode, string name, string time, string date) // Method om de mail te sturen.
+        {
             ReservateTitle();
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
-            Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen? : \n");
+            Console.CursorVisible = true;
+            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen? : \n");
             var emailAddress = Console.ReadLine();
-            while (true)
+            while (!Utils.IsValidEmail(emailAddress))
             {
-                if (emailAddress.Length == 0)
-                {
-                    Console.WriteLine("Geen email ingevuld. Probeer opnieuw : \n");
-                    emailAddress = Console.ReadLine();
-                }
-                else
-                    break;
+                ReservateTitle();
+                Console.WriteLine($"{emailAddress} is geen geldig mail adres.\nNaar welk mail adres mogen wij de reservering sturen?:\n");
+                emailAddress = Console.ReadLine();
             }
+            Console.CursorVisible = false;
+            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
+            string mailMessage = @$"Beste {name},
+
+Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {date} om {time}.
+Uw reserveringscode is : {reservationCode} , bewaar deze code goed. 
+
+Tot dan!
+                                ";
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "NieuwWachtwoord1337"),
+                EnableSsl = true,
+            };
+
+            smtpClient.Send("RestaurantProjectB@gmail.com", emailAddress, "Uw reservering is bevestigd!", mailMessage);
             Console.Clear();
-
-            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
-            reservation.Save();
-
-            Utils.EnterTerug();
+            Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n");
         }
     }
 }

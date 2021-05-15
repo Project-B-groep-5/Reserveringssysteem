@@ -22,6 +22,7 @@ namespace Reserveringssysteem
             var optionsCount = menuArray.Length;
             var optionSelected = 0;
             var done = false;
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(menuLogo);
             Console.ResetColor();
