@@ -76,5 +76,17 @@ namespace Reserveringssysteem
                 Console.WriteLine("Niks gevonden.");
             Utils.EnterTerug();
         }
+
+        public static void F()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.MenuKaart);
+            Console.ResetColor();
+            Console.CursorVisible = true;
+            Console.WriteLine("\nVoer een term in: \n");
+            string keyWord = Console.ReadLine();
+            var dishFilter = new DishFilter();
+            dishFilter.Search(keyWord);
+        }
     }
 }
