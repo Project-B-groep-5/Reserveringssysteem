@@ -5,7 +5,7 @@
     "Date": "26-04-2021",
     "Time": "18:00",
     "Size": 6,
-    "TookDiscountMenu": false,
+    "DiscountMenus": null,
     "Comments": null,
     "OrderStatus": "ACCEPTED"
   },
@@ -15,37 +15,7 @@
     "Date": "27-04-2021",
     "Time": "18:00",
     "Size": 100,
-    "TookDiscountMenu": false,
-    "Comments": null,
-    "OrderStatus": "ACCEPTED"
-  },
-  {
-    "ReservationId": "HCWT",
-    "Name": "Oscar",
-    "Date": "21-05-2021",
-    "Time": "18:30",
-    "Size": 2,
-    "TookDiscountMenu": false,
-    "Comments": null,
-    "OrderStatus": "ACCEPTED"
-  },
-  {
-    "ReservationId": "F273",
-    "Name": "Arjan",
-    "Date": "12-05-2021",
-    "Time": "17:00",
-    "Size": 3,
-    "TookDiscountMenu": false,
-    "Comments": null,
-    "OrderStatus": "ACCEPTED"
-  },
-  {
-    "ReservationId": "UYUW",
-    "Name": "Os",
-    "Date": "21-05-2021",
-    "Time": "17:00",
-    "Size": 8,
-    "TookDiscountMenu": false,
+    "DiscountMenus": null,
     "Comments": null,
     "OrderStatus": "ACCEPTED"
   }
