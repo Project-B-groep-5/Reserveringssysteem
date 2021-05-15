@@ -163,8 +163,10 @@ Tot dan!";
                     break;
             }
             Console.Clear();
-            sendEmail(emailAddress, reservation.ReservationId, name, date, time);
+
             Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            reservation.Save();
+
             Utils.EnterTerug();        
         }
     }
