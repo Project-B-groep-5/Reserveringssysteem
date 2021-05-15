@@ -1,0 +1,119 @@
+[
+    {
+        "Name": "Gezonde Hap",
+        "VoorGerecht": {
+            "Name": "Broodmandje",
+            "Price": 6.5,
+            "Ingredients": [
+                "Brood",
+                "Kruidenboter",
+                "Tapenade",
+                "Knoflook",
+                "Aioli"
+            ],
+            "Type": "Voorgerecht",
+            "Tags": [
+                "Brood",
+                "Voorgerecht"
+            ]
+        },
+        "HoofdGerecht": {
+            "Name": "Maaltijdsalade",
+            "Price": 8.5,
+            "Ingredients": [
+                "Sla",
+                "Tomaat",
+                "Augurk",
+                "Komkommer",
+                "Pijnboompitten",
+                "Tomaat",
+                "Rode biet"
+            ],
+            "Type": "Hoofdgerecht",
+            "Tags": [
+                "Vegan",
+                "Veganistisch",
+                "Salade"
+
+            ]
+        },
+        "NaGerecht": {
+            "Name": "Cheesecake",
+            "Price": 6.5,
+            "Ingredients": [
+                "Koekkruimels",
+                "Boter",
+                "Creamcheese",
+                "Suiker",
+                "Zure room",
+                "Eieren",
+                "Vanille"
+            ],
+            "Type": "Nagerecht",
+            "Tags": [
+                "Nagerecht",
+                "Dessert"
+            ]
+        },
+        "Prijs": 19.0
+    },
+    {
+        "Name": "Vette Hap",
+        "Voorgerecht": {
+            "Name": "Carpaccio",
+            "Price": 9.5,
+            "Ingredients": [
+                "Ossenhaas",
+                "Parmezaanse kaas",
+                "Truffelsaus",
+                "Pijnboompitten",
+                "Rucola",
+                "Peper",
+                "Zout"
+            ],
+            "Type": "Voorgerecht",
+            "Tags": [
+                "Ossenhaas",
+                "Voorgerecht"
+            ]
+        },
+        "Hoofdgerecht": {
+            "Name": "Kogelbiefstuk",
+            "Price": 20.5,
+            "Ingredients": [
+                "Biefstuk",
+                "Pepersaus",
+                "Groenten",
+                "Patat"
+            ],
+            "Type": "Hoofdgerecht",
+            "Tags": [
+                "Biefstuk",
+                "Patat",
+                "Friet",
+                "Rund",
+                "Rundvlees"
+            ]
+        },
+        "Nagerecht": {
+            "Name": "Dame Blanche",
+            "Price": 10.5,
+            "Ingredients": [
+                "Amandelen",
+                "Vanille ijs",
+                "Chocoladesaus",
+                "Creme chantilly",
+                "Slagroom",
+                "Chocola",
+                "Chocoladesaus"
+            ],
+            "Type": "Nagerecht",
+            "Tags": [
+                "Nagerecht",
+                "Dessert",
+                "Chocola"
+            ]
+        },
+        "Prijs": 35.0
+    }
+]

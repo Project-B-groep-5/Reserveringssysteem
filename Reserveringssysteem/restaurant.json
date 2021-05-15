@@ -1,0 +1,25 @@
+{
+  "Name": "De houten vork",
+  "Description": "Welkom bij restaurant de houten vork",
+  "Address": {
+    "StreetName": "Wijhaven",
+    "HouseNumber": "107",
+    "PostalCode": "3011 WN",
+    "City": "Rotterdam",
+    "Latitude": 51.9173974,
+    "Longitude": 4.4839175
+  },
+  "OpeningHours": [
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "10:00-23:00",
+    "Gesloten"
+  ],
+  "ContactInformation": [
+    "oscar.vugt@gmail.com",
+    "06-12932305"
+  ]
+}
