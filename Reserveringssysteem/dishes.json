@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": "Cheeseburger",
     "Price": 12.5,
@@ -17,7 +17,7 @@
       "Burger"
     ]
   },
-  
+
   {
     "Name": "Spa Blauw",
     "Price": 2.20,
@@ -33,9 +33,9 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Koude dranken",
-        "Bubbels",
-        "Prik"
+      "Koude dranken",
+      "Bubbels",
+      "Prik"
     ]
   },
   {
@@ -44,9 +44,9 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Koude dranken",
-        "Frisdrank",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Prik"
     ]
   },
   {
@@ -55,10 +55,10 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Koude dranken",
-        "Frisdrank",
-        "Suiker vrij",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Suiker vrij",
+      "Prik"
     ]
   },
   {
@@ -68,9 +68,9 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Frisdrank",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Prik"
     ]
   },
   {
@@ -80,9 +80,9 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Frisdrank",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Prik"
     ]
   },
   {
@@ -92,9 +92,9 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Frisdrank",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Prik"
     ]
   },
   {
@@ -104,9 +104,9 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Frisdrank",
-        "Prik"
+      "Koude dranken",
+      "Frisdrank",
+      "Prik"
     ]
   },
   {
@@ -116,8 +116,8 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Frisdrank"
+      "Koude dranken",
+      "Frisdrank"
     ]
   },
   {
@@ -127,9 +127,9 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Warme dranken",
-        "Zoet"
+      "Koude dranken",
+      "Warme dranken",
+      "Zoet"
     ]
   },
   {
@@ -139,8 +139,8 @@
     "Type": "Dranken",
     "Tags": [
 
-        "Koude dranken",
-        "Zoet"
+      "Koude dranken",
+      "Zoet"
     ]
   },
   {
@@ -149,8 +149,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Warme dranken",
-        "Zoet"
+      "Warme dranken",
+      "Zoet"
     ]
   },
   {
@@ -159,7 +159,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Warme dranken"
+      "Warme dranken"
     ]
   },
   {
@@ -186,8 +186,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Warme dranken",
-        "Zoet"
+      "Warme dranken",
+      "Zoet"
     ]
   },
   {
@@ -205,7 +205,7 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Warme dranken"
+      "Warme dranken"
     ]
   },
   {
@@ -214,8 +214,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol vrij"
+      "Bieren",
+      "Alcohol vrij"
     ]
   },
   {
@@ -224,8 +224,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol"
+      "Bieren",
+      "Alcohol"
     ]
   },
   {
@@ -234,8 +234,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol vrij"
+      "Bieren",
+      "Alcohol vrij"
     ]
   },
   {
@@ -244,8 +244,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol"
+      "Bieren",
+      "Alcohol"
     ]
   },
   {
@@ -254,8 +254,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol"
+      "Bieren",
+      "Alcohol"
     ]
   },
   {
@@ -264,8 +264,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol"
+      "Bieren",
+      "Alcohol"
     ]
   },
   {
@@ -274,8 +274,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Bieren",
-        "Alcohol"
+      "Bieren",
+      "Alcohol"
     ]
   },
   {
@@ -284,8 +284,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Wijnen",
-        "Alcohol"
+      "Wijnen",
+      "Alcohol"
     ]
   },
   {
@@ -294,8 +294,8 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Wijnen",
-        "Alcohol"
+      "Wijnen",
+      "Alcohol"
     ]
   },
   {
@@ -304,10 +304,10 @@
     "Ingredients": [],
     "Type": "Dranken",
     "Tags": [
-        "Wijnen",
-        "Alcohol"
+      "Wijnen",
+      "Alcohol"
     ]
-  }, 
+  },
   {
     "Name": "Maaltijdsalade",
     "Price": 8.5,
@@ -324,8 +324,8 @@
     "Tags": [
       "Vegan",
       "Veganistisch",
-       "Salade"
-       
+      "Salade"
+
     ]
   },
   {
@@ -361,8 +361,8 @@
     ],
     "Type": "Hoofdgerecht",
     "Tags": [
-        "Pizza",
-        "Vegetarisch"
+      "Pizza",
+      "Vegetarisch"
     ]
   },
   {
