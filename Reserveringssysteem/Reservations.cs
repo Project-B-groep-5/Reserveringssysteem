@@ -41,12 +41,13 @@ Tot dan!";
 
         public static void Reservate()
         {
+            Console.CursorVisible = true;
             string name;
             int size = 0;
             string date;
             string time = "" ;
             DateTime dDate;
-            var datumVandaag = DateTime.UtcNow.ToString("dd-MM-yyyy");
+            var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
             Reservation reservation;
             ReservateTitle();
             Console.WriteLine("\nWat is uw naam?\n");
@@ -189,10 +190,10 @@ Tot dan!";
                     break;
             }
             Console.Clear();
-            //Functie om mail te versturen
-            sendEmail(emailAddress, reservation.ReservationId, name, date, time);
+
             Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
             reservation.Save();
+
             Utils.EnterTerug();        
         }
     }
