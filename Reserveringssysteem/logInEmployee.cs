@@ -8,6 +8,7 @@ namespace Reserveringssysteem
 
 		public static void LogIn()
         {
+			Console.CursorVisible = true;
 			string password = "";
             try
 			{
@@ -41,6 +42,7 @@ namespace Reserveringssysteem
             {
 				Console.CursorVisible = false;
 				Console.WriteLine("Naar medewerkers omgeving.");
+				EmployeeActions.ChangeRestaurantInfo();
 				Utils.EnterTerug();
             }
 			else 

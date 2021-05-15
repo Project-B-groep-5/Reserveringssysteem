@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
@@ -11,14 +12,25 @@ namespace Reserveringssysteem
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(Logo.OverOns);
             Console.ResetColor();
-            Console.WriteLine("\nRestaurant informatie:\n" +
-                "Welkom bij de Houten Vork. Wij bezorgen u een lach met de lekkerste gerechten.\n" +
-                "Wij bereiden de lekkerste vlees en vegetarische gerechten die u terug kunt vinden " +
-                "in het menukaart.\n\n" +
-                "Restaurant gegevens:\n"+
-                "Adress: ........\n" +
-                "Telefoonnummer: ........\n" +
-                "E-mail: ........ ");
+            Restaurant restaurant = Deserialize<Restaurant>("restaurant.json");
+            Location address = restaurant.Address;
+            String[] openingHours = restaurant.OpeningHours;
+            Console.WriteLine($@"{restaurant.Name}
+
+{restaurant.Description}
+
+Adress: {address.StreetName} {address.HouseNumber}, {address.PostalCode} {address.City}
+Telefoonnummer: {restaurant.ContactInformation[1]}
+E-mail: {restaurant.ContactInformation[0]}
+
+Openingstijden:
+Maandag: {openingHours[0]}
+Dinsdag: {openingHours[1]}
+Woensdag: {openingHours[2]}
+Donderdag: {openingHours[3]}
+Vrijdag: {openingHours[4]}
+Zaterdag: {openingHours[5]}
+Zondag: {openingHours[6]}");
             Utils.EnterTerug();
         }
     }

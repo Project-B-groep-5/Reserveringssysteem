@@ -17,6 +17,7 @@ namespace Reserveringssysteem
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
         {
+            Console.CursorVisible = true;
             Console.Clear();
             CancelTitle();
             Console.WriteLine("\nVul je reserveringscode in: \n");
