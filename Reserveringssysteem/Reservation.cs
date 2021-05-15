@@ -12,7 +12,7 @@ namespace Reserveringssysteem
         public string Date { get; set; }
         public string Time { get; set; }
         public int Size { get; set; }
-        public bool TookDiscountMenu { get; set; }
+        public string[] DiscountMenus { get; set; }
         public string Comments { get; set; }
         public string OrderStatus { get; set; }
 
