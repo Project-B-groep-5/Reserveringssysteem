@@ -47,11 +47,11 @@ namespace Reserveringssysteem
 
             if (result.Length > 0)
             {
-                Console.WriteLine();
+                Console.WriteLine(result);
             }
             else
                 Console.WriteLine("Niks gevonden.");
-            Console.WriteLine(result);
+            Utils.EnterTerug();
         }
     }
 }

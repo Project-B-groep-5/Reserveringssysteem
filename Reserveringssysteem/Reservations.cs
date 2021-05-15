@@ -11,29 +11,32 @@ namespace Reserveringssysteem
         public static List<VoordeelMenu> VoordeelMenus;
         public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
         {
-            Console.WriteLine(Logo.Reserveren); 
+            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
+            Console.WriteLine(Logo.Reserveren);
+            Console.ResetColor();
         }
         public static void sendEmail(string emailAddress, string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {
-            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
+            ReservateTitle();
+            Console.WriteLine("\nDe bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"
-                                Beste {name},
+Beste {name},
 
-                                Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
-                                Uw reserveringscode is : {reservationCode} , bewaar deze code goed. 
+Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {time} om {date}.
+Uw reserveringscode is: {reservationCode}, bewaar deze code goed. 
 
-                                Tot dan!
-                                ";
+Tot dan!";
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "Test12345XX"),
+                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "NieuwWachtwoord1337"),
                 EnableSsl = true,
             };
 
             smtpClient.Send("RestaurantProjectB@gmail.com", emailAddress, "Uw reservering is bevestigd!", mailMessage);
             Console.Clear();
-            Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
+            ReservateTitle();
+            Console.WriteLine("\nBevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n") ;
         }
 
         public static void Reservate()
@@ -46,7 +49,7 @@ namespace Reserveringssysteem
             var datumVandaag = DateTime.UtcNow.ToString("dd-MM-yyyy");
             Reservation reservation;
             ReservateTitle();
-            Console.WriteLine("Wat is uw naam?");
+            Console.WriteLine("\nWat is uw naam?\n");
             name = Console.ReadLine();
             while (true)
             {
@@ -55,7 +58,7 @@ namespace Reserveringssysteem
                 {
                     Console.Clear();
                     ReservateTitle(); 
-                    Console.WriteLine("Geen naam ingevuld. Probeer opnieuw : \n");
+                    Console.WriteLine("\nGeen naam ingevuld. Probeer opnieuw: \n");
                     name = Console.ReadLine();
                 }
                 else
@@ -66,36 +69,39 @@ namespace Reserveringssysteem
 
             }
             ReservateTitle();
-            Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
-            while (size == 0)
+            Console.WriteLine("\nVoor hoeveel mensen wilt u een reservering maken?\n");
+            while (size <= 0)
             {
                 var input = Console.ReadLine();
+               
                 try
                 {
                     size = int.Parse(input);
                 }
                 catch
                 {
+                    size = 0;
+                }
+                if (size <= 0)
+                {
                     Console.Clear();
-
                     ReservateTitle();
-
-
-                    Console.WriteLine($"{Logo.Reserveren}\n{input} is geen correcte waarde.\nVul alstublieft een getal in.");
-
+                    Console.WriteLine($"\nJe moet voor minimaal één persoon reserveren.");
+                    Console.WriteLine("\nVoor hoeveel mensen wilt u een reservering maken?\n");
                 }
             }
             Console.Clear();
             ReservateTitle();
-            Console.WriteLine("Voor wanneer wilt u reserveren?");
-            Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ");
+            Console.WriteLine("\nVoor wanneer wilt u reserveren?");
             Console.WriteLine("De datum van vandaag is {0}", datumVandaag);
+            Console.WriteLine("Gebruik alstublieft het format: DD-MM-JJJJ\n");
+
             date = Console.ReadLine();
             while (true)
             {
                 if (!DateTime.TryParse(date, out dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag) )
                 {
-                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is : DD-MM-JJJJ");
+                    Console.WriteLine("\nOpgegeven datum is in het verleden, bestaat niet of is niet gelijk aan het format. Het format is: DD-MM-JJJJ\n");
                     date = Console.ReadLine();
                 }
                 else
@@ -106,6 +112,8 @@ namespace Reserveringssysteem
             }
 
             Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             var timeMenu = new SelectionMenu(new string[7] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" }, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n");
             switch (timeMenu.Show())
             {
@@ -159,23 +167,33 @@ namespace Reserveringssysteem
 
             reservation = new Reservation { Name = name, Date = date, Time = time, Size = size };
             ReservateTitle();
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.");
-            Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen? : \n");
+            Console.WriteLine("\nOm uw reservering te bevestigen hebben wij uw mail adres nodig.");
+            Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
             var emailAddress = Console.ReadLine();
+            while (!Utils.IsValidEmail(emailAddress))
+            {
+                Console.Clear();
+                ReservateTitle();
+                Console.WriteLine($"\n{emailAddress} is geen geldig mail adres.");
+                Console.WriteLine("Naar welk mail adres mogen wij de reservering sturen?: \n");
+                emailAddress = Console.ReadLine();
+            }
             while (true)
             {
                 if (emailAddress.Length == 0)
                 {
-                    Console.WriteLine("Geen email ingevuld. Probeer opnieuw : \n");
+                    Console.WriteLine("Geen email ingevuld. Probeer opnieuw: \n");
                     emailAddress = Console.ReadLine();
                 }
                 else
                     break;
             }
             Console.Clear();
-                //Functie om mail te versturen
-                sendEmail(emailAddress, reservation.ReservationId, name, date, time);
-            Console.WriteLine($"Je hebt een reservering gemaakt op : {date} om : {time} uur!\nJe reserveringscode is : {reservation.ReservationId} \n\nDruk op 'enter' om terug te gaan");
+            //Functie om mail te versturen
+            sendEmail(emailAddress, reservation.ReservationId, name, date, time);
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om: {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            reservation.Save();
+            Utils.EnterTerug();        
         }
     }
 }

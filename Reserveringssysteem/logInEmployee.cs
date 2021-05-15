@@ -39,7 +39,9 @@ namespace Reserveringssysteem
 			Console.Clear();
 			if (ingevoerdWachtwoord == password)
             {
+				Console.CursorVisible = false;
 				Console.WriteLine("Naar medewerkers omgeving.");
+				Utils.EnterTerug();
             }
 			else 
             {
