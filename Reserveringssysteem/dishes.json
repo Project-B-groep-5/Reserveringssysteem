@@ -22,7 +22,7 @@
     "Name": "Spa Blauw",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Koude dranken"
     ]
@@ -31,7 +31,7 @@
     "Name": "Spa Rood",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Koude dranken",
       "Bubbels",
@@ -42,7 +42,7 @@
     "Name": "Coca Cola",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Koude dranken",
       "Frisdrank",
@@ -53,7 +53,7 @@
     "Name": "Coca Cola Zero",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Koude dranken",
       "Frisdrank",
@@ -65,7 +65,7 @@
     "Name": "Coca Cola Light",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -77,7 +77,7 @@
     "Name": "7-up",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -89,7 +89,7 @@
     "Name": "Cassis",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -101,7 +101,7 @@
     "Name": "Fanta",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -113,7 +113,7 @@
     "Name": "Ice Tea",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -124,7 +124,7 @@
     "Name": "Chocomel",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -136,7 +136,7 @@
     "Name": "Appelsap",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
 
       "Koude dranken",
@@ -147,7 +147,7 @@
     "Name": "Thee",
     "Price": 1.80,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Warme dranken",
       "Zoet"
@@ -157,7 +157,7 @@
     "Name": "Koffie",
     "Price": 1.80,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
     ]
@@ -166,7 +166,7 @@
     "Name": "Cappuccino",
     "Price": 2.00,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
     ]
@@ -175,7 +175,7 @@
     "Name": "Espresso",
     "Price": 2.00,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
     ]
@@ -184,7 +184,7 @@
     "Name": "Warme Chocomel",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken",
       "Zoet"
@@ -194,7 +194,7 @@
     "Name": "Latte Machiato",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
     ]
@@ -203,7 +203,7 @@
     "Name": "Koffie verkeerd",
     "Price": 2.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
     ]
@@ -212,7 +212,7 @@
     "Name": "Heineken (0%)",
     "Price": 3.0,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Bieren",
       "Alcohol vrij"
@@ -222,7 +222,7 @@
     "Name": "Heineken",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Bieren",
       "Alcohol"
@@ -232,7 +232,7 @@
     "Name": "Amstel Radler (0%)",
     "Price": 3.0,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Koude dranken",
     "Tags": [
       "Bieren",
       "Alcohol vrij"
@@ -242,7 +242,7 @@
     "Name": "Amstel Radler",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Bieren",
       "Alcohol"
@@ -252,7 +252,7 @@
     "Name": "Palm",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Bieren",
       "Alcohol"
@@ -262,7 +262,7 @@
     "Name": "Brand",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Bieren",
       "Alcohol"
@@ -272,7 +272,7 @@
     "Name": "Grolsch",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Bieren",
       "Alcohol"
@@ -282,7 +282,7 @@
     "Name": "Witte wijn",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Wijnen",
       "Alcohol"
@@ -292,7 +292,7 @@
     "Name": "Rode wijn",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Wijnen",
       "Alcohol"
@@ -302,7 +302,7 @@
     "Name": "Rose",
     "Price": 3.20,
     "Ingredients": [],
-    "Type": "Dranken",
+    "Type": "Alcoholische dranken",
     "Tags": [
       "Wijnen",
       "Alcohol"
