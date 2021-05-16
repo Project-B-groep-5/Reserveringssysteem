@@ -26,29 +26,29 @@ namespace Reserveringssysteem
             string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
             string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
 
-            string[] choices = GetDiscountMenus(amountPeople);
-            string comments = AskForComments();
-          
-            if (ReservationCheck.Check(date, time, amountPeople))
+            if (!ReservationCheck.Check(date, time, amountPeople))
             {
-                Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
-                SendEmail(reservation.ReservationId, name, time, date);
-                Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
-                reservation.Save();
-            }
-            else
-            {
-                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen"}, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
                 switch (optionMenu.Show())
                 {
                     case 0:
                         Reservate();
-                        break;
+                        return;
                     case 1:
-                        break;
-                    
+                        return;
+
                 }
             }
+
+            string[] choices = GetDiscountMenus(amountPeople);
+            string comments = AskForComments();
+            
+            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
+            
+            SendEmail(reservation.ReservationId, name, time, date);
+            
+            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            reservation.Save();
 
             Utils.EnterTerug();
         }

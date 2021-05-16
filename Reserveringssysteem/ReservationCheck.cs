@@ -12,7 +12,7 @@ namespace Reserveringssysteem
         public static bool Check(string date, string time, int size)
         {
             ReservationList = Deserialize<List<Reservation>>("reservations.json");
-            int capacity = 100;
+            int capacity = Program.Restaurant.Capacity;
             int occupied = 0;
             occupied += size;
             for (int i = 0; i < ReservationList.Count; i++)
