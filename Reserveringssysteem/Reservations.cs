@@ -151,8 +151,10 @@ namespace Reserveringssysteem
                         foreach (var str in choices)
                         {
                             if (str != "Geen voordeelmenu")
+                            {
                                 emptyChoice = false;
-                            break;
+                                break;                               
+                            }
                         }
                         if (emptyChoice)
                             choices = null;
