@@ -149,14 +149,19 @@ namespace Reserveringssysteem
                         }
                         ReservateTitle();
                         string gekozen = "U heeft gekozen voor:\n";
-                        for (int i = 0; i < choices.Length; i++)
+                        foreach (var menu in Menus)
                         {
-                            if (i == choices.Length - 1) gekozen += $"Persoon {i + 1}: {choices[i]}.\n";
-                            else gekozen += $"Persoon {i + 1}: {choices[i]},\n";
+                            int count = 0;
+                            for (int i = 0; i < choices.Length; i++)
+                            {
+                                if (menu == choices[i])
+                                    count++;
+                            }
+                            gekozen += $"\n{menu} {count}x";
                         }
 
                         string[] keuzeCheckArr = new string[2] { "Ja", "Nee" };
-                        var voordeelCheck = new SelectionMenu(keuzeCheckArr, Logo.Reserveren, $"\n{gekozen}\nKlopt dit?\n");
+                        var voordeelCheck = new SelectionMenu(keuzeCheckArr, Logo.Reserveren, $"\n{gekozen}\n\nKlopt dit?\n");
                         var keuzeCheck = voordeelCheck.Show();
 
                         if (keuzeCheckArr[keuzeCheck] == "Nee") continue;
@@ -195,7 +200,7 @@ namespace Reserveringssysteem
                         var comment = Console.ReadLine();
                         return comment;
                     case 1:
-                        return comment = "";
+                        return "";
                 }
             }
         }
