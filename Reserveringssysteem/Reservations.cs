@@ -45,7 +45,6 @@ namespace Reserveringssysteem
                         Reservate();
                         break;
                     case 1:
-                        Program.state = null;
                         break;
                     
                 }
