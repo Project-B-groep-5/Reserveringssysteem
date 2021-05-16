@@ -27,8 +27,9 @@ namespace Reserveringssysteem
             string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
 
             string[] choices = GetDiscountMenus(amountPeople);
+            string comments = AskForComments();
 
-            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices };
+            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
 
             SendEmail(reservation.ReservationId, name, time, date);
 
@@ -158,6 +159,24 @@ namespace Reserveringssysteem
                         return choices;
                     case 2:
                         return null;
+                }
+            }
+        }
+        public static string AskForComments()
+        {
+            ReservateTitle();
+            var OpmerkingenMenuKeuze = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
+            while (true)
+            {
+                switch (OpmerkingenMenuKeuze.Show())
+                {
+                    case 0:
+                        ReservateTitle();
+                        Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
+                        var comment = Console.ReadLine();
+                        return comment;
+                    case 1:
+                        return comment = "";
                 }
             }
         }
