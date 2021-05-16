@@ -7,6 +7,7 @@ namespace Reserveringssysteem
     class Program
     {
         public static List<Reservation> ReservationList = Deserialize<List<Reservation>>("reservations.json");
+        public static readonly Restaurant Restaurant = Deserialize<Restaurant>("restaurant.json");
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
