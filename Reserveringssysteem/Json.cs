@@ -5,7 +5,8 @@ namespace Reserveringssysteem
 {
     public static class Json
     {
-        public static void Serialize(object obj, string filename) => File.WriteAllText(filename, JsonConvert.SerializeObject(obj));
+
+        public static void Serialize(object obj, string filename) => File.WriteAllText(filename, JsonConvert.SerializeObject(obj, Formatting.Indented));
 
         public static T Deserialize<T>(string filename) => JsonConvert.DeserializeObject<T>(File.ReadAllText(filename));
     }

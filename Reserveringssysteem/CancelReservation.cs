@@ -6,24 +6,55 @@ using static Reserveringssysteem.Json;
 namespace Reserveringssysteem
 {
     public class CancelReservation
-    {
+    {   
+        public static void CancelTitle() // Call deze method om de onderstaande header te krijgen
+        {
+            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
+            Console.WriteLine(Logo.Annuleren);
+            Console.ResetColor();
+        }
+
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
         {
-            Console.WriteLine(Logo.Reserveren + "\nVul je reserveringscode in : ");
+            Console.CursorVisible = true;
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nVul je reserveringscode in: \n");
             string input = Console.ReadLine();
-            // Zit die erin? Vraag om Extra gegevens om te controleren?
-            // Zit die er niet in? Nog een keer reservingscode invullen?
-            ReservationsList = Deserialize<List<Reservation>>("reservations.json");
-            for (int i = 0; i < ReservationsList.Count; i++)
+            while (true)
             {
-                if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())
+                if (input.ToLower().Length != 4)
                 {
-                    Console.WriteLine("AYY HET LUKT");
+                    Console.Clear();
+                    CancelTitle();
+                    Console.WriteLine("\nReserveringscode moet uit 4 symbolen bestaan\n\nVul je reserveringscode in: \n");
+                    input = Console.ReadLine();
                 }
-                else
-                    Console.WriteLine("Het lukt niet!");
+                if (input.ToLower().Length == 4)
+                {
+                    Console.Clear();
+                    break;
+                }
             }
+            ReservationsList = Deserialize<List<Reservation>>("reservations.json");
+                for (int i = 0; i < ReservationsList.Count; i++)
+                {
+                    if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Ga naar annuleerfunctie");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        CancelTitle();
+                        Console.WriteLine("\nReserveringscode niet herkend.. Probeer opnieuw of ga terug: ");
+                        input = Console.ReadLine();
+                    }
+               
+            }
+            Utils.EnterTerug();
         }
 
     }

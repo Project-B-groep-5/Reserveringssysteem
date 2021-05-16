@@ -22,22 +22,25 @@ namespace Reserveringssysteem
             var optionsCount = menuArray.Length;
             var optionSelected = 0;
             var done = false;
-            var menuArrow = "-> ";
-            Console.WriteLine(menuLogo + menuTitle);
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(menuLogo);
+            Console.ResetColor();
+            Console.WriteLine(menuTitle);
             while (!done)
             {
                 for (int i = 0; i < optionsCount; i++)
                 {
                     if (optionSelected == i)
                     {
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.Write(menuArrow);
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write("   ");
                     }
                     else
                     {
-                        Console.Write("   "); //length of the menuArrow in spaces
+                        Console.Write("  ");
                     }
-                    Console.WriteLine(menuArray[i]);
+                    Console.WriteLine(menuArray[i] + ' ');
                     Console.ResetColor();
                 }
 
@@ -57,6 +60,16 @@ namespace Reserveringssysteem
             }
             Console.Clear();
             return optionSelected;
+        }
+
+        public static void Make(string[] titles, Action[] actions, string logo, string title)
+        {
+            var menu = new SelectionMenu(titles, logo, title);
+            var action = menu.Show();
+            if (actions[action] != null)
+            {
+                actions[action]();
+            }
         }
     }
 }
