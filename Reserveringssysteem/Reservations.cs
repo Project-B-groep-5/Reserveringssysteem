@@ -28,14 +28,28 @@ namespace Reserveringssysteem
 
             string[] choices = GetDiscountMenus(amountPeople);
             string comments = AskForComments();
-
-            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
-
-            SendEmail(reservation.ReservationId, name, time, date);
-
-            ReservateTitle();
-            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
-            reservation.Save();
+          
+            if (ReservationCheck.Check(date, time, amountPeople))
+            {
+                Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
+                SendEmail(reservation.ReservationId, name, time, date);
+                Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+                reservation.Save();
+            }
+            else
+            {
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen"}, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
+                switch (optionMenu.Show())
+                {
+                    case 0:
+                        Reservate();
+                        break;
+                    case 1:
+                        Program.state = null;
+                        break;
+                    
+                }
+            }
 
             Utils.EnterTerug();
         }
@@ -212,7 +226,8 @@ Tot dan!
             };
 
             smtpClient.Send("RestaurantProjectB@gmail.com", emailAddress, "Uw reservering is bevestigd!", mailMessage);
-            Console.Clear();
+            
+            ReservateTitle();
             Console.WriteLine("Bevestiginsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n");
         }
     }
