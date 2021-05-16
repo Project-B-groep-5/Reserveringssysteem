@@ -5,7 +5,12 @@ namespace Reserveringssysteem
 {
     class EmployeeActions
     {
-        public static void ChangeRestaurantInfo()
+        public static void Menu()
+        {
+            SelectionMenu.Make(new[] { "Restaurant gegevens aanpassen", "Wachtwoord wijzigen", "Gerechten/menus aanpassen"}, new Action[] { null, null, null }, Logo.Dashboard, "\n\nKies een optie\n");
+        }
+
+        private static void ChangeRestaurantInfo()
         {
             Serialize(new Restaurant("De houten vork", new Location("Wijhaven", "107", "3011 WN", "Rotterdam"), 100, new string[] { "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "Gesloten" }, new string[] { "oscar.vugt@gmail.com", "06-12932305"}), "restaurant.json");
         }

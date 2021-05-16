@@ -8,14 +8,8 @@ namespace Reserveringssysteem
 {
     public class Reservations
     {
-        public static List<VoordeelMenu> VoordeelMenus;
-        public static void ReservateTitle() // Call deze method om de onderstaande header te krijgen
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(Logo.Reserveren + "\n");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+        private static List<VoordeelMenu> VoordeelMenus;
+        private static void ReservateTitle() => Logo.PrintLogo(Logo.Reserveren);
 
         public static void Reservate()
         {
