@@ -156,7 +156,7 @@ namespace Reserveringssysteem
                         }
 
                         string[] keuzeCheckArr = new string[2] { "Ja", "Nee" };
-                        var voordeelCheck = new SelectionMenu(keuzeCheckArr, Logo.Reserveren, $"\n{gekozen}\n\nKlopt dit?\n");
+                        var voordeelCheck = new SelectionMenu(keuzeCheckArr, Logo.Reserveren, $"\n{gekozen}\nKlopt dit?\n");
                         var keuzeCheck = voordeelCheck.Show();
 
                         if (keuzeCheckArr[keuzeCheck] == "Nee") continue;
