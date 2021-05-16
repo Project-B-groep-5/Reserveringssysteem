@@ -28,7 +28,7 @@ namespace Reserveringssysteem
                 result += "\n";
             }
             result += "Type: " + DishList[i].Type + "\n";
-            result += "______________________________________\n";
+            result += "__________________________________________________________\n";
             return result;
         }
 
@@ -49,7 +49,7 @@ namespace Reserveringssysteem
             for (int i = 0; i < VoordeelMenu.Count; i++)
             {
                 result += VoordeelMenu[i].Name + ":\n\nVoorgerecht: " + VoordeelMenu[i].VoorGerecht.Name + "\nHoofdgerecht: " + VoordeelMenu[i].HoofdGerecht.Name + "\nNagerecht: " + VoordeelMenu[i].NaGerecht.Name + "\nPrijs: " + VoordeelMenu[i].Prijs.ToString("0.00") + " euro\n";
-                result += "______________________________________________________\n";
+                result += "__________________________________________________________\n";
             }
             return result;
         }
