@@ -11,7 +11,7 @@
       "Tomaat",
       "Brood"
     ],
-    "Type": "Hoofdgerecht",
+    "Type": "Hoofdgerechten",
     "Tags": [
       "Vlees",
       "Burger"
@@ -320,7 +320,7 @@
       "Tomaat",
       "Rode biet"
     ],
-    "Type": "Hoofdgerecht",
+    "Type": "Hoofdgerechten",
     "Tags": [
       "Vegan",
       "Veganistisch",
@@ -337,7 +337,7 @@
       "Groenten",
       "Patat"
     ],
-    "Type": "Hoofdgerecht",
+    "Type": "Hoofdgerechten",
     "Tags": [
       "Biefstuk",
       "Patat",
@@ -359,7 +359,7 @@
       "Peper",
       "Zout"
     ],
-    "Type": "Hoofdgerecht",
+    "Type": "Hoofdgerechten",
     "Tags": [
       "Pizza",
       "Vegetarisch"
@@ -377,7 +377,7 @@
       "Rozemarijn",
       "Worcestersaus"
     ],
-    "Type": "Hoofdgerecht",
+    "Type": "Hoofdgerechten",
     "Tags": [
       "Spareribs",
       "Varken",
@@ -394,7 +394,7 @@
       "Knoflook",
       "Aioli"
     ],
-    "Type": "Voorgerecht",
+    "Type": "Voorgerechten",
     "Tags": [
       "Brood",
       "Voorgerecht"
@@ -412,7 +412,7 @@
       "Peper",
       "Zout"
     ],
-    "Type": "Voorgerecht",
+    "Type": "Voorgerechten",
     "Tags": [
       "Ossenhaas",
       "Voorgerecht"
@@ -430,7 +430,7 @@
       "Eieren",
       "Vanille"
     ],
-    "Type": "Nagerecht",
+    "Type": "Nagerechten",
     "Tags": [
       "Nagerecht",
       "Dessert"
@@ -448,7 +448,7 @@
       "Chocola",
       "Chocoladesaus"
     ],
-    "Type": "Nagerecht",
+    "Type": "Nagerechten",
     "Tags": [
       "Nagerecht",
       "Dessert",
