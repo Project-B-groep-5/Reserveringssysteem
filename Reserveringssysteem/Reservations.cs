@@ -170,7 +170,8 @@ namespace Reserveringssysteem
                                 if (menu == choices[i])
                                     count++;
                             }
-                            gekozen += $"\n{menu} {count}x";
+                            if (count > 0)
+                                gekozen += $"\n{menu} {count}x";
                         }
 
                         string[] keuzeCheckArr = new string[2] { "Ja", "Nee" };
