@@ -90,7 +90,7 @@ namespace Reserveringssysteem
                     Console.WriteLine($"                                     {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationsList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
             }
-            Utils.EnterTerug();
+            Utils.Enter();
         }
     }
 }

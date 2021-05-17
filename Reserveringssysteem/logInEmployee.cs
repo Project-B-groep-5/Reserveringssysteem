@@ -17,29 +17,9 @@ namespace Reserveringssysteem
 			} 
 			catch (FileNotFoundException)
             {
-				while (true)
-				{
-					Header();
-					Console.CursorVisible = true;
-					Console.WriteLine("Er is nog geen wachtwoord aangemaakt.\nNieuw wachtwoord:");
-					var newPassword = Console.ReadLine();
-					Header();
-					Console.WriteLine("Herhaal het nieuwe wachtwoord:");
-					if (Console.ReadLine() == newPassword)
-					{
-						password = newPassword;
-						break;
-					}
-					else
-					{
-						Header();
-						Console.WriteLine("De ingevoerde wachtwoorden komen niet overeen.");
-						Utils.EnterTerug();
-					}
-				}
-				File.WriteAllText("password.txt", password);
-
-            }
+				EmployeeActions.ChangePassword();
+				password = File.ReadAllText("password.txt");
+			}
 
 			Header();
 			Console.WriteLine("Voer wachtwoord in:");
@@ -50,8 +30,8 @@ namespace Reserveringssysteem
 			else 
             {
 				Header();
-				Console.WriteLine("Probeer opnieuw.");
-				Utils.EnterTerug();
+				Console.WriteLine("Incorrect wachtwoord.");
+				Utils.Enter("om opnieuw te proberen");
 				LogIn();
             }
 

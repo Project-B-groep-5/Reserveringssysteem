@@ -51,7 +51,7 @@ namespace Reserveringssysteem
             }
             else
                 Console.WriteLine("Niks gevonden.");
-            Utils.EnterTerug();
+            Utils.Enter();
         }
 
         public static void F()
