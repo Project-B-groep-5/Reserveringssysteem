@@ -68,6 +68,7 @@ namespace Reserveringssysteem
         {
             if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt wijzigen?") == 0)
             {
+                Console.CursorVisible = true;
                 int size = 0;
                 while (size < 1)
                 {
@@ -104,6 +105,7 @@ namespace Reserveringssysteem
 
         private static void AddTable()
         {
+            Console.CursorVisible = true;
             var tables = GetTables();
             string id = "";
             bool unique = false;

@@ -8,7 +8,6 @@ namespace Reserveringssysteem
     {
         public static void Enter(string msg = "om terug te gaan")
         {
-            Console.CursorVisible = false;
             string message = $"\n\nDruk op 'enter' {msg}.";
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Black;
