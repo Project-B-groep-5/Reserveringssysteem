@@ -59,7 +59,7 @@ namespace Reserveringssysteem
                 else if (foundItem)                                                     // Sluit af als reservering geannuleerd is
                 {
                     Console.WriteLine("\nDe reservering is geannuleerd!");
-                    Utils.EnterTerug();
+                    Utils.Enter();
                     break;
                 }
             }

@@ -10,7 +10,7 @@ namespace Reserveringssysteem
         private string menuLogo;
         private string menuTitle;
 
-        public SelectionMenu(string[] array, string logo, string title)
+        public SelectionMenu(string[] array, string logo, string title = "\nKies een optie\n")
         {
             menuArray = array;
             menuLogo = logo;
@@ -22,6 +22,7 @@ namespace Reserveringssysteem
             var optionsCount = menuArray.Length;
             var optionSelected = 0;
             var done = false;
+            Console.CursorVisible = false;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(menuLogo);
@@ -62,7 +63,7 @@ namespace Reserveringssysteem
             return optionSelected;
         }
 
-        public static void Make(string[] titles, Action[] actions, string logo, string title)
+        public static void Make(string[] titles, Action[] actions, string logo, string title = "\nKies een optie\n")
         {
             var menu = new SelectionMenu(titles, logo, title);
             var action = menu.Show();

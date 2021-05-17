@@ -6,10 +6,10 @@ namespace Reserveringssysteem
 {
     static class Utils
     {
-        public static void EnterTerug()
+        public static void Enter(string msg = "om terug te gaan")
         {
             Console.CursorVisible = false;
-            string message = "\n\nDruk op 'enter' om terug te gaan";
+            string message = $"\n\nDruk op 'enter' {msg}.";
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.ReadLine();
@@ -28,6 +28,12 @@ namespace Reserveringssysteem
             {
                 return false;
             }
+        }
+
+        public static int Confirm(string logo, string message)
+        {
+            var menu = new SelectionMenu(new[] { "Ja", "Nee" }, logo, message);
+            return menu.Show();
         }
     }
 }

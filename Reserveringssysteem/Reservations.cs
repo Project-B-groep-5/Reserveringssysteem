@@ -44,7 +44,7 @@ namespace Reserveringssysteem
             Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
             reservation.Save();
 
-            Utils.EnterTerug();
+            Utils.Enter();
         }
 
 
@@ -144,7 +144,7 @@ namespace Reserveringssysteem
                     case 0:
                         ReservateTitle();
                         Console.WriteLine(MenuShow.VoordeelMenuShow());
-                        Utils.EnterTerug();
+                        Utils.Enter();
                         break;
                     case 1:
                         choices = new string[amountPeople];
