@@ -21,12 +21,14 @@ namespace Reserveringssysteem
 
         static void Close()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(@" __   __   ___     ___     ___  __      __ ___     _     
  \ \ / /  /   \   /   \   | _ \ \ \    / /| __|   | |    
   \ V /   | - |   | - |   |   /  \ \/\/ / | _|    | |__  
   _\_/_   |_|_|   |_|_|   |_|_\   \_/\_/  |___|   |____| 
 _| """"""""|_|""""""""""|_|""""""""""|_|""""""""""|_|""""""""""|_|""""""""""|_|""""""""""| 
 ""`-0-0-'""`-0-0-'""`-0-0-'""`-0-0-'""`-0-0-'""`-0-0-'""`-0-0-'");
+            Console.ResetColor();
             Environment.Exit(0);
         }
     }
