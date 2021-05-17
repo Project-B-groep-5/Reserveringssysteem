@@ -1,8 +1,8 @@
 {
-  "Name": "De houten vork",
-  "Description": "Welkom bij restaurant de houten vork",
+  "Name": "De Houten Vork",
+  "Description": "Welkom bij restaurant de Houten Vork",
   "Address": {
-    "StreetName": "Wijhaven",
+    "StreetName": "Wijnhaven",
     "HouseNumber": "107",
     "PostalCode": "3011 WN",
     "City": "Rotterdam",
@@ -20,7 +20,7 @@
     "Gesloten"
   ],
   "ContactInformation": [
-    "oscar.vugt@gmail.com",
+    "RestaurantProjectB@gmail.com",
     "06-12932305"
   ]
 }
