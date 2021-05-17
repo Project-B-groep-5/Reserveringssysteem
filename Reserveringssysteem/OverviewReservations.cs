@@ -69,13 +69,15 @@ namespace Reserveringssysteem
                 }
             }
             Console.WriteLine(ReservationsPerTimeslot[0]);
-            Console.WriteLine("Tijdsloten      Aantaal reserveringen      Aantal mensen per reservering");
+                     Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");
             for(int i = 0; i < TimeSlots.Count; i++)
             {
-                Console.WriteLine($"{TimeSlots[i]}         {OccupationPerTimeslot[i]}      {ReservationsList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][0]].Size} klant(en)");
-                for(int a= 1; a < OccupationPerTimeslot[i]; a++)
+                if (ReservationsPerTimeslot[i].Count > 0)
+                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationsList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][0]].Size}");
+                else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
+                for (int a= 1; a < OccupationPerTimeslot[i]; a++)
                 {
-                    Console.WriteLine($"                                     {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size} klant(en) ");
+                    Console.WriteLine($"                                          {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size} klant(en) ");
                 }
             }
             Utils.EnterTerug();
