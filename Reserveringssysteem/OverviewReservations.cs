@@ -14,13 +14,20 @@ namespace Reserveringssysteem
         public static List<string> DaysWithOccupation;
         public static List<string> TimeSlots;
         public static DateTime dDate;
-
+        public static void ReservationsTitle() 
+        {
+            Console.ForegroundColor = ConsoleColor.Blue; 
+            Console.WriteLine(Logo.Reserveringen);
+            Console.ResetColor();
+        }
         public static void Overview()
         {
+            
             DaysWithOccupation = new List<string>();
             TimeSlots = new List<string>();
-          
+            ReservationsPerTimeslot = new List<List<int>>();
             ReservationsList = Deserialize<List<Reservation>>("reservations.json");
+
             for (int i = 0; i < ReservationsList.Count; i++)
             {
                if (!DaysWithOccupation.Contains(ReservationsList[i].Date))
@@ -35,12 +42,15 @@ namespace Reserveringssysteem
             DaysWithOccupation.Sort();
             TimeSlots.Sort();
             OccupationPerTimeslot = new int[TimeSlots.Count];
-            ReservationsPerTimeslot = new List<List<int>>();
+            Console.CursorVisible = true;
+            Console.Clear();
+            ReservationsTitle();
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 ReservationsPerTimeslot.Add(new List<int>());
             }
             Console.WriteLine("Op deze dagen is gereserveerd:");
+
             for (int i = 0; i < DaysWithOccupation.Count; i++)
             {
                 Console.WriteLine(DaysWithOccupation[i]);
@@ -73,11 +83,11 @@ namespace Reserveringssysteem
             for(int i = 0; i < TimeSlots.Count; i++)
             {
                 if (ReservationsPerTimeslot[i].Count > 0)
-                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationsList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][0]].Size}");
+                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationsList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationsList[ReservationsPerTimeslot[i][0]].ReservationId}");
                 else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
                 for (int a= 1; a < OccupationPerTimeslot[i]; a++)
                 {
-                    Console.WriteLine($"                                          {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size} klant(en) ");
+                    Console.WriteLine($"                                     {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationsList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
             }
             Utils.EnterTerug();
