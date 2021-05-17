@@ -160,6 +160,26 @@ namespace Reserveringssysteem
                             var keuze = voordeelKeuzes.Show();
                             choices[i] = Menus[keuze];
                         }
+                        ReservateTitle();
+                        string gekozen = "U heeft gekozen voor:\n";
+                        foreach (var menu in Menus)
+                        {
+                            int count = 0;
+                            for (int i = 0; i < choices.Length; i++)
+                            {
+                                if (menu == choices[i])
+                                    count++;
+                            }
+                            if (count > 0)
+                                gekozen += $"\n{menu} {count}x";
+                        }
+
+                        string[] keuzeCheckArr = new string[2] { "Ja", "Nee" };
+                        var voordeelCheck = new SelectionMenu(keuzeCheckArr, Logo.Reserveren, $"\n{gekozen}\n\nKlopt dit?\n");
+                        var keuzeCheck = voordeelCheck.Show();
+
+                        if (keuzeCheckArr[keuzeCheck] == "Nee") continue;
+
                         bool emptyChoice = true;
                         foreach (var str in choices)
                         {
@@ -169,10 +189,13 @@ namespace Reserveringssysteem
                                 break;                               
                             }
                         }
-                        if (emptyChoice)
-                            choices = null;
+                        if (emptyChoice) choices = null;
                         return choices;
                     case 2:
+                        string[] keuzeCheckArr2 = new string[2] { "Ja", "Nee" };
+                        var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u geen voordeelmenu wilt kiezen?\n");
+                        var keuzeCheck2 = voordeelCheck2.Show();
+                        if (keuzeCheckArr2[keuzeCheck2] == "Nee") continue;
                         return null;
                 }
             }
@@ -191,7 +214,7 @@ namespace Reserveringssysteem
                         var comment = Console.ReadLine();
                         return comment;
                     case 1:
-                        return comment = "";
+                        return "";
                 }
             }
         }
@@ -220,7 +243,7 @@ Tot dan!
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", "NieuwWachtwoord1337"),
+                Credentials = new NetworkCredential("RestaurantProjectB@gmail.com", Secrets.Password),
                 EnableSsl = true,
             };
 
