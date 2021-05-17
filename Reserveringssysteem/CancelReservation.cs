@@ -29,8 +29,10 @@ namespace Reserveringssysteem
                 {
                     Console.Clear();
                     CancelTitle();
-                    Console.WriteLine("\nReserveringscode moet uit 4 symbolen bestaan\n\nVul je reserveringscode in: \n");
+                    Console.WriteLine("\nReserveringscode moet uit 4 symbolen bestaan\n\nProbeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: \n");
                     input = Console.ReadLine();
+                    if (input == "")
+                        break;
                 }
                 if (input.ToLower().Length == 4)
                 {
@@ -53,8 +55,10 @@ namespace Reserveringssysteem
                 {
                     Console.Clear();
                     CancelTitle();
-                    Console.WriteLine("\nReserveringscode niet herkend.. Probeer opnieuw of ga terug: ");
+                    Console.WriteLine("\nReserveringscode niet herkend.. Probeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: ");
                     input = Console.ReadLine();
+                    if (input == "")
+                        break;
                 }
                 else if (foundItem)                                                     // Sluit af als reservering geannuleerd is
                 {
