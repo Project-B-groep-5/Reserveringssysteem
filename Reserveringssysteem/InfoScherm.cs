@@ -14,9 +14,7 @@ namespace Reserveringssysteem
     {
         public static void ShowInfo()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(Logo.OverOns);
-            Console.ResetColor();
+            Logo.PrintLogo(Logo.OverOns);
             Restaurant restaurant = Deserialize<Restaurant>("restaurant.json");
             Location address = restaurant.Address;
             string[] openingHours = restaurant.OpeningHours;
