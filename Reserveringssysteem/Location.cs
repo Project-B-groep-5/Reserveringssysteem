@@ -33,7 +33,7 @@ namespace Reserveringssysteem
             double latitude = 0.0;
             double longitude = 0.0;
 
-            string url = "https://maps.google.com/maps/api/geocode/xml?address=" + address + "&key=AIzaSyByK-OKdQMmLpuBwQwwp3ABA4dNnQGbG9A";
+            string url = "https://maps.google.com/maps/api/geocode/xml?address=" + address + "&key=" + Secrets.APIKey;
             WebRequest request = WebRequest.Create(url);
 
             using (WebResponse response = (HttpWebResponse)request.GetResponse())
