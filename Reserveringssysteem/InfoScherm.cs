@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Net;
 using System.Text;
 using static Reserveringssysteem.Json;
+using System.Globalization;
+using System.Linq;
 
 namespace Reserveringssysteem
 {
