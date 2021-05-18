@@ -11,10 +11,9 @@ namespace Reserveringssysteem
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-
-            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, new Action[] { ShowAllDishes.F, DishFilter.F, null}, Logo.MenuKaart);
-            static void cancelMenu() => SelectionMenu.Make(new string[2] { "Annuleer een reservering", "Terug" }, new Action[] { CancelReservation.cancelReservation, null }, Logo.Annuleren, "\nKies een optie\n"); 
-            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]", "Afsluiten" }, new Action[] { Reservations.Reservate, cancelMenu, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
+            static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, null}, Logo.MenuKaart);
+            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, null}, Logo.MenuKaart);
+            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]", "Afsluiten" }, new Action[] { Reservations.Reservate, CancelReservation.cancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
             
           Main(args);
         }
