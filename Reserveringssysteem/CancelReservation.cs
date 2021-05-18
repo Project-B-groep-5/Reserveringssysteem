@@ -6,7 +6,8 @@ using static Reserveringssysteem.Json;
 namespace Reserveringssysteem
 {
     public class CancelReservation
-    {   
+    {
+        public static bool answerNo;
         public static void CancelTitle() // Call deze method om de onderstaande header te krijgen
         {
             Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
@@ -16,26 +17,30 @@ namespace Reserveringssysteem
         public static void RemoveFromJSON()
         {
             Console.Clear();
-            CancelTitle();
-            Console.WriteLine("De code staat in het systeem en de reservering wordt nu geannuleerd..");
-                                
+            CancelTitle();                 
             Serialize(ReservationsList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
         }
-        static void areUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { RemoveFromJSON, null }, Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n");
+
+        public static void LeaveMenu()
+        {
+            answerNo = true;
+        }
+        static void areUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { RemoveFromJSON, LeaveMenu }, Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n");
 
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
         {
             Console.CursorVisible = true;
             bool foundItem = false;
-            bool startover = true; 
+            bool startover = true;
+            answerNo = false;
             Console.Clear();
             CancelTitle();
-            while (startover)
+            while (startover == true && answerNo == false)
             {
                 Console.WriteLine("\nVul uw reserveringscode in: \n");
                 string input = Console.ReadLine();
-                while (true)
+                while (true && answerNo == false)
                 {
                     if (input.ToLower().Length != 4)
                     {
@@ -44,7 +49,10 @@ namespace Reserveringssysteem
                         Console.WriteLine("\nReserveringscode moet uit 4 symbolen bestaan\n\nProbeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: \n");
                         input = Console.ReadLine();
                         if (input == "")
-                            break;
+                        {
+                            startover = false;
+                            foundItem = true;
+                        }
                     }
                     if (input.ToLower().Length == 4)
                     {
@@ -56,15 +64,25 @@ namespace Reserveringssysteem
                                 Console.Clear();
                                 CancelTitle();
                                 areUSure();
-                                ReservationsList.Remove(ReservationsList[i]);
-                                RemoveFromJSON(); // Verwijderd bijbehorende item uit JSON
-                                foundItem = true;
-                                startover = false;
-                                break;
+                                if (foundItem || answerNo == false)
+                                {
+                                    ReservationsList.Remove(ReservationsList[i]);
+                                    RemoveFromJSON();                                               // Verwijderd bijbehorende item uit JSON
+                                    foundItem = true;
+                                    startover = false;
+                                    break;
+                                }
+                               else
+                                {
+                                    Console.Clear();
+                                    CancelTitle();
+                                    Console.WriteLine("Uw reservering is niet geannuleerd");
+                                    Utils.Enter();
+                                }
                             }
                         }
                     }
-                    if (foundItem == false)                                                // Als er geen match is vragen of je het opnieuw wilt proberen
+                    if (foundItem == false && answerNo == false)                                                // Als er geen match is vragen of je het opnieuw wilt proberen
                     {
                         Console.Clear();
                         CancelTitle();
@@ -72,12 +90,25 @@ namespace Reserveringssysteem
                         input = Console.ReadLine();
                         if (input == "")
                         {
+                            startover = false;
                             foundItem = true;
-                            break;
                         }
+                    }
+                    else if (input == "" && answerNo == false)
+                    {
+                        startover = false;
+                        Utils.Enter();
                         break;
                     }
-                    else if (foundItem)                                                     // Sluit af als reservering geannuleerd is
+                    else if (foundItem == true && input != "" && answerNo == false)
+                    {
+                        Console.Clear();
+                        CancelTitle();
+                        Console.WriteLine("\nReservering geannuleerd! Indien u opnieuw wilt reserveren kunt u dit weer doen nadat u op 'enter' heeft gedrukt.");
+                        Utils.Enter();
+                        break;
+                    }
+                    else if (foundItem || answerNo == false)                                                     // Sluit af als reservering geannuleerd is
                     {
                         Console.Clear();
                         CancelTitle();
