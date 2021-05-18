@@ -7,118 +7,93 @@ namespace Reserveringssysteem
 {
     public class CancelReservation
     {
-        public static bool answerNo;
+        public static List<Reservation> ReservationsList;
+        private static int i;
+        private static bool keepTrue = true; 
+        public static void cancelReservation()
+        {
+            Console.CursorVisible = true;
+            Console.Clear();
+            CancelTitle();
+            keepTrue = true;
+            Console.WriteLine("\nVoer uw reserveringscode in of druk 'enter' om terug te gaan naar het vorige scherm\nUw reserveringscode bestaat uit vier symbolen en kan teruggevonden worden in de reserveringsmail: \n");
+            string input = Console.ReadLine();
+            while (keepTrue)
+            {
+                if (input.ToLower().Length == 4)
+                {
+                    ReservationsList = Deserialize<List<Reservation>>("reservations.json");
+                    for (i = 0; i < ReservationsList.Count; i++)                            //Loopt door de reservation items om te kijken of de reserverings code erin staat
+                    {
+                        if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt...
+                        {
+                            Console.Clear();
+                            CancelTitle();
+                            AreUSure();                                                         // Laat het keuzemenu zien; ja voor verwijderen <--> nee voor terug naar vorige scherm
+                            break;
+                        }
+                        else
+                        {
+                            InputAgain();
+                        }
+                    }
+                }
+                else if (input == "")
+                {
+                    keepTrue = false;
+                    Utils.Enter();
+                }
+
+                else if (input.Length != 4 && input != "")
+                {
+                    InputAgain();
+                }
+            }
+        }
+        static void AreUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { ja, nee }, Logo.Annuleren, "\nWeet u zeker dat u de reservering wilt annuleren?\n");
+
+
+        public static void ja()
+        {
+            DeleteReservation();
+        }
+        private static void DeleteReservation()
+        {
+            ReservationsList = Deserialize<List<Reservation>>("reservations.json");
+            ReservationsList.Remove(ReservationsList[i]);
+            Console.Clear();
+            CancelTitle();
+            Serialize(ReservationsList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
+            Console.WriteLine("\nDe reservering is verwijderd.\nAls u opnieuw wilt reserveren kunt u dat doen als u op 'enter' drukt.");
+            keepTrue = false;
+            Utils.Enter();
+        }
+        public static void nee()
+        {
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nDe reservering is niet verwijderd.");
+            keepTrue = false;
+            Utils.Enter();
+        }
+        public static string InputAgain()
+        {
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nReserveringscode onjuist. De reserveringscode bestaat uit vier karakters. \nVoer uw reserveringscode nogmaals in of ga terug met 'enter': \n");
+            string input = Console.ReadLine();
+            if (input == "")
+            {
+                keepTrue = false;
+                return input;
+            }
+            return input;
+        }
         public static void CancelTitle() // Call deze method om de onderstaande header te krijgen
         {
             Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
             Console.WriteLine(Logo.Annuleren);
             Console.ResetColor();
         }
-        public static void RemoveFromJSON()
-        {
-            Console.Clear();
-            CancelTitle();                 
-            Serialize(ReservationsList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
-        }
-
-        public static void LeaveMenu()
-        {
-            answerNo = true;
-        }
-        static void areUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { RemoveFromJSON, LeaveMenu }, Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n");
-
-        public static List<Reservation> ReservationsList; 
-        public static void cancelReservation()
-        {
-            Console.CursorVisible = true;
-            bool foundItem = false;
-            bool startover = true;
-            answerNo = false;
-            Console.Clear();
-            CancelTitle();
-            while (startover == true && answerNo == false)
-            {
-                Console.WriteLine("\nVul uw reserveringscode in: \n");
-                string input = Console.ReadLine();
-                while (true && answerNo == false)
-                {
-                    if (input.ToLower().Length != 4)
-                    {
-                        Console.Clear();
-                        CancelTitle();
-                        Console.WriteLine("\nReserveringscode moet uit 4 symbolen bestaan\n\nProbeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: \n");
-                        input = Console.ReadLine();
-                        if (input == "")
-                        {
-                            startover = false;
-                            foundItem = true;
-                        }
-                    }
-                    if (input.ToLower().Length == 4)
-                    {
-                        ReservationsList = Deserialize<List<Reservation>>("reservations.json");
-                        for (int i = 0; i < ReservationsList.Count; i++)                            //Loopt door de reservation items om te kijken of de reserverings code erin staat
-                        {
-                            if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt, item verwijderen
-                            {
-                                Console.Clear();
-                                CancelTitle();
-                                areUSure();
-                                if (foundItem || answerNo == false)
-                                {
-                                    ReservationsList.Remove(ReservationsList[i]);
-                                    RemoveFromJSON();                                               // Verwijderd bijbehorende item uit JSON
-                                    foundItem = true;
-                                    startover = false;
-                                    break;
-                                }
-                               else
-                                {
-                                    Console.Clear();
-                                    CancelTitle();
-                                    Console.WriteLine("Uw reservering is niet geannuleerd");
-                                    Utils.Enter();
-                                }
-                            }
-                        }
-                    }
-                    if (foundItem == false && answerNo == false)                                                // Als er geen match is vragen of je het opnieuw wilt proberen
-                    {
-                        Console.Clear();
-                        CancelTitle();
-                        Console.WriteLine("\nReserveringscode niet herkend.. Probeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: ");
-                        input = Console.ReadLine();
-                        if (input == "")
-                        {
-                            startover = false;
-                            foundItem = true;
-                        }
-                    }
-                    else if (input == "" && answerNo == false)
-                    {
-                        startover = false;
-                        Utils.Enter();
-                        break;
-                    }
-                    else if (foundItem == true && input != "" && answerNo == false)
-                    {
-                        Console.Clear();
-                        CancelTitle();
-                        Console.WriteLine("\nReservering geannuleerd! Indien u opnieuw wilt reserveren kunt u dit weer doen nadat u op 'enter' heeft gedrukt.");
-                        Utils.Enter();
-                        break;
-                    }
-                    else if (foundItem || answerNo == false)                                                     // Sluit af als reservering geannuleerd is
-                    {
-                        Console.Clear();
-                        CancelTitle();
-                        Utils.Enter();
-                        break;
-                    }
-                }
-            }
-        }
-            
-
     }
 }
