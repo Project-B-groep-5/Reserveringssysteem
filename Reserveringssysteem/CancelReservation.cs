@@ -8,7 +8,7 @@ namespace Reserveringssysteem
     public class CancelReservation
     {
         public static List<Reservation> ReservationsList;
-        private static int i;
+        private static int i = 0;
         private static bool keepTrue = true; 
         public static void cancelReservation()
         {
@@ -30,11 +30,8 @@ namespace Reserveringssysteem
                             Console.Clear();
                             CancelTitle();
                             AreUSure();                                                         // Laat het keuzemenu zien; ja voor verwijderen <--> nee voor terug naar vorige scherm
+                            keepTrue = false;
                             break;
-                        }
-                        else
-                        {
-                            InputAgain();
                         }
                     }
                 }
@@ -43,16 +40,13 @@ namespace Reserveringssysteem
                     keepTrue = false;
                     Utils.Enter();
                 }
-
                 else if (input.Length != 4 && input != "")
                 {
-                    InputAgain();
+                    input = InputAgain();
                 }
             }
         }
         static void AreUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { ja, nee }, Logo.Annuleren, "\nWeet u zeker dat u de reservering wilt annuleren?\n");
-
-
         public static void ja()
         {
             DeleteReservation();
