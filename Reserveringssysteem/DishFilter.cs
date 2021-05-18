@@ -65,5 +65,41 @@ namespace Reserveringssysteem
             var dishFilter = new DishFilter();
             dishFilter.Search(keyWord);
         }
+        public static void voorgerechten()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.MenuKaart);
+            Console.ResetColor();
+            Console.CursorVisible = true;
+            var dishFilter = new DishFilter();
+            dishFilter.Search("voorgerechten");
+        }
+        public static void hoofdgerechten()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.MenuKaart);
+            Console.ResetColor();
+            Console.CursorVisible = true;
+            var dishFilter = new DishFilter();
+            dishFilter.Search("hoofdgerechten");
+        }
+        public static void nagerechten()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.MenuKaart);
+            Console.ResetColor();
+            Console.CursorVisible = true;
+            var dishFilter = new DishFilter();
+            dishFilter.Search("nagerechten");
+        }
+        public static void dranken()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.MenuKaart);
+            Console.ResetColor();
+            Console.CursorVisible = true;
+            var dishFilter = new DishFilter();
+            dishFilter.Search("dranken");
+        }
     }
 }
