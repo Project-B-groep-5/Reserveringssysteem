@@ -11,8 +11,8 @@ namespace Reserveringssysteem
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-
-            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op termen", "Terug" }, new Action[] { ShowAllDishes.F, DishFilter.F, null}, Logo.MenuKaart);
+            static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken", "Terug"}, new Action[] {null, null, null, null, null}, Logo.MenuKaart);
+            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, null}, Logo.MenuKaart);
             SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]", "Afsluiten" }, new Action[] { Reservations.Reservate, CancelReservation.cancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
             
           Main(args);
