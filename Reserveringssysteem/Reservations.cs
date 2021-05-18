@@ -35,6 +35,7 @@ namespace Reserveringssysteem
             }
 
             string[] choices = GetDiscountMenus(amountPeople);
+            if (choices != null) FakePayment(choices);
             string comments = AskForComments();
             
             Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
@@ -47,7 +48,48 @@ namespace Reserveringssysteem
             Utils.Enter();
         }
 
+        private static void FakePayment(string[] choices)
+        {
+            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
+            double price = 0.0;
+            foreach (string menu in choices)
+            {
+                for (int i = 0; i < VoordeelMenus.Count; i++)
+                {
+                    if (menu == VoordeelMenus[i].Name)
+                    {
+                        price += VoordeelMenus[i].Prijs;
+                        break;
+                    }
+                }
+            }
+            string[] betaalMethodes = new string[5] { "iDEAL", "MasterCard", "Bancontact", "Paypal", "Afterpay" };
+            string[] check = new string[2] { "Ja", "Nee" };
+            string[] check2 = new string[2] { "Doorgaan", "Terug" };
+            while (true)
+            {
+                var betaalKeuze = new SelectionMenu(betaalMethodes, Logo.Reserveren, "\nKies uw gewenste betaalmethode\n");
+                int betaalMethode = betaalKeuze.Show();
+                Console.WriteLine($"U heeft gekozen voor {betaalMethodes[betaalMethode]}.");
 
+                var correcteBetaalMethode = new SelectionMenu(check, Logo.Reserveren, $"\nU heeft gekozen voor {betaalMethodes[betaalMethode]}.\nKlopt dit?\n");
+                int betaalCheck = correcteBetaalMethode.Show();
+                if (check[betaalCheck] == "Nee") continue;
+                ReservateTitle();
+                if (betaalMethodes[betaalMethode] == "Afterpay") Console.WriteLine("U kunt achteraf betalen");
+                else
+                {
+                    var doorgaan = new SelectionMenu(check2, Logo.Reserveren, $"U betaald {price.ToString("0.00")} euro via {betaalMethodes[betaalMethode]}.\n");
+                    int index = doorgaan.Show();
+                    if (check2[index] == "Terug") continue;
+                    ReservateTitle();
+                    Console.WriteLine("U heeft succesvol betaald!");
+                }
+                Console.WriteLine("\nKlik  op 'enter' om door te gaan.");
+                Console.Read();
+                break;
+            }
+        }
         private static string GetName()
         {
             ReservateTitle();
