@@ -40,7 +40,7 @@ namespace Reserveringssysteem
                     keepTrue = false;
                     Utils.Enter();
                 }
-                else if (input.Length != 4 && input != "")
+                else
                 {
                     input = InputAgain();
                 }
@@ -58,7 +58,7 @@ namespace Reserveringssysteem
             Console.Clear();
             CancelTitle();
             Serialize(ReservationsList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
-            Console.WriteLine("\nDe reservering is verwijderd.\nAls u opnieuw wilt reserveren kunt u dat doen als u op 'enter' drukt.");
+            Console.WriteLine("\nDe reservering is verwijderd.\nDruk 'enter' om terug te gaan naar het hoofdmenu.");
             keepTrue = false;
             Utils.Enter();
         }
