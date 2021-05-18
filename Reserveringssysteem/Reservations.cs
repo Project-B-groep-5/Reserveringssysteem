@@ -41,7 +41,7 @@ namespace Reserveringssysteem
             
             SendEmail(reservation.ReservationId, name, time, date);
             
-            Console.WriteLine($"Je hebt een reservering gemaakt op: {date} om {time} uur!\nJe reserveringscode is: {reservation.ReservationId}");
+            Console.WriteLine($"U heeft een reservering gemaakt op: {date} om {time} uur!\nUw reserveringscode is: {reservation.ReservationId}");
             reservation.Save();
 
             Utils.Enter();
@@ -94,7 +94,7 @@ namespace Reserveringssysteem
                 if (amountPeople <= 0)
                 {
                     ReservateTitle();
-                    Console.WriteLine($"Je moet voor minimaal één persoon reserveren.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
+                    Console.WriteLine($"U moet voor minimaal één persoon reserveren.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
                 }
             }
             Console.CursorVisible = false;
@@ -217,7 +217,7 @@ namespace Reserveringssysteem
         {
             ReservateTitle();
             Console.CursorVisible = true;
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen? : \n");
+            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen?: ");
             var emailAddress = Console.ReadLine();
             while (!Utils.IsValidEmail(emailAddress))
             {

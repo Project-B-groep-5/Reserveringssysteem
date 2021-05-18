@@ -21,7 +21,7 @@ namespace Reserveringssysteem
             bool foundItem = false; 
             Console.Clear();
             CancelTitle();
-            Console.WriteLine("\nVul je reserveringscode in: \n");
+            Console.WriteLine("\nVul uw reserveringscode in: \n");
             string input = Console.ReadLine();
             while (true)
             {
