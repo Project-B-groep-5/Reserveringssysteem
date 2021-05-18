@@ -94,7 +94,7 @@ namespace Reserveringssysteem
                 if (amountPeople <= 0)
                 {
                     ReservateTitle();
-                    Console.WriteLine($"U moet voor minimaal één persoon reserveren.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
+                    Console.WriteLine($"U moet voor minimaal één persoon reserveren door het invullen van een getal.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
                 }
             }
             Console.CursorVisible = false;
