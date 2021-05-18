@@ -26,15 +26,16 @@ namespace Reserveringssysteem
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(menuLogo);
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(menuTitle);
+            Console.ResetColor();
             while (!done)
             {
                 for (int i = 0; i < optionsCount; i++)
                 {
                     if (optionSelected == i)
                     {
-                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.Write("   ");
                     }
                     else
