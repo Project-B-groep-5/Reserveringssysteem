@@ -9,7 +9,7 @@ namespace Reserveringssysteem
         public static void Menu()
         {
 			bool back = false;
-			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / menus", "Wachtwoord", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, null, ChangePassword, () => back = true }, Logo.Dashboard);
+			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / menus", "Wachtwoord", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, OverviewReservations.Overview, ChangePassword, () => back = true }, Logo.Dashboard);
 			if(!back)
 				Menu();
         }
