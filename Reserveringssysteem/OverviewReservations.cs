@@ -14,12 +14,7 @@ namespace Reserveringssysteem
         public static List<string> DaysWithOccupation;
         public static List<string> TimeSlots;
         public static DateTime dDate;
-        public static void ReservationsTitle() 
-        {
-            Console.ForegroundColor = ConsoleColor.Blue; 
-            Console.WriteLine(Logo.Reserveringen);
-            Console.ResetColor();
-        }
+        private static void Header() => Logo.PrintLogo(Logo.Reserveringen);
         public static void Overview()
         {
             
@@ -42,9 +37,9 @@ namespace Reserveringssysteem
             DaysWithOccupation.Sort();
             TimeSlots.Sort();
             OccupationPerTimeslot = new int[TimeSlots.Count];
+            
+            Header();
             Console.CursorVisible = true;
-            Console.Clear();
-            ReservationsTitle();
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 ReservationsPerTimeslot.Add(new List<int>());
