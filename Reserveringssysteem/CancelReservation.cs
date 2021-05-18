@@ -13,15 +13,15 @@ namespace Reserveringssysteem
             Console.WriteLine(Logo.Annuleren);
             Console.ResetColor();
         }
-        public static void RemoveFromJSON(int i)
+        public static void RemoveFromJSON()
         {
             Console.Clear();
             CancelTitle();
             Console.WriteLine("De code staat in het systeem en de reservering wordt nu geannuleerd..");
-            ReservationsList.Remove(ReservationsList[i]);                      // Verwijderd bijbehorende item uit JSON
+                                
             Serialize(ReservationsList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
         }
-        static void areUSure(int i) => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] {cancelReservation , null }, Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n");
+        static void areUSure() => SelectionMenu.Make(new string[2] { "Ja", "Nee" }, actions: new Action[] { RemoveFromJSON, null }, Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n");
 
         public static List<Reservation> ReservationsList; 
         public static void cancelReservation()
@@ -55,8 +55,10 @@ namespace Reserveringssysteem
                             {
                                 Console.Clear();
                                 CancelTitle();
-                                areUSure(i);
-                                RemoveFromJSON(i);
+                                areUSure();
+                                ReservationsList.Remove(ReservationsList[i]);
+                                RemoveFromJSON(); // Verwijderd bijbehorende item uit JSON
+                                foundItem = true;
                                 startover = false;
                                 break;
                             }
@@ -69,7 +71,11 @@ namespace Reserveringssysteem
                         Console.WriteLine("\nReserveringscode niet herkend.. Probeer opnieuw of ga terug naar het hoofdmenu door op 'enter' te drukken: ");
                         input = Console.ReadLine();
                         if (input == "")
+                        {
+                            foundItem = true;
                             break;
+                        }
+                        break;
                     }
                     else if (foundItem)                                                     // Sluit af als reservering geannuleerd is
                     {
