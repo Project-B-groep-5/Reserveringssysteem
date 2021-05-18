@@ -23,24 +23,36 @@ namespace Reserveringssysteem
                 if (input.ToLower().Length == 4)
                 {
                     ReservationsList = Deserialize<List<Reservation>>("reservations.json");
-                    for (i = 0; i < ReservationsList.Count; i++)                            //Loopt door de reservation items om te kijken of de reserverings code erin staat
+                    if (ReservationsList.Count > 0)
                     {
-                        if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt...
+                        for (i = 0; i < ReservationsList.Count; i++)                            //Loopt door de reservation items om te kijken of de reserverings code erin staat
                         {
-                            Console.Clear();
-                            CancelTitle();
-                            AreUSure();                                                         // Laat het keuzemenu zien; ja voor verwijderen <--> nee voor terug naar vorige scherm
-                            keepTrue = false;
-                            break;
+                            if (ReservationsList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt...
+                            {
+                                Console.Clear();
+                                CancelTitle();
+                                AreUSure();                                                         //Laat het keuzemenu zien; ja voor verwijderen <--> nee voor terug naar vorige scherm
+                                keepTrue = false;
+                                break;
+                            }
+                            input = InputAgain();
                         }
                     }
+                    else                                                                          //Als er geen reserveringen in het systeem staan kan de for loop niet werken, vandaar deze else  
+                    {
+                        Console.Clear();
+                        CancelTitle();
+                        Console.WriteLine("\nGeen reserveringen gevonden in het systeem. Druk op 'enter' om weer terug te gaan naar het hoofdmenu.");
+                        Utils.Enter();
+                        keepTrue = false;
+                    }
                 }
-                else if (input == "")
+                else if (input == "")                                                             // Input = 'enter' 
                 {
                     keepTrue = false;
                     Utils.Enter();
                 }
-                else
+                else                                                                              // Nieuwe input
                 {
                     input = InputAgain();
                 }
