@@ -54,14 +54,14 @@ namespace Reserveringssysteem
 
         private static void RemoveTable(Table table, List<Table> tables)
         {
-            if(Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?") == 0)
+            if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?") == 0)
             {
                 if (tables.Remove(table))
                     Json.Serialize(tables, "tables.json");
+                Logo.PrintLogo(Logo.Tafels);
+                Console.WriteLine("Tafel verwijderd.");
+                Utils.Enter();
             }
-            Logo.PrintLogo(Logo.Tafels);
-            Console.WriteLine("Tafel verwijderd.");
-            Utils.Enter();
         }
 
         private static void ChangeTable(Table table, List<Table> tables)
