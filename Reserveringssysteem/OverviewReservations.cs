@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using static Reserveringssysteem.Json;
+using System.Linq;
 
 namespace Reserveringssysteem
 {
@@ -14,12 +15,7 @@ namespace Reserveringssysteem
         public static List<string> DaysWithOccupation;
         public static List<string> TimeSlots;
         public static DateTime dDate;
-        public static void ReservationsTitle() 
-        {
-            Console.ForegroundColor = ConsoleColor.Blue; 
-            Console.WriteLine(Logo.Reserveringen);
-            Console.ResetColor();
-        }
+        private static void Header() => Logo.PrintLogo(Logo.Reserveringen);
         public static void Overview()
         {
             
@@ -39,21 +35,26 @@ namespace Reserveringssysteem
                     TimeSlots.Add(ReservationsList[i].Time);
                }
             }
-            DaysWithOccupation.Sort();
+            List<string> sorted = DaysWithOccupation.OrderBy(x =>
+            {
+                DateTime dt;
+                DateTime.TryParse(x, out dt);
+                return dt;
+            }).ToList<string>();
             TimeSlots.Sort();
             OccupationPerTimeslot = new int[TimeSlots.Count];
+            
+            Header();
             Console.CursorVisible = true;
-            Console.Clear();
-            ReservationsTitle();
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 ReservationsPerTimeslot.Add(new List<int>());
             }
             Console.WriteLine("Op deze dagen is gereserveerd:");
 
-            for (int i = 0; i < DaysWithOccupation.Count; i++)
+            for (int i = 0; i < sorted.Count; i++)
             {
-                Console.WriteLine(DaysWithOccupation[i]);
+                Console.WriteLine(sorted[i]);
             }
             Console.WriteLine("Vul een datum in om per tijdsslot het aantal mensen te zien die komen.");
             string date = Console.ReadLine();
