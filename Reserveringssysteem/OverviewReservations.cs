@@ -69,8 +69,7 @@ namespace Reserveringssysteem
                     OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
                 }
             }
-            Console.WriteLine(ReservationsPerTimeslot[0]);
-                     Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");
+            Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");
             for(int i = 0; i < TimeSlots.Count; i++)
             {
                 if (ReservationsPerTimeslot[i].Count > 0)
@@ -78,7 +77,7 @@ namespace Reserveringssysteem
                 else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
                 for (int a= 1; a < OccupationPerTimeslot[i]; a++)
                 {
-                    Console.WriteLine($"                                     {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
+                    Console.WriteLine($"                                           {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
             }
             Utils.Enter();
