@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using static Reserveringssysteem.Json;
 using System.Linq;
 
@@ -9,40 +7,32 @@ namespace Reserveringssysteem
 {
     public class OverviewReservations
     {
-        public static List<Reservation> ReservationsList;
-        public static int[] OccupationPerTimeslot;
-        public static List<List<int>> ReservationsPerTimeslot;
-        public static List<string> DaysWithOccupation;
-        public static List<string> TimeSlots;
-        public static DateTime dDate;
         private static void Header() => Logo.PrintLogo(Logo.Reserveringen);
         public static void Overview()
         {
             
-            DaysWithOccupation = new List<string>();
-            TimeSlots = new List<string>();
-            ReservationsPerTimeslot = new List<List<int>>();
-            ReservationsList = Deserialize<List<Reservation>>("reservations.json");
+            var DaysWithOccupation = new List<string>();
+            var TimeSlots = new List<string>();
+            var ReservationsPerTimeslot = new List<List<int>>();
 
-            for (int i = 0; i < ReservationsList.Count; i++)
+            for (int i = 0; i < ReservationList.Count; i++)
             {
-               if (!DaysWithOccupation.Contains(ReservationsList[i].Date))
+               if (!DaysWithOccupation.Contains(ReservationList[i].Date))
                {
-                    DaysWithOccupation.Add(ReservationsList[i].Date);
+                    DaysWithOccupation.Add(ReservationList[i].Date);
                }
-               if (!TimeSlots.Contains(ReservationsList[i].Time))
+               if (!TimeSlots.Contains(ReservationList[i].Time))
                {
-                    TimeSlots.Add(ReservationsList[i].Time);
+                    TimeSlots.Add(ReservationList[i].Time);
                }
             }
             List<string> sorted = DaysWithOccupation.OrderBy(x =>
             {
-                DateTime dt;
-                DateTime.TryParse(x, out dt);
+                DateTime.TryParse(x, out DateTime dt);
                 return dt;
-            }).ToList<string>();
+            }).ToList();
             TimeSlots.Sort();
-            OccupationPerTimeslot = new int[TimeSlots.Count];
+            var OccupationPerTimeslot = new int[TimeSlots.Count];
             
             Header();
             Console.CursorVisible = true;
@@ -60,23 +50,23 @@ namespace Reserveringssysteem
             string date = Console.ReadLine();
             while (true)
             {
-                if (!DateTime.TryParse(date, out dDate) || !DaysWithOccupation.Contains(date))
+                if (!DateTime.TryParse(date, out DateTime dDate) || !DaysWithOccupation.Contains(date))
                 {
                     Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ\n");
                     date = Console.ReadLine();
                 }
                 else
                 {
-                    String.Format("{0:dd/MM/yyyy}", dDate);
+                    string.Format("{0:dd/MM/yyyy}", dDate);
                     break;
                 }
             }
-            for (int i = 0; i < ReservationsList.Count; i++)
+            for (int i = 0; i < ReservationList.Count; i++)
             {
-                if (date == ReservationsList[i].Date)
+                if (date == ReservationList[i].Date)
                 {
-                    ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationsList[i].Time)].Add(i);
-                    OccupationPerTimeslot[TimeSlots.IndexOf(ReservationsList[i].Time)] += 1;
+                    ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)].Add(i);
+                    OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
                 }
             }
             Console.WriteLine(ReservationsPerTimeslot[0]);
@@ -84,11 +74,11 @@ namespace Reserveringssysteem
             for(int i = 0; i < TimeSlots.Count; i++)
             {
                 if (ReservationsPerTimeslot[i].Count > 0)
-                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationsList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationsList[ReservationsPerTimeslot[i][0]].ReservationId}");
+                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][0]].ReservationId}");
                 else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
                 for (int a= 1; a < OccupationPerTimeslot[i]; a++)
                 {
-                    Console.WriteLine($"                                     {ReservationsList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationsList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationsList[ReservationsPerTimeslot[i][a]].ReservationId}");
+                    Console.WriteLine($"                                     {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
             }
             Utils.Enter();

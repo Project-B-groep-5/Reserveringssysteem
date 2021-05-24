@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
     public class DishFilter
     {
-        public static List<Dish> DishList;
-
         public void Search(string keyWord)
         {
-            DishList = Deserialize<List<Dish>>("dishes.json");
             string result = "";
             for (int i = 0; i < DishList.Count; i++)
             {

@@ -1,33 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Reserveringssysteem
 {
     class SelectionMenu
     {
-        private string[] menuArray;
-        private string menuLogo;
-        private string menuTitle;
+        private readonly string[] _menuArray;
+        private readonly string _menuLogo;
+        private readonly string _menuTitle;
 
         public SelectionMenu(string[] array, string logo, string title = "\nKies een optie\n")
         {
-            menuArray = array;
-            menuLogo = logo;
-            menuTitle = title;
+            _menuArray = array;
+            _menuLogo = logo;
+            _menuTitle = title;
         }
 
         public int Show()
         {
-            var optionsCount = menuArray.Length;
+            var optionsCount = _menuArray.Length;
             var optionSelected = 0;
             var done = false;
             Console.CursorVisible = false;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(menuLogo);
+            Console.WriteLine(_menuLogo);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine(menuTitle);
+            Console.WriteLine(_menuTitle);
             Console.ResetColor();
             while (!done)
             {
@@ -42,7 +40,7 @@ namespace Reserveringssysteem
                     {
                         Console.Write("  ");
                     }
-                    Console.WriteLine(menuArray[i] + ' ');
+                    Console.WriteLine(_menuArray[i] + ' ');
                     Console.ResetColor();
                 }
 
@@ -58,7 +56,7 @@ namespace Reserveringssysteem
                         done = true;
                         break;
                 }
-                Console.CursorTop = Console.CursorTop - optionsCount;
+                Console.CursorTop = _menuLogo.Split('\n').Length + _menuTitle.Split('\n').Length;
             }
             Console.Clear();
             return optionSelected;

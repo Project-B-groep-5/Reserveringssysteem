@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
@@ -14,21 +15,20 @@ namespace Reserveringssysteem
             Size = size;
         }
 
-        private static List<Table> GetTables() => Json.Deserialize<List<Table>>("tables.json");
-
         public static void TableManager()
         {
-            var tables = GetTables();
-            string[] namen = new string[tables.Count + 2];
-            for (int i = 0; i < tables.Count; i++)
-                namen[i] = $"Tafel {tables[i].TableId}, {tables[i].Size} zitplaatsen.";
+            string[] namen = new string[Tables.Count + 2];
+            for (int i = 0; i < Tables.Count - 1; i++)
+                namen[i] = $"Tafel {Tables[i].TableId}, {Tables[i].Size} zitplaatsen.";
+            if (Tables != null)
+                namen[^3] = $"Tafel {Tables[^1].TableId}, {Tables[^1].Size} zitplaatsen. \n";
             namen[^2] = "Toevoegen";
             namen[^1] = "Terug";
-            var menu = new SelectionMenu(namen, Logo.Tafels, "\n\nKies een tafel om deze te wijzigen / verwijderen.\n");
+            var menu = new SelectionMenu(namen, Logo.Tafels, "\nKies een tafel om deze te wijzigen / verwijderen.\n");
             var choice = menu.Show();
-            if (choice == tables.Count)
+            if (choice == Tables.Count)
                 AddTable();
-            else if (choice == tables.Count + 1)
+            else if (choice == Tables.Count + 1)
                 return;
             else
             {
@@ -38,10 +38,10 @@ namespace Reserveringssysteem
                     switch (menu.Show())
                     {
                         case 0:
-                            ChangeTable(tables[choice], tables);
+                            ChangeTable(Tables[choice], Tables);
                             return;
                         case 1:
-                            RemoveTable(tables[choice], tables);
+                            RemoveTable(Tables[choice], Tables);
                             return;
                         case 2:
                             continue;
@@ -52,19 +52,19 @@ namespace Reserveringssysteem
 
         }
 
-        private static void RemoveTable(Table table, List<Table> tables)
+        private static void RemoveTable(Table table, List<Table> Tables)
         {
             if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?") == 0)
             {
-                if (tables.Remove(table))
-                    Json.Serialize(tables, "tables.json");
+                if (Tables.Remove(table))
+                    Serialize(Tables, "tables.json");
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel verwijderd.");
                 Utils.Enter();
             }
         }
 
-        private static void ChangeTable(Table table, List<Table> tables)
+        private static void ChangeTable(Table table, List<Table> Tables)
         {
             if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt wijzigen?") == 0)
             {
@@ -99,14 +99,13 @@ namespace Reserveringssysteem
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel gewijzigd");
                 Utils.Enter();
-                Json.Serialize(tables, "tables.json");
+                Serialize(Tables, "tables.json");
             }
         }
 
         private static void AddTable()
         {
             Console.CursorVisible = true;
-            var tables = GetTables();
             string id = "";
             bool unique = false;
             while (!unique)
@@ -122,7 +121,7 @@ namespace Reserveringssysteem
                     continue;
                 }
                 unique = true;
-                foreach (var table in tables)
+                foreach (var table in Tables)
                 {
                     if (id.Equals(table.TableId, StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -163,11 +162,11 @@ namespace Reserveringssysteem
                     Utils.Enter("om opnieuw te proberen");
                 }
             }
-            tables.Add(new Table(id, size));
+            Tables.Add(new Table(id, size));
             Logo.PrintLogo(Logo.Tafels);
             Console.WriteLine("Tafel toegevoegd.");
             Utils.Enter();
-            Json.Serialize(tables, "tables.json");
+            Serialize(Tables, "tables.json");
         }
     }
 }

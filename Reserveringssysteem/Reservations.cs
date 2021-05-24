@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
-    public class Reservations
+    public static class Reservations
     {
-        private static List<VoordeelMenu> VoordeelMenus;
         private static void ReservateTitle() => Logo.PrintLogo(Logo.Reserveren);
-
         public static void Reservate()
         {
             string name = GetName();
@@ -20,7 +17,7 @@ namespace Reserveringssysteem
             string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
             string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
 
-            if (!ReservationCheck.Check(date, time, amountPeople))
+            if (!Check(date, time, amountPeople))
             {
                 var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
                 switch (optionMenu.Show())
@@ -47,10 +44,8 @@ namespace Reserveringssysteem
 
             Utils.Enter();
         }
-
         private static void FakePayment(string[] choices)
         {
-            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
             double price = 0.0;
             foreach (string menu in choices)
             {
@@ -142,7 +137,6 @@ namespace Reserveringssysteem
             Console.CursorVisible = false;
             return amountPeople;
         }
-
         private static string GetDate()
         {
             var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
@@ -167,10 +161,21 @@ namespace Reserveringssysteem
                 }
             }
         }
-
-        public static string[] GetDiscountMenus(int amountPeople)
+        private static bool Check(string date, string time, int size)
         {
-            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
+            int capacity = Json.Restaurant.Capacity;
+            int occupied = 0;
+            occupied += size;
+            for (int i = 0; i < ReservationList.Count; i++)
+            {
+                if (ReservationList[i].Date == date && ReservationList[i].Time == time)
+                    occupied += ReservationList[i].Size;
+            }
+            if (occupied <= capacity) return false;
+            return true;
+        }
+        private static string[] GetDiscountMenus(int amountPeople)
+        {
             string[] Menus = new string[VoordeelMenus.Count + 1];
             for (int i = 0; i < VoordeelMenus.Count; i++)
             {
@@ -236,7 +241,7 @@ namespace Reserveringssysteem
                 }
             }
         }
-        public static string AskForComments()
+        private static string AskForComments()
         {
             ReservateTitle();
             var OpmerkingenMenuKeuze = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
@@ -254,8 +259,7 @@ namespace Reserveringssysteem
                 }
             }
         }
-
-        public static void SendEmail(string reservationCode, string name, string time, string date) // Method om de mail te sturen.
+        private static void SendEmail(string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {
             ReservateTitle();
             Console.CursorVisible = true;
@@ -287,6 +291,82 @@ Tot dan!
             
             ReservateTitle();
             Console.WriteLine("Bevestigingsmail verstuurd. Vergeet niet uw spamfolder te bekijken als u geen bevestigingsmail heeft gehad.\n");
+        }
+        public static void CancelReservation()
+        {
+            if (ReservationList.Count <= 0)
+            {
+                Console.Clear();
+                CancelTitle();
+                Console.WriteLine("\nGeen reserveringen gevonden in het systeem.");
+                Utils.Enter();
+                return;
+            }
+            Console.CursorVisible = true;
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nVoer uw reserveringscode in of druk 'enter' om terug te gaan naar het vorige scherm\nUw reserveringscode bestaat uit vier symbolen en kan teruggevonden worden in de reserveringsmail:\n");
+            string input = Console.ReadLine();
+            while (true)
+            {
+                if (input.ToLower().Length == 4)
+                {
+
+                    for (int i = 0; i < ReservationList.Count; i++)                            //Loopt door de reservation items om te kijken of de reserverings code erin staat
+                    {
+                        if (ReservationList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt...
+                        {
+                            Console.Clear();
+                            CancelTitle();
+                            if (Utils.Confirm(Logo.Annuleren, "\nWeet u zeker dat u de reservering wilt annuleren?\n") == 0)
+                                DeleteReservation(ReservationList[i]);
+                            else
+                                Nee();
+                            return;
+                        }
+                    }
+                    input = InputAgain();
+                }
+                else if (input == "")                                                             // Input = 'enter' 
+                {
+                    return;
+                }
+                else                                                                              // Nieuwe input
+                {
+                    input = InputAgain();
+                }
+
+            }
+        }
+        private static void DeleteReservation(Reservation reservation)
+        {
+            ReservationList.Remove(reservation);
+            Console.Clear();
+            CancelTitle();
+            Serialize(ReservationList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
+            Console.WriteLine("\nDe reservering is verwijderd.");
+            Utils.Enter();
+        }
+        private static void Nee()
+        {
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nDe reservering is niet verwijderd.");
+            Utils.Enter();
+        }
+        private static string InputAgain()
+        {
+            Console.Clear();
+            CancelTitle();
+            Console.WriteLine("\nReserveringscode onjuist. De reserveringscode bestaat uit vier karakters. \nVoer uw reserveringscode nogmaals in of ga terug met 'enter': \n");
+            string input = Console.ReadLine();
+            return input;
+        }
+        private static void CancelTitle() // Call deze method om de onderstaande header te krijgen
+        {
+            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
+            Console.WriteLine(Logo.Annuleren);
+            Console.ResetColor();
         }
     }
 }

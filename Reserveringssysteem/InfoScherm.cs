@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Net;
-using System.Text;
-using static Reserveringssysteem.Json;
-using System.Globalization;
-using System.Linq;
 
 namespace Reserveringssysteem
 {
-    public class InfoScherm
+    public static class InfoScherm
     {
         public static void ShowInfo()
         {
             Logo.PrintLogo(Logo.OverOns);
-            Restaurant restaurant = Deserialize<Restaurant>("restaurant.json");
+            Restaurant restaurant = Json.Restaurant;
             Location address = restaurant.Address;
             string[] openingHours = restaurant.OpeningHours;
             Console.WriteLine($@"{restaurant.Name}

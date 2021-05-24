@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using static Reserveringssysteem.Json;
 
@@ -29,8 +28,8 @@ namespace Reserveringssysteem
             {
                 var code = new string(Enumerable.Repeat("ABCDEFGHIJKLMNPQRSTUVWXYZ123456789", 4).Select(s => s[new Random().Next(s.Length)]).ToArray());
                 bool exceeded = true;
-                if (Program.ReservationList == null) return code;
-                foreach (var reservation in Program.ReservationList)
+                if (ReservationList == null) return code;
+                foreach (var reservation in ReservationList)
                 {
                     if (reservation.ReservationId == code)
                     {
@@ -46,9 +45,8 @@ namespace Reserveringssysteem
 
         public void Save()
         {
-            var reservations = Deserialize<List<Reservation>>("reservations.json");
-            reservations.Add(this);
-            Serialize(reservations, "reservations.json");
+            ReservationList.Add(this);
+            Serialize(ReservationList, "reservations.json");
         }
     }
 }

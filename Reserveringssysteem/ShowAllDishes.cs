@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
     public class ShowAllDishes
     {
-        public static List<Dish> DishList;
 
         public void Search()
         {
             string[] cat = new string[] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Koude dranken", "Warme dranken", "Alcoholische dranken" };
-            DishList = Deserialize<List<Dish>>("dishes.json");
             string result = "";
             for (int y = 0; y < 6; y++)                          // y = 0 : Voorgerecht && y = 5 : Warme dranken
             {
