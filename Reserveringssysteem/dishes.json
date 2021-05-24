@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Name": "Cheeseburger",
     "Price": 12.5,
@@ -14,6 +14,7 @@
     "Type": "Hoofdgerechten",
     "Tags": [
       "Vlees",
+      "Gluten",
       "Burger"
     ]
   },
@@ -129,6 +130,7 @@
 
       "Koude dranken",
       "Warme dranken",
+      "Lactose",
       "Zoet"
     ]
   },
@@ -168,7 +170,8 @@
     "Ingredients": [],
     "Type": "Warme dranken",
     "Tags": [
-      "Warme dranken"
+      "Warme dranken",
+      "Lactose"
     ]
   },
   {
@@ -187,7 +190,8 @@
     "Type": "Warme dranken",
     "Tags": [
       "Warme dranken",
-      "Zoet"
+      "Zoet",
+      "Lactose"
     ]
   },
   {
@@ -196,7 +200,8 @@
     "Ingredients": [],
     "Type": "Warme dranken",
     "Tags": [
-      "Warme dranken"
+      "Warme dranken",
+      "Lactose"
     ]
   },
   {
@@ -205,7 +210,8 @@
     "Ingredients": [],
     "Type": "Warme dranken",
     "Tags": [
-      "Warme dranken"
+      "Warme dranken",
+      "Lactose"
     ]
   },
   {
@@ -324,7 +330,8 @@
     "Tags": [
       "Vegan",
       "Veganistisch",
-      "Salade"
+      "Salade",
+      "Noten"
 
     ]
   },
@@ -362,7 +369,9 @@
     "Type": "Hoofdgerechten",
     "Tags": [
       "Pizza",
-      "Vegetarisch"
+      "Vegetarisch",
+      "Gluten",
+      "Lactose"
     ]
   },
   {
@@ -397,7 +406,8 @@
     "Type": "Voorgerechten",
     "Tags": [
       "Brood",
-      "Voorgerecht"
+      "Voorgerecht",
+      "Gluten"
     ]
   },
   {
@@ -415,7 +425,8 @@
     "Type": "Voorgerechten",
     "Tags": [
       "Ossenhaas",
-      "Voorgerecht"
+      "Voorgerecht",
+      "Noten"
     ]
   },
   {
@@ -433,7 +444,8 @@
     "Type": "Nagerechten",
     "Tags": [
       "Nagerecht",
-      "Dessert"
+      "Dessert",
+      "Lactose"
     ]
   },
   {
@@ -452,7 +464,8 @@
     "Tags": [
       "Nagerecht",
       "Dessert",
-      "Chocola"
+      "Chocola",
+      "Lactose"
     ]
   }
 ]
