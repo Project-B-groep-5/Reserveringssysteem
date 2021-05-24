@@ -1,6 +1,6 @@
 [
     {
-        "Name": "Gezonde Hap",
+        "Name": "Vegetarisch menu",
         "VoorGerecht": {
             "Name": "Broodmandje",
             "Price": 6.5,
@@ -55,10 +55,10 @@
                 "Dessert"
             ]
         },
-        "Prijs": 19.0
+        "Prijs": 18.90
     },
     {
-        "Name": "Vette Hap",
+        "Name": "Cheeseburger menu",
         "Voorgerecht": {
             "Name": "Carpaccio",
             "Price": 9.5,
@@ -77,24 +77,26 @@
                 "Voorgerecht"
             ]
         },
-        "Hoofdgerecht": {
-            "Name": "Kogelbiefstuk",
-            "Price": 20.5,
-            "Ingredients": [
-                "Biefstuk",
-                "Pepersaus",
-                "Groenten",
-                "Patat"
-            ],
-            "Type": "Hoofdgerecht",
-            "Tags": [
-                "Biefstuk",
-                "Patat",
-                "Friet",
-                "Rund",
-                "Rundvlees"
-            ]
-        },
+      "Hoofdgerecht": {
+        "Name": "Cheeseburger",
+        "Price": 12.5,
+        "Ingredients": [
+          "Kaas",
+          "Vlees",
+          "Saus",
+          "Ui",
+          "Tomaat",
+          "Brood"
+        ],
+        "Type": "Hoofdgerechten",
+        "Tags": [
+          "Vlees",
+          "Burger",
+          "Kaas",
+          "Hamburger",
+          "Cheeseburger"
+        ]
+      },
         "Nagerecht": {
             "Name": "Dame Blanche",
             "Price": 10.5,
@@ -114,6 +116,6 @@
                 "Chocola"
             ]
         },
-        "Prijs": 35.0
+        "Prijs": 29.90
     }
 ]

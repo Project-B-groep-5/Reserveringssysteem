@@ -1,6 +1,6 @@
 ﻿namespace Reserveringssysteem
 {
-    class Restaurant
+    public class Restaurant
     {
         public string Name { get; set; }
         public string Description { get; set; }

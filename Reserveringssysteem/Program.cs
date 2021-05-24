@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
     class Program
     {
-        public static List<Reservation> ReservationList = Deserialize<List<Reservation>>("reservations.json");
-        public static readonly Restaurant Restaurant = Deserialize<Restaurant>("restaurant.json");
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, null}, Logo.MenuKaart);
-            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, null}, Logo.MenuKaart);
-            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "[Voor Medewerkers]", "Afsluiten" }, new Action[] { Reservations.Reservate, CancelReservation.cancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
+            Json.LoadJson();
+            static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken \n", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, null}, Logo.MenuKaart);
+            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, null}, Logo.MenuKaart);
+            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
             
           Main(args);
         }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Reserveringssysteem
 {
@@ -8,12 +6,15 @@ namespace Reserveringssysteem
     {
         public static void Enter(string msg = "om terug te gaan")
         {
+            bool visibile = Console.CursorVisible;
+            Console.CursorVisible = false;
             string message = $"\n\nDruk op 'enter' {msg}.";
             Console.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.ReadLine();
             Console.ResetColor();
             Console.Clear();
+            Console.CursorVisible = visibile;
         }
 
         public static bool IsValidEmail(string email)

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static Reserveringssysteem.Json;
+﻿using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
     public class MenuShow
     {
-        private static List<Dish> DishList = Deserialize<List<Dish>>("dishes.json");
-
         public static string Show(int i)
         {
             string result = "";
@@ -44,11 +39,10 @@ namespace Reserveringssysteem
 
         public static string VoordeelMenuShow()
         {
-            var VoordeelMenu = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
             string result = "";
-            for (int i = 0; i < VoordeelMenu.Count; i++)
+            for (int i = 0; i < VoordeelMenus.Count; i++)
             {
-                result += VoordeelMenu[i].Name + ":\n\nVoorgerecht: " + VoordeelMenu[i].VoorGerecht.Name + "\nHoofdgerecht: " + VoordeelMenu[i].HoofdGerecht.Name + "\nNagerecht: " + VoordeelMenu[i].NaGerecht.Name + "\nPrijs: " + VoordeelMenu[i].Prijs.ToString("0.00") + " euro\n";
+                result += VoordeelMenus[i].Name + ":\n\nVoorgerecht: " + VoordeelMenus[i].VoorGerecht.Name + "\nHoofdgerecht: " + VoordeelMenus[i].HoofdGerecht.Name + "\nNagerecht: " + VoordeelMenus[i].NaGerecht.Name + "\nPrijs: " + VoordeelMenus[i].Prijs.ToString("0.00") + " euro\n";
                 result += "__________________________________________________________\n";
             }
             return result;
