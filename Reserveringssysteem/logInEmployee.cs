@@ -26,7 +26,7 @@ namespace Reserveringssysteem
 			string ingevoerdWachtwoord = Console.ReadLine();
 
 			if (ingevoerdWachtwoord == password)
-				EmployeeActions.Menu();
+				EmployeeActions.MainMenu();
 			else 
             {
 				Header();

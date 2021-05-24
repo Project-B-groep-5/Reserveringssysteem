@@ -42,7 +42,7 @@ namespace Reserveringssysteem
             Console.WriteLine($"U heeft een reservering gemaakt op: {date} om {time} uur!\nUw reserveringscode is: {reservation.ReservationId}");
             reservation.Save();
 
-            Utils.Enter();
+            Utils.Enter(Program.Main);
         }
         private static void FakePayment(string[] choices)
         {
@@ -340,14 +340,14 @@ Tot dan!
             CancelTitle();
             Serialize(ReservationList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
             Console.WriteLine("\nDe reservering is verwijderd.");
-            Utils.Enter();
+            Utils.Enter(Program.Main);
         }
         private static void Nee()
         {
             Console.Clear();
             CancelTitle();
             Console.WriteLine("\nDe reservering is niet verwijderd.");
-            Utils.Enter();
+            Utils.Enter(Program.Main);
         }
         private static string InputAgain()
         {

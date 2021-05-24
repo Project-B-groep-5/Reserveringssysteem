@@ -29,8 +29,8 @@ namespace Reserveringssysteem
                     Console.WriteLine($"{cat[y]} Heeft geen resultaten. --> Niks gevonden. De JSON heeft geen items.");
                 }
             }
-                Utils.Enter();
-                }
+            Utils.Enter(Program.Main);
+        }
 
         public static void F()
         {

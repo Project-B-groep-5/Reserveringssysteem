@@ -6,12 +6,13 @@ namespace Reserveringssysteem
 {
     class EmployeeActions
     {
-        public static void Menu()
+		public static void MainMenu()
         {
-			bool back = false;
-			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / menus", "Wachtwoord \n", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, OverviewReservations.Overview, ChangePassword, () => back = true }, Logo.Dashboard, "\nKies een optie om te wijzigen\n");
-			if(!back)
-				Menu();
+			SelectionMenu.Make(new[] { "Reserveringen weergeven", "Gegevens wijzigen", "Terug" }, new Action[] { OverviewReservations.Overview, ChangeMenu, Program.Main}, Logo.Dashboard);
+        }
+        private static void ChangeMenu()
+        {
+			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / menus", "Wachtwoord \n", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, null, ChangePassword, MainMenu }, Logo.Dashboard, "\nKies een optie om te wijzigen\n");
         }
 
         private static void ChangeRestaurantInfo()

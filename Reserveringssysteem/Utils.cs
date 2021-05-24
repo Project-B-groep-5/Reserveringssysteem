@@ -16,6 +16,19 @@ namespace Reserveringssysteem
             Console.Clear();
             Console.CursorVisible = visibile;
         }
+        public static void Enter(Action action, string msg = "om terug te gaan")
+        {
+            bool visibile = Console.CursorVisible;
+            Console.CursorVisible = false;
+            string message = $"\n\nDruk op 'enter' {msg}.";
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.ReadLine();
+            Console.ResetColor();
+            Console.Clear();
+            Console.CursorVisible = visibile;
+            action();
+        }
 
         public static bool IsValidEmail(string email)
         {
