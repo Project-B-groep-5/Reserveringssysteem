@@ -17,7 +17,7 @@ namespace Reserveringssysteem
             string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
             string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
 
-            if (!Check(date, time, amountPeople))
+            if (Check(date, time, amountPeople))
             {
                 var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
                 switch (optionMenu.Show())
