@@ -59,6 +59,8 @@ namespace Reserveringssysteem
                 Console.CursorTop = _menuLogo.Split('\n').Length + _menuTitle.Split('\n').Length;
             }
             Console.Clear();
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
             return optionSelected;
         }
 

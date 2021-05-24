@@ -245,19 +245,14 @@ namespace Reserveringssysteem
         {
             ReservateTitle();
             var OpmerkingenMenuKeuze = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
-            while (true)
+            if (OpmerkingenMenuKeuze.Show() == 0)
             {
-                switch (OpmerkingenMenuKeuze.Show())
-                {
-                    case 0:
-                        ReservateTitle();
-                        Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
-                        var comment = Console.ReadLine();
-                        return comment;
-                    case 1:
-                        return "";
-                }
+                ReservateTitle();
+                Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
+                var comment = Console.ReadLine();
+                return comment;
             }
+            return null;
         }
         private static void SendEmail(string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {

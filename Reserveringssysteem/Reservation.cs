@@ -21,7 +21,7 @@ namespace Reserveringssysteem
             OrderStatus = "ACCEPTED";
         }
 
-        public static string GenerateReservationCode()
+        private static string GenerateReservationCode()
         {            
             int counter = 0;
             while (counter < 1000)
