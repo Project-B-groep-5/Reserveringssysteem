@@ -10,7 +10,6 @@ namespace Reserveringssysteem
         private static void Header() => Logo.PrintLogo(Logo.Reserveringen);
         public static void Overview()
         {
-
             var DaysWithOccupation = new List<string>();
             var TimeSlots = new List<string>();
             var ReservationsPerTimeslot = new List<List<int>>();
@@ -66,6 +65,7 @@ namespace Reserveringssysteem
             }
             else Console.WriteLine("Er zijn geen reserveringen vandaag.");
             Console.Read();
+
             var optionMenu = new SelectionMenu(new string[2] { "Andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
             switch (optionMenu.Show())
             {
@@ -74,9 +74,7 @@ namespace Reserveringssysteem
                     return;
                 case 1:
                     EmployeeActions.Menu();
-                    return;
-                
-
+                    return;                
             }
 
 
