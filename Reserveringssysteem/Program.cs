@@ -10,7 +10,7 @@ namespace Reserveringssysteem
             Json.LoadJson();
             static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken \n", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, null}, Logo.MenuKaart);
             static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, null}, Logo.MenuKaart);
-            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
+            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom + $"\nBij {Json.Restaurant.Name}");
             
           Main(args);
         }

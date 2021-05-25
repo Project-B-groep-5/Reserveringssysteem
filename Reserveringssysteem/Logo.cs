@@ -4,11 +4,11 @@ namespace Reserveringssysteem
 {
     static class Logo
     {
-        public static string Welkom = @" _       __     ____                 
+        public static string Welkom = @$" _       __     ____                 
 | |     / /__  / / /______  ____ ___ 
 | | /| / / _ \/ / //_/ __ \/ __ `__ \
 | |/ |/ /  __/ / ,< / /_/ / / / / / /
-|__/|__/\___/_/_/|_|\____/_/ /_/ /_/                                    
+|__/|__/\___/_/_/|_|\____/_/ /_/ /_/           
 __________________________________________________________";
 
         public static string Reserveren = @"    ____                                               
