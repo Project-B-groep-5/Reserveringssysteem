@@ -11,36 +11,81 @@ namespace Reserveringssysteem
         public static void Overview()
         {
             var DaysWithOccupation = new List<string>();
-            var TimeSlots = new List<string>();
+            var TimeSlots = new List<string> { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
             var ReservationsPerTimeslot = new List<List<int>>();
-            var today = DateTime.Today.ToString();
+            var OccupationPerTimeslot = new int[TimeSlots.Count];
+            var today = DateTime.Today;
+            var string_today = today.ToString("dd-MM-yyyy");
+            var tomorrow = today.AddDays(1);
+            string string_tomorrow = tomorrow.ToString("dd-MM-yyyy");
             for (int i = 0; i < ReservationList.Count; i++)
             {
                 if (!DaysWithOccupation.Contains(ReservationList[i].Date))
                 {
                     DaysWithOccupation.Add(ReservationList[i].Date);
                 }
-                if (!TimeSlots.Contains(ReservationList[i].Time))
-                {
-                    TimeSlots.Add(ReservationList[i].Time);
-                }
+
             }
             List<string> sorted = DaysWithOccupation.OrderBy(x =>
             {
                 DateTime.TryParse(x, out DateTime dt);
                 return dt;
             }).ToList();
-            TimeSlots.Sort();
-            var OccupationPerTimeslot = new int[TimeSlots.Count];
+            for (int i = 0; i < TimeSlots.Count; i++)
+            {
+                ReservationsPerTimeslot.Add(new List<int>());
+            }
+            var optionMenu = new SelectionMenu(new string[4] { "Reserveringen voor vandaag bekijken", "Reserveringen voor morgen bekijken","Reserveringen andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
+            switch (optionMenu.Show())
+            {
+                case 0:
+                    Today(sorted, TimeSlots, ReservationsPerTimeslot, string_today, OccupationPerTimeslot);
+                    return;
+                case 1:
+                    Tomorrow(sorted, TimeSlots, ReservationsPerTimeslot, string_tomorrow, OccupationPerTimeslot);
+                    return;
+                case 2:
+                    ChooseDate(sorted, TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
+                    return;
+                case 3:
+                    EmployeeActions.Menu();
+                    return;
+            }
+        }
+        public static void Tomorrow(List<string> sorted,List<string> TimeSlots,List<List<int>> ReservationsPerTimeslot,string string_tomorrow, int[] OccupationPerTimeslot)
+        {                   
+            Header();
+            Console.CursorVisible = true;
+            
+            Console.WriteLine($"Dit zijn de reserveringen voor morgen {string_tomorrow}:");
+            
+            if (sorted.Contains(string_tomorrow))
+            {
+                for (int i = 0; i < ReservationList.Count; i++)
+                {
+                    if (string_tomorrow == ReservationList[i].Date)
+                    {
+                        ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)].Add(i);
+                        OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
+                    }
+                }
+                ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
 
+            }
+            else Console.WriteLine("Er zijn geen reserveringen morgen.\nDruk op enter om terug te gaan");
+            Console.Read();
+            Overview();
+        }   
+        public static void Today(List<string> sorted, List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, string today, int[] OccupationPerTimeslot)
+        {   
             Header();
             Console.CursorVisible = true;
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 ReservationsPerTimeslot.Add(new List<int>());
             }
-            Console.WriteLine("Dit zijn de reserveringen voor vandaag:");
-            if (DaysWithOccupation.Contains(today))
+            Console.WriteLine($"Dit zijn de reserveringen voor vandaag {today}:");
+            if (sorted.Contains(today))
             {
                 for (int i = 0; i < ReservationList.Count; i++)
                 {
@@ -50,67 +95,18 @@ namespace Reserveringssysteem
                         OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
                     }
                 }
-                Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");
-                for (int i = 0; i < TimeSlots.Count; i++)
-                {
-                    if (ReservationsPerTimeslot[i].Count > 0)
-                        Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][0]].ReservationId}");
-                    else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
-                    for (int a = 1; a < OccupationPerTimeslot[i]; a++)
-                    {
-                        Console.WriteLine($"                                           {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
-                    }
-                }
+                ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
 
             }
-            else Console.WriteLine("Er zijn geen reserveringen vandaag.");
+            else Console.WriteLine("Er zijn geen reserveringen vandaag.\nDruk op enter om terug te gaan");
             Console.Read();
-
-            var optionMenu = new SelectionMenu(new string[2] { "Andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
-            switch (optionMenu.Show())
-            {
-                case 0:
-                    OverviewReservations.ChooseDate();
-                    return;
-                case 1:
-                    EmployeeActions.Menu();
-                    return;                
-            }
-
-
+            Overview();
         }
-        public static void ChooseDate()
-        {
-            var DaysWithOccupation = new List<string>();
-            var TimeSlots = new List<string>();
-            var ReservationsPerTimeslot = new List<List<int>>();
-            var today = DateTime.Today.ToString("dd-MM-yyyy");
-            for (int i = 0; i < ReservationList.Count; i++)
-            {
-                if (!DaysWithOccupation.Contains(ReservationList[i].Date) && DateTime.Parse(ReservationList[i].Date) > DateTime.Parse(today))
-                {
-                    DaysWithOccupation.Add(ReservationList[i].Date);
-                }
-                if (!TimeSlots.Contains(ReservationList[i].Time))
-                {
-                    TimeSlots.Add(ReservationList[i].Time);
-                }
-            }
-            List<string> sorted = DaysWithOccupation.OrderBy(x =>
-            {
-                DateTime.TryParse(x, out DateTime dt);
-                return dt;
-            }).ToList();
-            TimeSlots.Sort();
-            var OccupationPerTimeslot = new int[TimeSlots.Count];
-            Console.Clear();
+        public static void ChooseDate(List<string> sorted, List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
+        {                      
             Header();
             Console.CursorVisible = true;
-            for (int i = 0; i < TimeSlots.Count; i++)
-            {
-                ReservationsPerTimeslot.Add(new List<int>());
-            }
-           
+                      
             Console.WriteLine("Op deze dagen is gereserveerd:");
 
             for (int i = 0; i < sorted.Count; i++)
@@ -121,7 +117,7 @@ namespace Reserveringssysteem
             string date = Console.ReadLine();
             while (true)
             {
-                if (!DateTime.TryParse(date, out DateTime dDate) || !DaysWithOccupation.Contains(date))
+                if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
                 {
                     Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ\n");
                     date = Console.ReadLine();
@@ -140,6 +136,10 @@ namespace Reserveringssysteem
                     OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
                 }
             }
+            ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
+        }
+        public static void ShowReservations(List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
+        {
             Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");
             for (int i = 0; i < TimeSlots.Count; i++)
             {
@@ -152,17 +152,9 @@ namespace Reserveringssysteem
                 }
 
             }
+            Console.WriteLine("Druk op enter om terug te gaan");
             Console.Read();
-            var optionMenu = new SelectionMenu(new string[2] { "Andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
-            switch (optionMenu.Show())
-            {
-                case 0:
-                    ChooseDate();
-                    return;
-                case 1:
-                    EmployeeActions.Menu();
-                    return;
-            }
+            Overview();
         }
     }
 }
