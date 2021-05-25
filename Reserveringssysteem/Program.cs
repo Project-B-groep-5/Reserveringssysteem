@@ -8,9 +8,9 @@ namespace Reserveringssysteem
         {
             Console.CursorVisible = false;
             Json.LoadJson();
-            static void secondMenuScreen() => SelectionMenu.Make(new string[5] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken \n", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, dishMenu}, Logo.MenuKaart);
-            static void dishMenu() => SelectionMenu.Make(new string[3] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, Main}, Logo.MenuKaart);
-            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
+            static void secondMenuScreen() => SelectionMenu.Make(new[] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Dranken \n", "Terug"}, new Action[] { DishFilter.voorgerechten, DishFilter.hoofdgerechten, DishFilter.nagerechten, DishFilter.dranken, dishMenu}, Logo.MenuKaart);
+            static void dishMenu() => SelectionMenu.Make(new[] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { secondMenuScreen, DishFilter.F, Main}, Logo.MenuKaart);
+            SelectionMenu.Make(new[] { "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, dishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
         }
 
         private static void Close()

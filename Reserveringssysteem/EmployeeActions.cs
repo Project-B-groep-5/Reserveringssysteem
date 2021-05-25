@@ -1,27 +1,167 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
 {
-    class EmployeeActions
-    {
+	class EmployeeActions
+	{
 		public static void MainMenu()
-        {
-			SelectionMenu.Make(new[] { "Reserveringen weergeven", "Gegevens wijzigen", "Terug" }, new Action[] { OverviewReservations.Overview, ChangeMenu, Program.Main}, Logo.Dashboard);
-        }
-        private static void ChangeMenu()
-        {
-			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / menus", "Wachtwoord \n", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, null, ChangePassword, MainMenu }, Logo.Dashboard, "\nKies een optie om te wijzigen\n");
-        }
+		{
+			SelectionMenu.Make(new[] { "Reserveringen weergeven", "Gegevens wijzigen \n", "Terug" }, new Action[] { OverviewReservations.Overview, ChangeMenu, Program.Main }, Logo.Dashboard);
+		}
+		public static void ChangeMenu()
+		{
+			SelectionMenu.Make(new[] { "Restaurant gegevens", "Tafels", "Gerechten / Dranken", "Menus", "Wachtwoord \n", "Terug" }, new Action[] { ChangeRestaurantInfo, Table.TableManager, ChangeDish, ChangeMenus, ChangePassword, MainMenu }, Logo.Dashboard, "\nKies een optie om te wijzigen\n");
+		}
+		private static string _category;
+		private static Dish _dish;
 
-        private static void ChangeRestaurantInfo()
+		private static void ChangeDish()
+		{
+			SelectCategory();
+		}
+		private static void SelectCategory()
+		{
+			var categories = new[] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Koude dranken", "Warme dranken", "Alcoholische dranken" };
+			var menu = new SelectionMenu(new[] { "Voorgerechten", "Hoofdgerechten", "Nagerechten", "Koude dranken", "Warme dranken", "Alcoholische dranken \n", "Terug" }, Logo.Dashboard);
+			var option = menu.Show();
+			if (option < categories.Length)
+			{
+				_category = categories[option];
+				SelectDish();
+			}
+			else
+				ChangeMenu();
+		}
+		private static void SelectDish()
+		{
+			var dishes = new List<Dish>();
+			var dishNames = new List<string>
+				{
+					"Toevoegen \n"
+				};
+			foreach (var dish in DishList)
+			{
+				if (dish.Type == _category)
+				{
+					dishes.Add(dish);
+					dishNames.Add(dish.Name);
+				}
+			}
+			dishNames[^1] = dishNames[^1] + " \n";
+			dishNames.Add("Terug");
+			var dishMenu = new SelectionMenu(dishNames.ToArray(), Logo.Dashboard);
+			var option = dishMenu.Show();
+			if (option < dishNames.Count -1 && option > 0)
+			{
+				_dish = dishes[option -1];
+				SelectProperty();
+			}
+			else if (option == 0)
+            {
+				AddDish();
+            }
+			else
+				SelectCategory();
+		}
+		private static void SelectProperty()
         {
-            Serialize(new Restaurant("De houten vork", new Location("Wijhaven", "107", "3011 WN", "Rotterdam"), 100, new string[] { "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "Gesloten" }, new string[] { "oscar.vugt@gmail.com", "06-12932305"}), "restaurant.json");
-        }
+			var choices = new List<string>
+				{
+					"Verwijderen \n",
+					"Naam",
+					"Prijs"
+				};
+			if (_category.Contains("gerecht"))
+				choices.Add("Ingredienten");
+			choices[^1] += " \n";
+			choices.Add("Terug");
 
-        public static void ChangePassword()
+			var choiceMenu = new SelectionMenu(choices.ToArray(), Logo.Dashboard);
+			switch (choices[choiceMenu.Show()])
+			{
+				case "Naam":
+					Logo.PrintLogo(Logo.Dashboard);
+					var naam = _dish.Name;
+					Console.WriteLine($"De nieuwe naam voor {naam} is: \n");
+					_dish.Name = Console.ReadLine();
+                    Console.WriteLine($"{naam} veranderd in {_dish.Name}");
+					break;
+				case "Prijs": case "Prijs \n":
+					var prijs = _dish.Price;
+					while (true)
+					{
+						string input = "";
+						try
+						{
+							Logo.PrintLogo(Logo.Dashboard);
+							Console.WriteLine($"De nieuwe prijs voor {_dish.Name} is: \n");
+							input = Console.ReadLine();
+							_dish.Price = double.Parse(input);
+							Console.WriteLine($"Prijs voor {_dish.Name} veranderd van {prijs} naar {_dish.Price}");
+							break;
+						}
+						catch
+						{
+							Logo.PrintLogo(Logo.Dashboard);
+							Console.WriteLine($"{input} is geen correcte waarde voor een prijs.\nPrijzen zijn bijvoorbeeld genoteerd als volgt: 19.5 of 19");
+							Utils.Enter("om opnieuw te proberen");
+						}
+					}
+					break;
+				case "Verwijderen \n":
+					DishList.Remove(_dish);
+                    Console.WriteLine($"{_dish.Name} verwijderd.");
+					break;
+				default:
+					SelectDish();
+					return;
+			}
+			Serialize(DishList, "dishes.json");
+			Utils.Enter(ChangeDish);
+		}
+		private static void AddDish()
         {
+			Logo.PrintLogo(Logo.Dashboard);
+			Console.WriteLine($"Wat wordt de naam voor dit item?\n");
+			var naam = Console.ReadLine();
+			double prijs;
+			while(true)
+            {
+				string input = "";
+                try
+                {
+					Logo.PrintLogo(Logo.Dashboard);
+					Console.WriteLine($"Wat wordt de prijs voor {naam}?\n");
+					input = Console.ReadLine();
+					prijs = double.Parse(input);
+					break;
+				}
+				catch
+				{
+					Logo.PrintLogo(Logo.Dashboard);
+					Console.WriteLine($"{input} is geen correcte waarde voor een prijs.\nPrijzen zijn bijvoorbeeld genoteerd als volgt: 19.5 of 19");
+					Utils.Enter("om opnieuw te proberen");
+				}
+            }
+			DishList.Add(new Dish(naam, prijs, null, _category, null));
+			Serialize(DishList, "dishes.json");
+            Console.WriteLine($"{naam} toegevoegd aan {_category}.");
+        }
+		private static void ChangeMenus()
+		{
+
+		}
+		private static void ChangeRestaurantInfo()
+		{
+			Serialize(new Restaurant("De houten vork", new Location("Wijhaven", "107", "3011 WN", "Rotterdam"), 100, new string[] { "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "Gesloten" }, new string[] { "oscar.vugt@gmail.com", "06-12932305" }), "restaurant.json");
+		}
+
+		public static void ChangePassword()
+		{
 			string password;
 			while (true)
 			{
@@ -45,5 +185,5 @@ namespace Reserveringssysteem
 			}
 			File.WriteAllText("password.txt", password);
 		}
-    }
+	}
 }
