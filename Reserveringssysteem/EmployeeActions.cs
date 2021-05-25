@@ -112,6 +112,10 @@ namespace Reserveringssysteem
 						}
 					}
 					break;
+				case "Ingredienten":
+				case "Ingredienten \n":
+					ChangeIngredients();
+					break;
 				case "Verwijderen \n":
 					DishList.Remove(_dish);
                     Console.WriteLine($"{_dish.Name} verwijderd.");
@@ -123,7 +127,16 @@ namespace Reserveringssysteem
 			Serialize(DishList, "dishes.json");
 			Utils.Enter(ChangeDish);
 		}
-		private static void AddDish()
+        private static void ChangeIngredients()
+        {
+			Logo.PrintLogo(Logo.Dashboard);
+			var choices = new List<string> { "Toevoegen \n" };
+			foreach (var ingredient in _dish.Ingredients)
+				choices.Add(ingredient);
+			choices[^1] += " \n";
+			choices.Add("Verwijderen");
+        }
+        private static void AddDish()
         {
 			Logo.PrintLogo(Logo.Dashboard);
 			Console.WriteLine($"Wat wordt de naam voor dit item?\n");

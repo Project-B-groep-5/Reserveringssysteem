@@ -21,9 +21,9 @@ namespace Reserveringssysteem
                {
                     DaysWithOccupation.Add(ReservationList[i].Date);
                }
-               if (!TimeSlots.Contains(ReservationList[i].Time))
+               if (!TimeSlots.Contains(ReservationList[i].TimeSlot[0]))
                {
-                    TimeSlots.Add(ReservationList[i].Time);
+                    TimeSlots.Add(ReservationList[i].TimeSlot[0]);
                }
             }
             List<string> sorted = DaysWithOccupation.OrderBy(x =>
@@ -65,8 +65,8 @@ namespace Reserveringssysteem
             {
                 if (date == ReservationList[i].Date)
                 {
-                    ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)].Add(i);
-                    OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
+                    ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])].Add(i);
+                    OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])] += 1;
                 }
             }
             Console.WriteLine("Tijdsloten      Aantal reserveringen      Reserveringen");

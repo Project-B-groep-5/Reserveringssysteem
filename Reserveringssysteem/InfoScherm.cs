@@ -26,6 +26,7 @@ Donderdag: {openingHours[3]}
 Vrijdag: {openingHours[4]}
 Zaterdag: {openingHours[5]}
 Zondag: {openingHours[6]}");
+            
             Utils.Enter(Program.Main);
         }
     }

@@ -57,8 +57,8 @@ namespace Reserveringssysteem
                     Serialize(Tables, "tables.json");
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel verwijderd.");
-                Utils.Enter(EmployeeActions.MainMenu);
             }
+            Utils.Enter(TableManager);
         }
 
         private static void ChangeTable(Table table, List<Table> Tables)
@@ -95,7 +95,7 @@ namespace Reserveringssysteem
                 table.Size = size;
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel gewijzigd");
-                Utils.Enter(EmployeeActions.MainMenu);
+                Utils.Enter(TableManager);
                 Serialize(Tables, "tables.json");
             }
         }
@@ -162,7 +162,7 @@ namespace Reserveringssysteem
             Tables.Add(new Table(id, size));
             Logo.PrintLogo(Logo.Tafels);
             Console.WriteLine("Tafel toegevoegd.");
-            Utils.Enter(EmployeeActions.MainMenu);
+            Utils.Enter(TableManager);
             Serialize(Tables, "tables.json");
         }
     }

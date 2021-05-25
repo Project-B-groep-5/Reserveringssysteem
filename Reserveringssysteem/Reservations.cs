@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Linq;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
@@ -14,12 +16,10 @@ namespace Reserveringssysteem
             int amountPeople = GetAmountOfPeople();
             string date = GetDate();
 
-            string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
-            string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
-
-            if (Check(date, time, amountPeople))
+            string[] times = GetTimes(date, amountPeople);
+            if (times == null)
             {
-                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant is gesloten op de door uw gekozen datum, wat wilt u doen?\n");
                 switch (optionMenu.Show())
                 {
                     case 0:
@@ -30,14 +30,31 @@ namespace Reserveringssysteem
 
                 }
             }
+            else if (times.Length == 0)
+            {
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum, wat wilt u doen?\n");
+                switch (optionMenu.Show())
+                {
+                    case 0:
+                        Reservate();
+                        return;
+                    case 1:
+                        return;
+
+                }
+            }
+            int time = new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show();
+            List<string> timeSlot = new List<string>();
+            for (int i = time; i <= time + 3 && i < times.Length; i++)
+                timeSlot.Add(times[i]);
 
             string[] choices = GetDiscountMenus(amountPeople);
             if (choices != null) FakePayment(choices);
             string comments = AskForComments();
             
-            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
+            Reservation reservation = new Reservation { Name = name, Date = date, TimeSlot = timeSlot.ToArray(), Size = amountPeople, DiscountMenus = choices, Comments = comments};
             
-            SendEmail(reservation.ReservationId, name, time, date);
+            SendEmail(reservation.ReservationId, name, times[time], date);
             
             Console.WriteLine($"U heeft een reservering gemaakt op: {date} om {time} uur!\nUw reserveringscode is: {reservation.ReservationId}");
             reservation.Save();
@@ -168,11 +185,26 @@ namespace Reserveringssysteem
             occupied += size;
             for (int i = 0; i < ReservationList.Count; i++)
             {
-                if (ReservationList[i].Date == date && ReservationList[i].Time == time)
+                if (ReservationList[i].Date == date && ReservationList[i].TimeSlot.Any(time.Contains))
                     occupied += ReservationList[i].Size;
             }
-            if (occupied <= capacity) return false;
+            if (occupied > capacity) return false;
             return true;
+        }
+        private static string[] GetTimes(string date, int size)
+        {
+            DateTime.TryParse(date, out DateTime dDate);
+            var day = (int)dDate.DayOfWeek -1;
+            var times = new List<string>();
+            try
+            {
+                for (int i = int.Parse(Json.Restaurant.OpeningHours[day].Split(":")[0]); i < int.Parse(Json.Restaurant.OpeningHours[day].Split("-")[1].Split(":")[0]) - 1; i++)
+                    for (int j = 0; j <= 30; j += 30)
+                        if(Check(date, $"{i}:{j:00}", size))
+                            times.Add($"{i}:{j:00}");
+                return times.ToArray();
+            }
+            catch { return null; }
         }
         private static string[] GetDiscountMenus(int amountPeople)
         {
@@ -357,11 +389,6 @@ Tot dan!
             string input = Console.ReadLine();
             return input;
         }
-        private static void CancelTitle() // Call deze method om de onderstaande header te krijgen
-        {
-            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
-            Console.WriteLine(Logo.Annuleren);
-            Console.ResetColor();
-        }
+        private static void CancelTitle() => Logo.PrintLogo(Logo.Annuleren);
     }
 }
