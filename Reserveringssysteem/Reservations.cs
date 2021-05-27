@@ -11,6 +11,7 @@ namespace Reserveringssysteem
         public static void Reservate()
         {
             string name = GetName();
+            if (name == "") return;
             int amountPeople = GetAmountOfPeople();
             string date = GetDate();
 
@@ -27,7 +28,6 @@ namespace Reserveringssysteem
                         return;
                     case 1:
                         return;
-
                 }
             }
 
@@ -65,12 +65,14 @@ namespace Reserveringssysteem
             {
                 var betaalKeuze = new SelectionMenu(betaalMethodes, Logo.Reserveren, "\nKies uw gewenste betaalmethode\n");
                 int betaalMethode = betaalKeuze.Show();
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine($"U heeft gekozen voor {betaalMethodes[betaalMethode]}.");
 
                 var correcteBetaalMethode = new SelectionMenu(check, Logo.Reserveren, $"\nU heeft gekozen voor {betaalMethodes[betaalMethode]}.\nKlopt dit?\n");
                 int betaalCheck = correcteBetaalMethode.Show();
                 if (check[betaalCheck] == "Nee") continue;
                 ReservateTitle();
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 if (betaalMethodes[betaalMethode] == "Afterpay") Console.WriteLine("U kunt achteraf betalen");
                 else
                 {
@@ -89,25 +91,10 @@ namespace Reserveringssysteem
         {
             ReservateTitle();
             Console.CursorVisible = true;
-            Console.WriteLine("Wat is uw naam?");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Wat is uw naam? Of druk op 'enter' om terug te gaan.\n");
+            Console.ForegroundColor = ConsoleColor.White;
             string name = Console.ReadLine();
-            while (true)
-            {
-
-                if (name.Length == 0)
-                {
-                    Console.Clear();
-                    ReservateTitle();
-                    Console.WriteLine("Geen naam ingevuld. Probeer opnieuw : \n");
-                    name = Console.ReadLine();
-                }
-                else
-                {
-                    Console.Clear();
-                    break;
-                }
-
-            }
             Console.CursorVisible = false;
             return name;
         }
@@ -116,7 +103,9 @@ namespace Reserveringssysteem
             int amountPeople = 0;
             ReservateTitle();
             Console.CursorVisible = true;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
+            Console.ForegroundColor = ConsoleColor.White;
             while (amountPeople <= 0)
             {
                 var input = Console.ReadLine();
@@ -131,20 +120,29 @@ namespace Reserveringssysteem
                 if (amountPeople <= 0)
                 {
                     ReservateTitle();
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     Console.WriteLine($"U moet voor minimaal één persoon reserveren door het invullen van een getal.\n\nVoor hoeveel mensen wilt u een reservering maken?\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            var checkArr = new string[2] { "Ja", "Nee" };
+            var check = new SelectionMenu(checkArr, Logo.Reserveren, $"U heeft gekozen voor {amountPeople} personen.\nKlopt dit?\n");
+            int i = check.Show();
+            if (checkArr[i] == "Nee") GetAmountOfPeople();
+
             Console.CursorVisible = false;
             return amountPeople;
         }
         private static string GetDate()
-        {
+        {           
             var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
             ReservateTitle();
             Console.CursorVisible = true;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Voor wanneer wilt u reserveren?");
             Console.WriteLine("Gebruik alstublieft het format: dd-MM-jjjj");
             Console.WriteLine($"\nDe datum van vandaag is {datumVandaag}");
+            Console.ForegroundColor = ConsoleColor.White;
             var date = Console.ReadLine();
             while (true)
             {
@@ -182,7 +180,7 @@ namespace Reserveringssysteem
                 Menus[i] = VoordeelMenus[i].Name;
             }
             Menus[^1] = "Geen voordeelmenu";
-            var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "Geen voordeelmenu" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
+            var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "À la carte" }, Logo.Reserveren, "\nHet is voordeliger als u van tevoren kiest voor een voordeelmenu.\nU kunt nu kiezen om van tevoren een voordeelmenu te nemen of à la carte te eten.\n");
             string[] choices;
             while (true)
             {
@@ -234,7 +232,7 @@ namespace Reserveringssysteem
                         return choices;
                     case 2:
                         string[] keuzeCheckArr2 = new string[2] { "Ja", "Nee" };
-                        var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u geen voordeelmenu wilt kiezen?\n");
+                        var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u à la carte wilt eten?\n");
                         var keuzeCheck2 = voordeelCheck2.Show();
                         if (keuzeCheckArr2[keuzeCheck2] == "Nee") continue;
                         return null;
@@ -247,9 +245,19 @@ namespace Reserveringssysteem
             var OpmerkingenMenuKeuze = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
             if (OpmerkingenMenuKeuze.Show() == 0)
             {
-                ReservateTitle();
-                Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
-                var comment = Console.ReadLine();
+                var comment = "";
+                while (true)
+                {
+                    ReservateTitle();
+
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;       
+                    Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.CursorVisible = true;
+                    comment = Console.ReadLine();
+                    if (comment == "") continue;
+                    break;
+                }
                 return comment;
             }
             return null;
@@ -258,16 +266,32 @@ namespace Reserveringssysteem
         {
             ReservateTitle();
             Console.CursorVisible = true;
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen?: ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen?: \n");
+            Console.ForegroundColor = ConsoleColor.White;
             var emailAddress = Console.ReadLine();
             while (!Utils.IsValidEmail(emailAddress))
             {
                 ReservateTitle();
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine($"{emailAddress} is geen geldig mail adres.\nNaar welk mail adres mogen wij de reservering sturen?:\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 emailAddress = Console.ReadLine();
             }
+            var checkArr = new string[2] { "Ja", "Nee" };
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            var check = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, $"\nHet ingevoerde emailadres is: {emailAddress}\nKlopt dit?\n");
+            int i = check.Show();
+            if (checkArr[i] == "Nee")
+            {
+                Console.Clear();
+                SendEmail(reservationCode, name, time, date);                
+            }
             Console.CursorVisible = false;
-            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
+            Console.Clear();
+            CancelTitle();
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("\nDe bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"Beste {name},
 
 Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {date} om {time}.
