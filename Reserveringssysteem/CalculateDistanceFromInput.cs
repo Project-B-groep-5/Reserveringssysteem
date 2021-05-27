@@ -29,7 +29,7 @@ namespace Reserveringssysteem
             bool isIntString;
             CallTitle();
 
-            string[] keuzeCheckArr2 = new string[3] { "Afstand berekenen met postcode", "Afstand berekenen met straatnaam, huisnummer en woonplaats", "\n  Terug" };
+            string[] keuzeCheckArr2 = new string[3] { "Afstand berekenen met postcode", "Afstand berekenen met straatnaam, huisnummer en woonplaats \n", "Terug" };
             var Check2 = new SelectionMenu(keuzeCheckArr2, Logo.Afstand, "\nWelke optie kiest u?\n");
             var keuzeCheck2 = Check2.Show();
             if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met postcode")
@@ -70,9 +70,9 @@ namespace Reserveringssysteem
                 }
 
                 }
-                if (keuzeCheckArr2[keuzeCheck2] == "\n  Terug")
+                if (keuzeCheckArr2[keuzeCheck2] == "Terug")
                     return;
-                if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats")
+                if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats \n")
                 {
                     CallTitle();
                     Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
