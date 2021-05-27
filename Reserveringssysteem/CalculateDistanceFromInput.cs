@@ -3,8 +3,16 @@ using System.Linq;
 
 namespace Reserveringssysteem
 {
+
     public class CalculateDistanceFromInput
     {
+        public static void CallTitle()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine(Logo.Afstand);
+            Console.ResetColor();
+        }
         public static string CalculateDistance(Location point1, Location point2)
         {
             var d1 = point1.Latitude * (Math.PI / 180.0);
@@ -19,43 +27,69 @@ namespace Reserveringssysteem
         public static void Calculate()
         {
             bool isIntString;
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(Logo.Afstand);
-            Console.ResetColor();
+            CallTitle();
 
             string[] keuzeCheckArr2 = new string[3] { "Afstand berekenen met postcode", "Afstand berekenen met straatnaam, huisnummer en woonplaats", "\n  Terug" };
             var Check2 = new SelectionMenu(keuzeCheckArr2, Logo.Afstand, "\nWelke optie kiest u?\n");
             var keuzeCheck2 = Check2.Show();
             if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met postcode")
             {
-                Console.WriteLine("Postcode");
-            }
-            if (keuzeCheckArr2[keuzeCheck2] == "\n  Terug")
-                return; 
-            if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats")
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(Logo.Afstand);
-                Console.ResetColor();
-                Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-                string adres = Console.ReadLine();
+                CallTitle();
+                Console.WriteLine("\nVul uw postcode in: \n");
+                string postcode = Console.ReadLine();
                 while (true)
                 {
-                    isIntString = adres.Any(letter => char.IsDigit(letter));
+                    isIntString = postcode.Any(letter => char.IsDigit(letter));
                     if (!isIntString)
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine(Logo.Afstand);
-                        Console.ResetColor();
-                        Console.WriteLine("\nGraag de straatnaam met huisnummer");
-                        Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-                        adres = Console.ReadLine();
+                        CallTitle();
+                        Console.WriteLine("\nGraag de postcode.. Inclusief de letters op het eind.");
+                        Console.WriteLine("\nVul uw postcode in: \n");
+                        postcode = Console.ReadLine();
                     }
                     else
                         break;
                 }
+                string[] postcodeZonderLetters = postcode.Split(' ');
+                string postcodeLetters = postcodeZonderLetters[^1];
+                Location location = new Location(postcode, postcodeLetters, null, "Nederland");
+                CallTitle();
+                var restaurant = Json.Restaurant;
+                string afstand = CalculateDistance(location, Json.Restaurant.Address);
+                double afstandDouble = Double.Parse(afstand); 
+                if (afstandDouble < 300)
+                {
+                    Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {postcode}.....\n");
+                    Console.WriteLine($"\nDe Afstand vanaf {postcode} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
+                    Utils.Enter();
+                }
+                else
+                {
+                    Console.WriteLine("\nPostcode wordt niet gevonden of afstand is groter dan 300 kilometer. \nProbeer het opnieuw door het invullen van de straatnaam + woonplaats\n");
+                    Utils.Enter();
+                }
+
+                }
+                if (keuzeCheckArr2[keuzeCheck2] == "\n  Terug")
+                    return;
+                if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats")
+                {
+                    CallTitle();
+                    Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
+                    string adres = Console.ReadLine();
+                    while (true)
+                    {
+                        isIntString = adres.Any(letter => char.IsDigit(letter));
+                        if (!isIntString)
+                        {
+                            CallTitle();
+                            Console.WriteLine("\nGraag de straatnaam met huisnummer");
+                            Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
+                            adres = Console.ReadLine();
+                        }
+                        else
+                            break;
+                    }
                 string[] temp = adres.Split(' ');
                 string huisnummer = temp[^1];
                 string straatnaam = string.Join(' ', temp).Replace($" {huisnummer}", "");
@@ -67,10 +101,7 @@ namespace Reserveringssysteem
                     isIntString = plaatsnaam.Any(letter => char.IsDigit(letter));
                     if (isIntString == true)
                     {
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine(Logo.Afstand);
-                        Console.ResetColor();
+                        CallTitle();
                         Console.WriteLine("\nGraag enkel de plaatsnaam, zonder integers");
                         Console.WriteLine("\nVul uw plaatsnaam in: \n");
                         plaatsnaam = Console.ReadLine();
@@ -79,16 +110,23 @@ namespace Reserveringssysteem
                         break;
                 }
                 Location location = new Location(straatnaam, huisnummer, null, plaatsnaam);
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(Logo.Afstand);
-                Console.ResetColor();
+                CallTitle();
                 var restaurant = Json.Restaurant;
-                Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {adres}, {plaatsnaam}.....\n");
-                Console.WriteLine($"\nDe Afstand vanaf {adres}, {plaatsnaam} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
-                Utils.Enter();
+                string afstand = CalculateDistance(location, Json.Restaurant.Address);
+                double afstandDouble = Double.Parse(afstand);
+                if (afstandDouble < 300)
+                {
+                    Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {adres}, {plaatsnaam}.....\n");
+                    Console.WriteLine($"\nDe Afstand vanaf {adres}, {plaatsnaam} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
+                    Utils.Enter();
+                }
+                else
+                {
+                    Console.WriteLine("\nAdres wordt niet gevonden of afstand is groter dan 300 kilometer. \nVerander het adres of probeer het met een postcode");
+                    Utils.Enter();
+                }
+                }
             }
-        }
 
+        }
     }
-}
