@@ -21,26 +21,41 @@ namespace Reserveringssysteem
             bool isIntString;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(Logo.OverOns);
+            Console.WriteLine(Logo.Afstand);
             Console.ResetColor();
-            Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-            string adres = Console.ReadLine();
-            while (true)
+
+            string[] keuzeCheckArr2 = new string[3] { "Afstand berekenen met postcode", "Afstand berekenen met straatnaam, huisnummer en woonplaats", "\n  Terug" };
+            var Check2 = new SelectionMenu(keuzeCheckArr2, Logo.Afstand, "\nWelke optie kiest u?\n");
+            var keuzeCheck2 = Check2.Show();
+            if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met postcode")
             {
-                isIntString = adres.Any(letter => char.IsDigit(letter));
-                if (!isIntString)
-                {
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(Logo.OverOns);
-                    Console.ResetColor();
-                    Console.WriteLine("\nGraag de straatnaam met huisnummer");
-                    Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-                    adres = Console.ReadLine();
-                }
-                else
-                    break;
+                Console.WriteLine("Postcode");
             }
+            if (keuzeCheckArr2[keuzeCheck2] == "\n  Terug")
+                return; 
+            if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats")
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(Logo.Afstand);
+                Console.ResetColor();
+                Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
+                string adres = Console.ReadLine();
+                while (true)
+                {
+                    isIntString = adres.Any(letter => char.IsDigit(letter));
+                    if (!isIntString)
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine(Logo.Afstand);
+                        Console.ResetColor();
+                        Console.WriteLine("\nGraag de straatnaam met huisnummer");
+                        Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
+                        adres = Console.ReadLine();
+                    }
+                    else
+                        break;
+                }
                 string[] temp = adres.Split(' ');
                 string huisnummer = temp[^1];
                 string straatnaam = string.Join(' ', temp).Replace($" {huisnummer}", "");
@@ -54,7 +69,7 @@ namespace Reserveringssysteem
                     {
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.WriteLine(Logo.OverOns);
+                        Console.WriteLine(Logo.Afstand);
                         Console.ResetColor();
                         Console.WriteLine("\nGraag enkel de plaatsnaam, zonder integers");
                         Console.WriteLine("\nVul uw plaatsnaam in: \n");
@@ -66,12 +81,14 @@ namespace Reserveringssysteem
                 Location location = new Location(straatnaam, huisnummer, null, plaatsnaam);
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(Logo.OverOns);
+                Console.WriteLine(Logo.Afstand);
                 Console.ResetColor();
                 var restaurant = Json.Restaurant;
                 Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {adres}, {plaatsnaam}.....\n");
                 Console.WriteLine($"\nDe Afstand vanaf {adres}, {plaatsnaam} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
                 Utils.Enter();
+            }
         }
+
     }
 }
