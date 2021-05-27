@@ -8,13 +8,16 @@
         public string Type { get; set; }
         public string[] Tags { get; set; }
 
-        public Dish(string name, double price, string[] ingredients, string type, string[] tags)
+        public string Allergie { get; set; }
+
+        public Dish(string name, double price, string[] ingredients, string type, string[] tags, string allergie)
         {
             Name = name;
             Price = price;
             Ingredients = ingredients;
             Type = type;
             Tags = tags;
+            Allergie = allergie;
         }
     }
 }

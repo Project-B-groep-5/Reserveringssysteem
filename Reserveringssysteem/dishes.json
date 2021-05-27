@@ -16,7 +16,8 @@
       "Vlees",
       "Gluten",
       "Burger"
-    ]
+    ],
+    "Allergie":  "product bevat gluten"
   },
 
   {
@@ -26,7 +27,8 @@
     "Type": "Koude dranken",
     "Tags": [
       "Koude dranken"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Spa Rood",
@@ -37,7 +39,8 @@
       "Koude dranken",
       "Bubbels",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Coca Cola",
@@ -48,7 +51,8 @@
       "Koude dranken",
       "Frisdrank",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Coca Cola Zero",
@@ -60,7 +64,8 @@
       "Frisdrank",
       "Suiker vrij",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Coca Cola Light",
@@ -72,7 +77,8 @@
       "Koude dranken",
       "Frisdrank",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "7-up",
@@ -84,7 +90,8 @@
       "Koude dranken",
       "Frisdrank",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Cassis",
@@ -96,7 +103,8 @@
       "Koude dranken",
       "Frisdrank",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Fanta",
@@ -108,7 +116,8 @@
       "Koude dranken",
       "Frisdrank",
       "Prik"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Ice Tea",
@@ -119,7 +128,8 @@
 
       "Koude dranken",
       "Frisdrank"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Chocomel",
@@ -132,7 +142,8 @@
       "Warme dranken",
       "Lactose",
       "Zoet"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Appelsap",
@@ -143,7 +154,8 @@
 
       "Koude dranken",
       "Zoet"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Thee",
@@ -153,7 +165,8 @@
     "Tags": [
       "Warme dranken",
       "Zoet"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Koffie",
@@ -162,7 +175,8 @@
     "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Cappuccino",
@@ -172,7 +186,8 @@
     "Tags": [
       "Warme dranken",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Espresso",
@@ -181,7 +196,8 @@
     "Type": "Warme dranken",
     "Tags": [
       "Warme dranken"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Warme Chocomel",
@@ -192,7 +208,8 @@
       "Warme dranken",
       "Zoet",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Latte Machiato",
@@ -202,7 +219,8 @@
     "Tags": [
       "Warme dranken",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Koffie verkeerd",
@@ -212,7 +230,8 @@
     "Tags": [
       "Warme dranken",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Heineken (0%)",
@@ -222,7 +241,8 @@
     "Tags": [
       "Bieren",
       "Alcohol vrij"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Heineken",
@@ -232,7 +252,8 @@
     "Tags": [
       "Bieren",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Amstel Radler (0%)",
@@ -242,7 +263,8 @@
     "Tags": [
       "Bieren",
       "Alcohol vrij"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Amstel Radler",
@@ -252,7 +274,8 @@
     "Tags": [
       "Bieren",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Palm",
@@ -262,7 +285,8 @@
     "Tags": [
       "Bieren",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Brand",
@@ -272,7 +296,8 @@
     "Tags": [
       "Bieren",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Grolsch",
@@ -282,7 +307,8 @@
     "Tags": [
       "Bieren",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Witte wijn",
@@ -292,7 +318,8 @@
     "Tags": [
       "Wijnen",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Rode wijn",
@@ -302,7 +329,8 @@
     "Tags": [
       "Wijnen",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Rose",
@@ -312,7 +340,8 @@
     "Tags": [
       "Wijnen",
       "Alcohol"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Maaltijdsalade",
@@ -332,8 +361,8 @@
       "Veganistisch",
       "Salade",
       "Noten"
-
-    ]
+    ],
+    "Allergie": "product bevat sporen van noten"
   },
   {
     "Name": "Kogelbiefstuk",
@@ -351,7 +380,8 @@
       "Friet",
       "Rund",
       "Rundvlees"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Pizza margherita",
@@ -372,7 +402,8 @@
       "Vegetarisch",
       "Gluten",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat gluten en lactose"
   },
   {
     "Name": "Spareribs",
@@ -391,7 +422,8 @@
       "Spareribs",
       "Varken",
       "Varkensvlees"
-    ]
+    ],
+    "Allergie": ""
   },
   {
     "Name": "Broodmandje",
@@ -408,7 +440,8 @@
       "Brood",
       "Voorgerecht",
       "Gluten"
-    ]
+    ],
+    "Allergie": "product bevat gluten"
   },
   {
     "Name": "Carpaccio",
@@ -427,7 +460,8 @@
       "Ossenhaas",
       "Voorgerecht",
       "Noten"
-    ]
+    ],
+    "Allergie": "product bevat sporen van noten"
   },
   {
     "Name": "Cheesecake",
@@ -446,7 +480,8 @@
       "Nagerecht",
       "Dessert",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   },
   {
     "Name": "Dame Blanche",
@@ -466,6 +501,7 @@
       "Dessert",
       "Chocola",
       "Lactose"
-    ]
+    ],
+    "Allergie": "product bevat lactose"
   }
 ]

@@ -24,6 +24,12 @@ namespace Reserveringssysteem
                         {
                             result += MenuShow.Show(i);
                             check = false;
+                            if (DishList[i].Allergie.ToLower().Contains(keyWord.ToLower()) && DishList[i].Allergie != "")
+                            {
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                result += "\nBovenstaand " + DishList[i].Allergie + "\n__________________________________________________________\n";
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
                             break;
                         }
                     }
