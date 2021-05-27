@@ -47,15 +47,18 @@ namespace Reserveringssysteem
                     new DataColumn("Address", typeof(string)),
                     new DataColumn("Latitude",typeof(string)),
                     new DataColumn("Longitude",typeof(string)) });
-                    foreach (DataRow row in dsResult.Tables["result"].Rows)
+                    if (dsResult.Tables["result"] != null)
                     {
-                        string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
-                        DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
-                        dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
-                        var inputLatitude = location[0];
-                        latitude = Convert.ToDouble(inputLatitude, System.Globalization.CultureInfo.InvariantCulture);
-                        var inputLongitude = location[1];
-                        longitude = Convert.ToDouble(inputLongitude, System.Globalization.CultureInfo.InvariantCulture);
+                        foreach (DataRow row in dsResult.Tables["result"].Rows)
+                        {
+                            string geometry_id = dsResult.Tables["geometry"].Select("result_id = " + row["result_id"].ToString())[0]["geometry_id"].ToString();
+                            DataRow location = dsResult.Tables["location"].Select("geometry_id = " + geometry_id)[0];
+                            dtCoordinates.Rows.Add(row["result_id"], row["formatted_address"], location["lat"], location["lng"]);
+                            var inputLatitude = location[0];
+                            latitude = Convert.ToDouble(inputLatitude, System.Globalization.CultureInfo.InvariantCulture);
+                            var inputLongitude = location[1];
+                            longitude = Convert.ToDouble(inputLongitude, System.Globalization.CultureInfo.InvariantCulture);
+                        }
                     }
                 }
             }
