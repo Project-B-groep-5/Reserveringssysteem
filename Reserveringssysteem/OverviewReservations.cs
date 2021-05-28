@@ -73,7 +73,7 @@ namespace Reserveringssysteem
                     OverviewReservations.ChooseDate();
                     return;
                 case 1:
-                    EmployeeActions.Menu();
+                    EmployeeActions.MainMenu();
                     return;                
             }
 
@@ -160,7 +160,7 @@ namespace Reserveringssysteem
                     OverviewReservations.ChooseDate();
                     return;
                 case 1:
-                    EmployeeActions.Menu();
+                    EmployeeActions.MainMenu();
                     return;
             }
             Utils.Enter(EmployeeActions.MainMenu);

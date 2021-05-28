@@ -22,10 +22,11 @@ namespace Reserveringssysteem
 			}
 
 			Header();
-			Console.WriteLine("Voer wachtwoord in:");
+			Console.WriteLine("Voer wachtwoord in:\nOf druk op 'enter' om terug te gaan.");
 			string ingevoerdWachtwoord = Console.ReadLine();
 
-			if (ingevoerdWachtwoord == password)
+			if (ingevoerdWachtwoord == "") Program.Main();
+			else if (ingevoerdWachtwoord == password)
 				EmployeeActions.MainMenu();
 			else 
             {

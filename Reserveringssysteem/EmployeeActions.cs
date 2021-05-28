@@ -170,8 +170,40 @@ namespace Reserveringssysteem
 		}
 		private static void ChangeRestaurantInfo()
 		{
-			Serialize(new Restaurant("De houten vork", new Location("Wijhaven", "107", "3011 WN", "Rotterdam"), 100, new string[] { "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "Gesloten" }, new string[] { "oscar.vugt@gmail.com", "06-12932305" }), "restaurant.json");
+            SelectionMenu.Make(new[] { "Naam van het restaurant", "Beschrijving", "Adress", "Capaciteit", "Openingstijden", "Contactinformatie\n", "Terug"}, new Action[] { ChangeRestaurantName, ChangeRestaurantDescription, ChangeRestaurantAddress, ChangeRestaurantHours, ChangeRestaurantContactInfo, MainMenu }, Logo.RestaurantGegevens, "\nKies een optie om te wijzigen\n");
+			//Serialize(new Restaurant("De houten vork", new Location("Wijhaven", "107", "3011 WN", "Rotterdam"), 100, new string[] { "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "10:00-23:00", "Gesloten" }, new string[] { "oscar.vugt@gmail.com", "06-12932305" }), "restaurant.json");
 		}
+
+		private static void ChangeRestaurantName()
+        {
+			Logo.PrintLogo(Logo.RestaurantGegevens);
+            Console.WriteLine("Voer de nieuwe naam in voor het restaurant:\nOf druk op 'enter' om terug te gaan");
+			Console.CursorVisible = true;
+			string newName = Console.ReadLine();
+			if (newName == "") MainMenu();
+			Console.Clear();
+			SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantName }, Logo.RestaurantGegevens, $"Weet u zeker dat u de naam van het restaurant naar \"{newName}\" wil veranderen?");
+        }
+
+		private static void ChangeRestaurantDescription()
+        {
+
+        }
+
+		private static void ChangeRestaurantAddress()
+        {
+
+        }
+
+		private static void ChangeRestaurantHours()
+        {
+
+        }
+
+		private static void ChangeRestaurantContactInfo()
+        {
+
+        }
 
 		public static void ChangePassword()
 		{
