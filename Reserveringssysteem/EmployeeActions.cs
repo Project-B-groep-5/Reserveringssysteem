@@ -71,13 +71,13 @@ namespace Reserveringssysteem
         {
 			var choices = new List<string>
 				{
-					"Verwijderen \n",
 					"Naam",
 					"Prijs"
 				};
 			if (_category.Contains("gerecht"))
 				choices.Add("Ingredienten");
 			choices[^1] += " \n";
+			choices.Add("Verwijderen \n");
 			choices.Add("Terug");
 
 			var choiceMenu = new SelectionMenu(choices.ToArray(), Logo.Dashboard);
@@ -127,6 +127,7 @@ namespace Reserveringssysteem
 			Serialize(DishList, "dishes.json");
 			Utils.Enter(ChangeDish);
 		}
+		private static string _ingredient;
         private static void ChangeIngredients()
         {
 			Logo.PrintLogo(Logo.Dashboard);
@@ -134,8 +135,77 @@ namespace Reserveringssysteem
 			foreach (var ingredient in _dish.Ingredients)
 				choices.Add(ingredient);
 			choices[^1] += " \n";
-			choices.Add("Verwijderen");
+			choices.Add("Terug");
+			var menu = new SelectionMenu(choices.ToArray(), Logo.Dashboard);
+			var choice = menu.Show();
+			if (choice == 0)
+				AddIngredient();
+			else if (choices[choice] == choices[^1])
+				SelectProperty();
+			else
+            {
+                _ingredient = choices[choice - 1];
+                ChangeIngredientMenu();
+            }
         }
+
+        private static void ChangeIngredientMenu()
+        {
+            SelectionMenu.Make(new[] { "Wijzigen", "Verwijderen \n", "Terug" }, new Action[] { ChangeIngredient, RemoveIngredient, ChangeIngredients }, Logo.Dashboard);
+        }
+
+        private static void RemoveIngredient()
+        {
+			_dish.Ingredients.Remove(_ingredient);
+			Serialize(DishList, "dishes.json");
+			Logo.PrintLogo(Logo.Dashboard);
+            Console.WriteLine($"{_ingredient} verwijdert.");
+			Utils.Enter(ChangeIngredients);
+		}
+
+        private static void ChangeIngredient()
+        {
+            Console.WriteLine($"Waar wilt u {_ingredient} in veranderen?\nVoer de nieuwe naam in:");
+			var name = Console.ReadLine();
+			if (name == "")
+			{
+				SelectionMenu.Make(new[] { "Opnieuw proberen", "Terug" }, new Action[] { ChangeIngredient, ChangeIngredientMenu }, Logo.Dashboard, "U heeft niks ingevuld.\n\nMaak een keuze:\n");
+				return;
+			}
+			if (Utils.Confirm(Logo.Dashboard, $"Weet u zeker dat u een ingrediënt met de naam: {name} wilt toevoegen?\n") == 0)
+			{
+				var ingredientInt = _dish.Ingredients.IndexOf(_ingredient);
+				_dish.Ingredients[ingredientInt] = name;
+				Serialize(DishList, "dishes.json");
+				Logo.PrintLogo(Logo.Dashboard);
+                Console.WriteLine($"{_ingredient} veranderd naar {name}.");
+				Utils.Enter(ChangeIngredients);
+				return;
+			}
+			ChangeIngredient();
+		}
+
+        private static void AddIngredient()
+        {
+            Console.WriteLine("Voer de naam van het ingrediënt in:");
+			var name = Console.ReadLine();
+			if (name == "")
+			{
+				SelectionMenu.Make(new[] { "Opnieuw proberen", "Terug" }, new Action[] { AddIngredient, ChangeIngredients }, Logo.Dashboard, "U heeft niks ingevuld.\n\nMaak een keuze:\n");
+				return;
+			}
+			if (Utils.Confirm(Logo.Dashboard, $"Weet u zeker dat een ingrediënt met de naam: {name} wilt toevoegen?\n") == 0)
+			{
+				_dish.Ingredients.Add(name);
+				Serialize(DishList, "dishes.json");
+				Logo.PrintLogo(Logo.Dashboard);
+                Console.WriteLine($"{name} toegevoegd.");
+				Utils.Enter(ChangeIngredients);
+				return;
+			}
+			AddIngredient();
+        }
+
         private static void AddDish()
         {
 			Logo.PrintLogo(Logo.Dashboard);

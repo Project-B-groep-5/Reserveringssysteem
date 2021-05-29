@@ -30,7 +30,7 @@ namespace Reserveringssysteem
                 }
                 if (check)
                 {
-                    for (int j = 0; j < DishList[i].Ingredients.Length; j++)
+                    for (int j = 0; j < DishList[i].Ingredients.Count; j++)
                     {
                         if (DishList[i].Ingredients[j].ToLower().Contains(keyWord.ToLower()))
                         {

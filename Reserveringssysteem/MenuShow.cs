@@ -9,12 +9,12 @@ namespace Reserveringssysteem
             string result = "";
             result += "\nNaam: " + DishList[i].Name + "\n" + "Prijs: " + DishList[i].Price.ToString("0.00") + " euro\n";
             int check = 0;
-            if (DishList[i].Ingredients.Length != 0)
+            if (DishList[i].Ingredients.Count != 0)
             {
                 result += "Ingredienten: ";
                 foreach (string ingredient in DishList[i].Ingredients)
                 {
-                    if (check == DishList[i].Ingredients.Length - 1)
+                    if (check == DishList[i].Ingredients.Count - 1)
                         result += ingredient;
                     else
                         result += ingredient + ", ";
