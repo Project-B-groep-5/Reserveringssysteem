@@ -235,9 +235,86 @@ namespace Reserveringssysteem
             Serialize(DishList, "dishes.json");
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
         }
-        private static void ChangeMenus()
+        private static void ChangeMenus() 
+        {
+            var choices = new string[Json.VoordeelMenus.Count + 2]; 
+            choices[0] = "Toevoegen\n";
+            for (int i = 1; i < Json.VoordeelMenus.Count + 1; i++) // Maakt array met alle namen van de voordeelmenus
+            {
+                choices[i] = Json.VoordeelMenus[i - 1].Name;
+                if (i == choices.Length - 2) choices[i] = choices[i] + "\n"; // 1 na laatste element met '\n' voor de terug knop.
+            }
+            choices[choices.Length - 1] = "Terug"; 
+
+            var menusMenu = new SelectionMenu(choices, Logo.GerechtenMenus);
+            var chosen = menusMenu.Show();
+
+            if (chosen == choices.Length - 1) ChangeMenu(); // Gaat terug 
+            else if (chosen == 0) AddMenu(); // Voegt een voordeelmenu toe
+            else ChangeSpecificMenu(chosen);
+        }
+
+        private static void ChangeSpecificMenu(int chosen)
         {
 
+        }
+
+        private static void AddMenu() // Voegt een voordeelmenu toe
+        {
+            string newName = ChangeInfoText("Voer de naam in van het voordeelmenu.");
+            if (newName == "") ChangeMenus();
+            Dish newVoorGerecht = MakeDishMenu("Voorgerechten");
+            Dish newHoofdGerecht = MakeDishMenu("Hoofdgerechten");
+            Dish newNaGerecht = MakeDishMenu("Nagerechten");
+            double newPrijs;
+            string newPrijsStr;
+            newPrijsStr = ChangeInfoText("Voer de prijs in van het voordeelmenu.");
+            while (true)
+            {
+                try
+                {
+                    if (newPrijsStr == "") AddMenu();
+                    newPrijs = double.Parse(newPrijsStr, 0.00);
+                    break;
+                }
+                catch
+                {
+                    Logo.PrintLogo(Logo.GerechtenMenus);
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    newPrijsStr = ChangeInfoText("Ingevoerde waarde is geen correcte waarde.\nVoer de prijs in van het voordeelmenu.");
+                }
+            }
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, AddMenu }, Logo.GerechtenMenus, $"\nNaam: {newName}:\n" +
+                $"Voorgerecht: {newVoorGerecht.Name}\n" +
+                $"Hoofdgerecht: {newHoofdGerecht.Name}\n" +
+                $"Nagerecht: {newNaGerecht.Name}\n" +
+                $"Prijs: {Math.Round(newPrijs, 2).ToString("#.00")}\n" +
+                $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n");
+            VoordeelMenus.Add(new VoordeelMenu(newName, newVoorGerecht, newHoofdGerecht, newNaGerecht, newPrijs));
+            Serialize(VoordeelMenus, "voordeelmenu.json");
+            ChangeInfoSucces("Voordeelmenu is succesvol opgeslagen.", AddMenu);
+        }
+
+        private static Dish MakeDishMenu(string dishType) // Maakt array met gegeven gerecht type en returned het gekozen gerecht.
+        {
+            List<string> allDishes = new List<string>();
+            for (int i = 0; i < DishList.Count; i++)
+            {
+                if (DishList[i].Type == dishType)
+                    allDishes.Add(DishList[i].Name);
+            }
+            allDishes[allDishes.Count - 1] = allDishes[allDishes.Count - 1] + "\n";
+            allDishes.Add("Terug");
+            string[] allDishesArray = allDishes.ToArray();
+            var dishesMenu = new SelectionMenu(allDishesArray, Logo.GerechtenMenus, $"\nKies het {dishType.ToLower().Remove(dishType.Length - 2)}.\n");
+            var chosen = dishesMenu.Show();
+            if (chosen == allDishesArray.Length - 1) AddMenu();
+            foreach (Dish dish in DishList)
+            {
+                if (allDishesArray[chosen] == dish.Name)
+                    return dish;
+            }
+            return null;
         }
 
         private static void ChangeRestaurantInfo()
