@@ -235,13 +235,13 @@ namespace Reserveringssysteem
             Serialize(DishList, "dishes.json");
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
         }
-        private static void ChangeMenus() // Om voordeelmenu te veranderen.
+        private static void ChangeMenus() // Om een voordeelmenu te veranderen / toe te voegen.
         {
-            var choices = new string[Json.VoordeelMenus.Count + 2]; 
+            var choices = new string[VoordeelMenus.Count + 2]; 
             choices[0] = "Toevoegen\n";
-            for (int i = 1; i < Json.VoordeelMenus.Count + 1; i++) // Maakt array met alle namen van de voordeelmenus
+            for (int i = 1; i < VoordeelMenus.Count + 1; i++) // Maakt array met alle namen van de voordeelmenus
             {
-                choices[i] = Json.VoordeelMenus[i - 1].Name;
+                choices[i] = VoordeelMenus[i - 1].Name;
                 if (i == choices.Length - 2) choices[i] = choices[i] + "\n"; // 1 na laatste element met '\n' voor de terug knop.
             }
             choices[choices.Length - 1] = "Terug"; 
@@ -251,12 +251,24 @@ namespace Reserveringssysteem
 
             if (chosen == choices.Length - 1) ChangeMenu(); // Gaat terug 
             else if (chosen == 0) AddMenu(); // Voegt een voordeelmenu toe
-            else ChangeSpecificMenu(chosen);
+            else ChangeSpecificMenu(chosen); // Om een voordeelmenu aan te passen / te verwijderen.
         }
 
-        private static void ChangeSpecificMenu(int chosen)
+        private static void ChangeSpecificMenu(int chosenMenu)
         {
+            string[] choices = new[] { "Naam", "Voorgerecht", "Nagerecht", "Hoofdgerecht", "Prijs\n", "Verwijderen\n", "Terug" };
+            SelectionMenu menusMenu = new SelectionMenu(choices, Logo.GerechtenMenus, "\nKies wat u wilt aanpassen.\n");
+            int chosen = menusMenu.Show();
+            if (chosen == choices.Length - 1) ChangeMenus(); // Terug optie
+            else if (chosen == choices.Length - 2) DeleteMenu(chosenMenu); // Bij optie verwijderen wordt deze gecalled.
+        }
 
+        private static void DeleteMenu(int chosenMenu) // Functie om een voordeelmenu te verwijderen.
+        {
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u het voordeelmenu: \"{VoordeelMenus[chosenMenu - 1].Name}\", wilt verwijderen?\n"); // check
+            VoordeelMenus.Remove(VoordeelMenus[chosenMenu - 1]); // -1 omdat de eerste keuze in de array de optie "toevoegen" was.
+            Serialize(VoordeelMenus, "voordeelmenu.json");
+            ChangeInfoSucces("Voordeelmenu is succesvol verwijdert", ChangeMenus);
         }
 
         private static void AddMenu() // Voegt een voordeelmenu toe
@@ -309,10 +321,21 @@ namespace Reserveringssysteem
             var dishesMenu = new SelectionMenu(allDishesArray, Logo.GerechtenMenus, $"\nKies het {dishType.ToLower().Remove(dishType.Length - 2)}.\n");
             var chosen = dishesMenu.Show();
             if (chosen == allDishesArray.Length - 1) AddMenu();
-            foreach (Dish dish in DishList)
+            if (chosen == allDishesArray.Length - 2)
             {
-                if (allDishesArray[chosen] == dish.Name)
-                    return dish;
+                foreach (Dish dish in DishList)
+                {
+                    if (allDishesArray[chosen] == dish.Name + "\n")
+                        return dish;
+                }
+            }
+            else
+            {
+                foreach (Dish dish in DishList)
+                {
+                    if (allDishesArray[chosen] == dish.Name)
+                        return dish;
+                }
             }
             return null;
         }
