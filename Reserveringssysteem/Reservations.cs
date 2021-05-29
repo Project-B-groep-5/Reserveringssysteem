@@ -334,6 +334,7 @@ Tot dan!
             CancelTitle();
             Console.WriteLine("\nVoer uw reserveringscode in of druk 'enter' om terug te gaan naar het vorige scherm\nUw reserveringscode bestaat uit vier symbolen en kan teruggevonden worden in de reserveringsmail:\n");
             string input = Console.ReadLine();
+            if (input == "") Program.Main();
             while (true)
             {
                 if (input.ToLower().Length == 4)

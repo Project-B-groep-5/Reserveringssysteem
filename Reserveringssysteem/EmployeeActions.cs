@@ -238,11 +238,11 @@ namespace Reserveringssysteem
         private static void ChangeMenus() // Om een voordeelmenu te veranderen / toe te voegen.
         {
             var choices = new string[VoordeelMenus.Count + 2]; 
-            choices[0] = "Toevoegen\n";
+            choices[0] = "Toevoegen \n";
             for (int i = 1; i < VoordeelMenus.Count + 1; i++) // Maakt array met alle namen van de voordeelmenus
             {
                 choices[i] = VoordeelMenus[i - 1].Name;
-                if (i == choices.Length - 2) choices[i] = choices[i] + "\n"; // 1 na laatste element met '\n' voor de terug knop.
+                if (i == choices.Length - 2) choices[i] = choices[i] + " \n"; // 1 na laatste element met '\n' voor de terug knop.
             }
             choices[choices.Length - 1] = "Terug"; 
 
@@ -257,7 +257,7 @@ namespace Reserveringssysteem
 
         private static void ChangeSpecificMenu(int chosenMenu)
         {
-            string[] choices = new[] { "Naam", "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Prijs\n", "Verwijderen\n", "Terug" };
+            string[] choices = new[] { "Naam", "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Prijs \n", "Verwijderen \n", "Terug" };
             SelectionMenu menusMenu = new SelectionMenu(choices, Logo.GerechtenMenus, "\nKies wat u wilt aanpassen.\n");
             int chosen = menusMenu.Show();
             if (chosen == choices.Length - 1) ChangeMenus(); // Terug optie
@@ -355,7 +355,7 @@ namespace Reserveringssysteem
                 if (DishList[i].Type == dishType)
                     allDishes.Add(DishList[i].Name);
             }
-            allDishes[allDishes.Count - 1] = allDishes[allDishes.Count - 1] + "\n";
+            allDishes[allDishes.Count - 1] = allDishes[allDishes.Count - 1] + " \n";
             allDishes.Add("Terug");
             string[] allDishesArray = allDishes.ToArray();
             var dishesMenu = new SelectionMenu(allDishesArray, Logo.GerechtenMenus, $"\nKies het {dishType.ToLower().Remove(dishType.Length - 2)}.\n");
@@ -365,7 +365,7 @@ namespace Reserveringssysteem
             {
                 foreach (Dish dish in DishList)
                 {
-                    if (allDishesArray[chosen] == dish.Name + "\n")
+                    if (allDishesArray[chosen] == dish.Name + " \n")
                         return dish;
                 }
             }
@@ -382,7 +382,7 @@ namespace Reserveringssysteem
 
         private static void ChangeRestaurantInfo()
         {
-            SelectionMenu.Make(new[] { "Naam van het restaurant", "Beschrijving", "Adres", "Openingstijden", "Contactinformatie\n", "Terug" }, new Action[] { ChangeRestaurantName, ChangeRestaurantDescription, ChangeRestaurantAddress, ChangeRestaurantHours, ChangeRestaurantContactInfo, ChangeMenu }, Logo.RestaurantGegevens, "\nKies een optie om te wijzigen\n");
+            SelectionMenu.Make(new[] { "Naam van het restaurant", "Beschrijving", "Adres", "Openingstijden", "Contactinformatie \n", "Terug" }, new Action[] { ChangeRestaurantName, ChangeRestaurantDescription, ChangeRestaurantAddress, ChangeRestaurantHours, ChangeRestaurantContactInfo, ChangeMenu }, Logo.RestaurantGegevens, "\nKies een optie om te wijzigen\n");
         }
 
         private static void ChangeRestaurantName() // Verandert naam van het restaurant.
@@ -409,7 +409,7 @@ namespace Reserveringssysteem
 
         private static void ChangeRestaurantAddress() // Verandert het adres. (kan maar 1 element veranderen per keer, maar anders zou je alles moeten veranderen elke keer.)
         {
-            var choices = new[] { "Straatnaam", "Huisnummer", "Postcode", "Stad\n", "Terug" };
+            var choices = new[] { "Straatnaam", "Huisnummer", "Postcode", "Stad \n", "Terug" };
             var menu = new SelectionMenu(choices, Logo.RestaurantGegevens); // Wordt gevraagd wat veranderd moet worden.
             var chosen = menu.Show();
 
@@ -438,7 +438,7 @@ namespace Reserveringssysteem
                 Json.Restaurant.Address.PostalCode = newPostalCode;
                 Serialize(Json.Restaurant, "restaurant.json");
             }
-            else if (choices[chosen] == "Stad\n")
+            else if (choices[chosen] == "Stad \n")
             {
                 string newCity = ChangeInfoText("Voer de nieuwe stad in.");
                 if (newCity == "") ChangeRestaurantAddress();
@@ -451,7 +451,7 @@ namespace Reserveringssysteem
 
         private static void ChangeRestaurantHours() // Verandert openingstijden. 
         {
-            var allDays = new[] { "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag\n", "Terug" };
+            var allDays = new[] { "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag \n", "Terug" };
             var day = new SelectionMenu(allDays, Logo.RestaurantGegevens, "\nKies van welke dag u de openingstijden wil aanpassen.\n");
             var chosenDay = day.Show();
             if (allDays[chosenDay] == "Terug") ChangeRestaurantInfo();
@@ -461,7 +461,7 @@ namespace Reserveringssysteem
             var chosen = closeCheck.Show();
             if (closedOrNot[chosen] == "Ja") // Hier wordt de dag naar gesloten gezet.
             {
-                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantHours }, Logo.RestaurantGegevens ,$"\nWeet u zeker dat u {allDays[chosenDay].ToLower()} op gesloten wil zetten?\n");
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantHours }, Logo.RestaurantGegevens ,$"\nWeet u zeker dat u {(allDays[chosenDay] != "Zondag \n" ? allDays[chosenDay].ToLower() : allDays[chosenDay].Remove(allDays[chosenDay].Length - 2).ToLower())} op gesloten wil zetten?\n");
                 Json.Restaurant.OpeningHours[chosenDay] = "Gesloten";
                 Serialize(Json.Restaurant, "restaurant.json");
                 ChangeInfoSucces($"{allDays[chosenDay]} is succesvol veranderd naar 'Gesloten'.", ChangeRestaurantHours);
@@ -502,7 +502,7 @@ namespace Reserveringssysteem
 
         private static void ChangeRestaurantContactInfo() // Voor het veranderen van contactinformatie.
         {
-            var choices = new[] { "Emailadres", "Telefoonnummer\n", "Terug" }; 
+            var choices = new[] { "Emailadres", "Telefoonnummer \n", "Terug" }; 
             var menu = new SelectionMenu(choices, Logo.RestaurantGegevens, "\nKies wat u wilt aanpassen\n"); // Wordt gevraagd welke optie aangepast moet worden.
             var chosen = menu.Show();
             if (choices[chosen] == "Terug") ChangeRestaurantInfo();
@@ -515,7 +515,7 @@ namespace Reserveringssysteem
                 Json.Restaurant.ContactInformation[0] = newEmail;
                 Serialize(Json.Restaurant, "restaurant.json");
             }
-            else if (choices[chosen] == "Telefoonnummer\n")
+            else if (choices[chosen] == "Telefoonnummer \n")
             {
                 string newPhoneNumber = ChangeInfoText("Vul het nieuwe telefoonnummer in.");
                 if (newPhoneNumber == "") ChangeRestaurantContactInfo();
