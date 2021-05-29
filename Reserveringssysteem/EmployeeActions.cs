@@ -235,7 +235,7 @@ namespace Reserveringssysteem
             Serialize(DishList, "dishes.json");
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
         }
-        private static void ChangeMenus() 
+        private static void ChangeMenus() // Om voordeelmenu te veranderen.
         {
             var choices = new string[Json.VoordeelMenus.Count + 2]; 
             choices[0] = "Toevoegen\n";
@@ -271,27 +271,27 @@ namespace Reserveringssysteem
             newPrijsStr = ChangeInfoText("Voer de prijs in van het voordeelmenu.");
             while (true)
             {
-                try
+                try 
                 {
                     if (newPrijsStr == "") AddMenu();
                     newPrijs = double.Parse(newPrijsStr, 0.00);
                     break;
                 }
-                catch
+                catch // Gecalled wanneer input geen prijs is en vraagt het opnieuw.
                 {
                     Logo.PrintLogo(Logo.GerechtenMenus);
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     newPrijsStr = ChangeInfoText("Ingevoerde waarde is geen correcte waarde.\nVoer de prijs in van het voordeelmenu.");
                 }
             }
-            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, AddMenu }, Logo.GerechtenMenus, $"\nNaam: {newName}:\n" +
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, AddMenu }, Logo.GerechtenMenus, $"\nNaam: {newName}:\n" + 
                 $"Voorgerecht: {newVoorGerecht.Name}\n" +
                 $"Hoofdgerecht: {newHoofdGerecht.Name}\n" +
                 $"Nagerecht: {newNaGerecht.Name}\n" +
                 $"Prijs: {Math.Round(newPrijs, 2).ToString("#.00")}\n" +
-                $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n");
+                $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n"); // Vraag voor een check.
             VoordeelMenus.Add(new VoordeelMenu(newName, newVoorGerecht, newHoofdGerecht, newNaGerecht, newPrijs));
-            Serialize(VoordeelMenus, "voordeelmenu.json");
+            Serialize(VoordeelMenus, "voordeelmenu.json"); // Slaat het op.
             ChangeInfoSucces("Voordeelmenu is succesvol opgeslagen.", AddMenu);
         }
 
@@ -319,21 +319,21 @@ namespace Reserveringssysteem
 
         private static void ChangeRestaurantInfo()
         {
-            SelectionMenu.Make(new[] { "Naam van het restaurant", "Beschrijving", "Adres", "Capaciteit", "Openingstijden", "Contactinformatie\n", "Terug" }, new Action[] { ChangeRestaurantName, ChangeRestaurantDescription, ChangeRestaurantAddress, ChangeRestaurantCapacity, ChangeRestaurantHours, ChangeRestaurantContactInfo, ChangeMenu }, Logo.RestaurantGegevens, "\nKies een optie om te wijzigen\n");
+            SelectionMenu.Make(new[] { "Naam van het restaurant", "Beschrijving", "Adres", "Openingstijden", "Contactinformatie\n", "Terug" }, new Action[] { ChangeRestaurantName, ChangeRestaurantDescription, ChangeRestaurantAddress, ChangeRestaurantHours, ChangeRestaurantContactInfo, ChangeMenu }, Logo.RestaurantGegevens, "\nKies een optie om te wijzigen\n");
         }
 
-        private static void ChangeRestaurantName()
+        private static void ChangeRestaurantName() // Verandert naam van het restaurant.
         {
             string newName = ChangeInfoText("Voer de nieuwe naam in voor het restaurant.");
             if (newName == "") ChangeRestaurantInfo();
             Console.Clear();
-            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantName }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de naam van het restaurant naar \"{newName}\" wil veranderen?\n");
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantName }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de naam van het restaurant naar \"{newName}\" wil veranderen?\n"); // Check
             Json.Restaurant.Name = newName;
-            Serialize(Json.Restaurant, "restaurant.json");
+            Serialize(Json.Restaurant, "restaurant.json"); // Slaat het op.
             ChangeInfoSucces($"Naam succesvol is veranderd naar \"{newName}\"", ChangeRestaurantInfo);
         }
 
-        private static void ChangeRestaurantDescription()
+        private static void ChangeRestaurantDescription() // Verandert beschrijving van het restaurant.
         {
             string newDescription = ChangeInfoText("Voer de nieuwe beschrijving van het restaurant in.");
             if (newDescription == "") ChangeRestaurantInfo();
@@ -344,13 +344,13 @@ namespace Reserveringssysteem
             ChangeInfoSucces("Beschrijving is succesvol veranderd.", ChangeRestaurantInfo);
         }
 
-        private static void ChangeRestaurantAddress()
+        private static void ChangeRestaurantAddress() // Verandert het adres. (kan maar 1 element veranderen per keer, maar anders zou je alles moeten veranderen elke keer.)
         {
             var choices = new[] { "Straatnaam", "Huisnummer", "Postcode", "Stad\n", "Terug" };
-            var menu = new SelectionMenu(choices, Logo.RestaurantGegevens);
+            var menu = new SelectionMenu(choices, Logo.RestaurantGegevens); // Wordt gevraagd wat veranderd moet worden.
             var chosen = menu.Show();
 
-            if (choices[chosen] == "Terug") ChangeRestaurantInfo();
+            if (choices[chosen] == "Terug") ChangeRestaurantInfo(); 
             else if (choices[chosen] == "Straatnaam")
             {
                 string newStreetName = ChangeInfoText("Voer het nieuwe adres in.");
@@ -386,30 +386,17 @@ namespace Reserveringssysteem
             ChangeInfoSucces("Adres van het restaurant is aangepast", ChangeRestaurantAddress);
         }
 
-        private static void ChangeRestaurantCapacity()
-        {
-            /*            try 
-                        {	
-                            int newCapacity = int.Parse(ChangeInfoText("Voer de nieuwe capaciteit van het restaurant in."));
-                        }
-                        catch
-                        {
-                            Console.WriteLine("De ingevoerde waarde is geen getal. Probeer het opnieuw.");
-                            ChangeRestaurantCapacity();
-                        }*/
-        }
-
-        private static void ChangeRestaurantHours()
+        private static void ChangeRestaurantHours() // Verandert openingstijden. 
         {
             var allDays = new[] { "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag\n", "Terug" };
             var day = new SelectionMenu(allDays, Logo.RestaurantGegevens, "\nKies van welke dag u de openingstijden wil aanpassen.\n");
             var chosenDay = day.Show();
             if (allDays[chosenDay] == "Terug") ChangeRestaurantInfo();
 
-            var closedOrNot = new[] { "Ja", "Nee" };
+            var closedOrNot = new[] { "Ja", "Nee" }; // Of de dag gesloten moet zijn of niet.
             var closeCheck = new SelectionMenu(closedOrNot, Logo.RestaurantGegevens, "\nWilt u dat deze dag gesloten is?\n");
             var chosen = closeCheck.Show();
-            if (closedOrNot[chosen] == "Ja")
+            if (closedOrNot[chosen] == "Ja") // Hier wordt de dag naar gesloten gezet.
             {
                 SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantHours }, Logo.RestaurantGegevens ,$"\nWeet u zeker dat u {allDays[chosenDay].ToLower()} op gesloten wil zetten?\n");
                 Json.Restaurant.OpeningHours[chosenDay] = "Gesloten";
@@ -419,11 +406,11 @@ namespace Reserveringssysteem
 
             TimeSpan check;
             Console.CursorVisible = true;
-            string newOpeningHour = ChangeInfoText("Voer de openingstijd in.\nHet format is '00:00'\nVoorbeeld: 17:00");
+            string newOpeningHour = ChangeInfoText("Voer de openingstijd in.\nHet format is '00:00'\nVoorbeeld: 17:00"); // Openingstijd gedeelte.
             while (true)
             {
-                if (newOpeningHour == "") ChangeRestaurantHours();
-                else if (TimeSpan.TryParse(newOpeningHour, out check)) break;
+                if (newOpeningHour == "") ChangeRestaurantHours(); // Gaat terug naar vorig menu.
+                else if (TimeSpan.TryParse(newOpeningHour, out check)) break; // Bij goede format breaked hij en gaat hij verder.
                 Logo.PrintLogo(Logo.RestaurantGegevens);
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("Ingevoerde waarde is niet in het correcte format of het is geen echte tijd.\nVoer opnieuw de openingstijd in.\nHet format is '00:00'.\nVoorbeeld: 17:00\nOf druk op 'enter' om terug te gaan\n");
@@ -431,13 +418,12 @@ namespace Reserveringssysteem
                 Console.CursorVisible = true;
                 newOpeningHour = Console.ReadLine();
             }
-            TimeSpan check2;
-            string newClosingHour = ChangeInfoText("Voer de sluitingstijd in.\nHet format is '00:00'\nVoorbeeld: 22:00");
+            TimeSpan check2; 
+            string newClosingHour = ChangeInfoText("Voer de sluitingstijd in.\nHet format is '00:00'\nVoorbeeld: 22:00"); // Sluitingstijd gedeelte.
             while (true)
             {
-                if (newClosingHour == "") ChangeRestaurantInfo();
-                else if (TimeSpan.TryParse(newClosingHour, out check2)) break;
-                Logo.PrintLogo(Logo.RestaurantGegevens);
+                if (newClosingHour == "") ChangeRestaurantInfo(); // Gaat terug naar vorig menu.
+                else if (TimeSpan.TryParse(newClosingHour, out check2)) break; // Bij goede format breaked hij en gaat hij verder.
                 Logo.PrintLogo(Logo.RestaurantGegevens);
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("Ingevoerde waarde is niet in het correcte format of het is geen echte tijd.\nVoer opnieuw de sluitingstijd in.\nHet format is '00:00'.\nVoorbeeld: 22:00\nOf druk op 'enter' om terug te gaan\n");
@@ -445,16 +431,16 @@ namespace Reserveringssysteem
                 Console.CursorVisible = true;
                 newClosingHour = Console.ReadLine();
             }
-            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantHours }, Logo.RestaurantGegevens, $"De nieuwe openings- en sluitingstijden op {allDays[chosenDay].ToLower()} worden:\n{newOpeningHour}-{newClosingHour}\nWilt u deze verandering toepassen?\n");
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeRestaurantHours }, Logo.RestaurantGegevens, $"De nieuwe openings- en sluitingstijden op {allDays[chosenDay].ToLower()} worden:\n{newOpeningHour}-{newClosingHour}\nWilt u deze verandering toepassen?\n"); // check 
             Json.Restaurant.OpeningHours[chosenDay] = $"{newOpeningHour}-{newClosingHour}";
-            Serialize(Json.Restaurant, "restaurant.json");
+            Serialize(Json.Restaurant, "restaurant.json"); // Slaat het op
             ChangeInfoSucces("Openings- en sluitings tijden zijn veranderd.", ChangeRestaurantHours);
         }
 
-        private static void ChangeRestaurantContactInfo()
+        private static void ChangeRestaurantContactInfo() // Voor het veranderen van contactinformatie.
         {
-            var choices = new[] { "Emailadres", "Telefoonnummer\n", "Terug" };
-            var menu = new SelectionMenu(choices, Logo.RestaurantGegevens, "\nKies wat u wilt aanpassen\n");
+            var choices = new[] { "Emailadres", "Telefoonnummer\n", "Terug" }; 
+            var menu = new SelectionMenu(choices, Logo.RestaurantGegevens, "\nKies wat u wilt aanpassen\n"); // Wordt gevraagd welke optie aangepast moet worden.
             var chosen = menu.Show();
             if (choices[chosen] == "Terug") ChangeRestaurantInfo();
 
@@ -477,7 +463,7 @@ namespace Reserveringssysteem
             ChangeInfoSucces("Contactinformatie is succesvol aangepast", ChangeRestaurantContactInfo);
         }
 
-        private static string ChangeInfoText(string text)
+        private static string ChangeInfoText(string text) // Functie om makkelijk wat te printen en kleuren te veranderen. Returned meteen een string als input van de gebruiker.
         {
             Logo.PrintLogo(Logo.RestaurantGegevens);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -486,7 +472,7 @@ namespace Reserveringssysteem
             Console.ForegroundColor = ConsoleColor.White;
             return Console.ReadLine();
         }
-        private static void ChangeInfoSucces(string text, Action func)
+        private static void ChangeInfoSucces(string text, Action func) // Functie om te laten zien dat het succesvol opgeslagen is en gaat naar de gegeven functie.
         {
             Logo.PrintLogo(Logo.RestaurantGegevens);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
