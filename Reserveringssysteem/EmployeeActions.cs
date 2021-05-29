@@ -339,7 +339,7 @@ namespace Reserveringssysteem
             Console.ForegroundColor = ConsoleColor.White;
             return Console.ReadLine();
         }
-        private static void ChangeInfoSucces(string text, Action func )
+        private static void ChangeInfoSucces(string text, Action func)
         {
             Logo.PrintLogo(Logo.RestaurantGegevens);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
