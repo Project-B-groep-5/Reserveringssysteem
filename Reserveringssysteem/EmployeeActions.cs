@@ -252,15 +252,50 @@ namespace Reserveringssysteem
             if (chosen == choices.Length - 1) ChangeMenu(); // Gaat terug 
             else if (chosen == 0) AddMenu(); // Voegt een voordeelmenu toe
             else ChangeSpecificMenu(chosen); // Om een voordeelmenu aan te passen / te verwijderen.
+
         }
 
         private static void ChangeSpecificMenu(int chosenMenu)
         {
-            string[] choices = new[] { "Naam", "Voorgerecht", "Nagerecht", "Hoofdgerecht", "Prijs\n", "Verwijderen\n", "Terug" };
+            string[] choices = new[] { "Naam", "Voorgerecht", "Hoofdgerecht", "Nagerecht", "Prijs\n", "Verwijderen\n", "Terug" };
             SelectionMenu menusMenu = new SelectionMenu(choices, Logo.GerechtenMenus, "\nKies wat u wilt aanpassen.\n");
             int chosen = menusMenu.Show();
             if (chosen == choices.Length - 1) ChangeMenus(); // Terug optie
             else if (chosen == choices.Length - 2) DeleteMenu(chosenMenu); // Bij optie verwijderen wordt deze gecalled.
+
+            else if (chosen == 0) // Naam veranderen
+            {
+                string newName = ChangeInfoText("Voer de nieuwe naam in van het voordeelmenu.");
+                if (newName == "") ChangeSpecificMenu(chosenMenu);
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de naam van het voordeelmenu naar \"{newName}\" wilt veranderen?\n");
+                VoordeelMenus[chosenMenu - 1].Name = newName; // -1 omdat de eerste optie "toevoegen" was.
+            }
+            else if (chosen == 1) // Voorgerecht veranderen
+            {
+                Dish newVoorGerecht = MakeDishMenu("Voorgerechten", ChangeMenus);
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de het voorgerecht van het voordeelmenu naar \"{newVoorGerecht.Name}\" wilt veranderen?\n");
+                VoordeelMenus[chosenMenu - 1].VoorGerecht = newVoorGerecht;
+            }
+            else if (chosen == 2) // Hoofdgerecht veranderen
+            {
+                Dish newHoofdGerecht = MakeDishMenu("Hoofdgerechten", ChangeMenus);
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de het hoofdgerecht van het voordeelmenu naar \"{newHoofdGerecht.Name}\" wilt veranderen?\n");
+                VoordeelMenus[chosenMenu - 1].HoofdGerecht = newHoofdGerecht;
+            }
+            else if (chosen == 3) // Nagerecht veranderen
+            {
+                Dish newNaGerecht = MakeDishMenu("Nagerechten", ChangeMenus);
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de het hoofdgerecht van het voordeelmenu naar \"{newNaGerecht.Name}\" wilt veranderen?\n");
+                VoordeelMenus[chosenMenu - 1].NaGerecht = newNaGerecht;
+            }
+            else // Veranderen van de prijs
+            {
+                double newPrijs = PriceChange(ChangeMenus);
+                SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.RestaurantGegevens, $"\nWeet u zeker dat u de prijs van het voordeelmenu naar {newPrijs.ToString("#.00")} euro wilt veranderen?\n");
+                VoordeelMenus[chosenMenu - 1].Prijs = newPrijs;
+            }
+            Serialize(VoordeelMenus, "voordeelmenu.json");
+            ChangeInfoSucces("Voordeelmenu is succesvol aangepast", ChangeMenus);
         }
 
         private static void DeleteMenu(int chosenMenu) // Functie om een voordeelmenu te verwijderen.
@@ -275,17 +310,31 @@ namespace Reserveringssysteem
         {
             string newName = ChangeInfoText("Voer de naam in van het voordeelmenu.");
             if (newName == "") ChangeMenus();
-            Dish newVoorGerecht = MakeDishMenu("Voorgerechten");
-            Dish newHoofdGerecht = MakeDishMenu("Hoofdgerechten");
-            Dish newNaGerecht = MakeDishMenu("Nagerechten");
+            Dish newVoorGerecht = MakeDishMenu("Voorgerechten", AddMenu);
+            Dish newHoofdGerecht = MakeDishMenu("Hoofdgerechten", AddMenu);
+            Dish newNaGerecht = MakeDishMenu("Nagerechten", AddMenu);
+            double newPrijs = PriceChange(AddMenu);
+            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, AddMenu }, Logo.GerechtenMenus, $"\nNaam: {newName}\n" + 
+                $"Voorgerecht: {newVoorGerecht.Name}\n" +
+                $"Hoofdgerecht: {newHoofdGerecht.Name}\n" +
+                $"Nagerecht: {newNaGerecht.Name}\n" +
+                $"Prijs: {Math.Round(newPrijs, 2).ToString("#.00")}\n" +
+                $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n"); // Vraag voor een check.
+            VoordeelMenus.Add(new VoordeelMenu(newName, newVoorGerecht, newHoofdGerecht, newNaGerecht, newPrijs));
+            Serialize(VoordeelMenus, "voordeelmenu.json"); // Slaat het op.
+            ChangeInfoSucces("Voordeelmenu is succesvol opgeslagen.", ChangeMenus);
+        }
+
+        private static double PriceChange(Action func)
+        {
             double newPrijs;
             string newPrijsStr;
             newPrijsStr = ChangeInfoText("Voer de prijs in van het voordeelmenu.");
             while (true)
             {
-                try 
+                try
                 {
-                    if (newPrijsStr == "") AddMenu();
+                    if (newPrijsStr == "") func();
                     newPrijs = double.Parse(newPrijsStr, 0.00);
                     break;
                 }
@@ -296,18 +345,9 @@ namespace Reserveringssysteem
                     newPrijsStr = ChangeInfoText("Ingevoerde waarde is geen correcte waarde.\nVoer de prijs in van het voordeelmenu.");
                 }
             }
-            SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, AddMenu }, Logo.GerechtenMenus, $"\nNaam: {newName}:\n" + 
-                $"Voorgerecht: {newVoorGerecht.Name}\n" +
-                $"Hoofdgerecht: {newHoofdGerecht.Name}\n" +
-                $"Nagerecht: {newNaGerecht.Name}\n" +
-                $"Prijs: {Math.Round(newPrijs, 2).ToString("#.00")}\n" +
-                $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n"); // Vraag voor een check.
-            VoordeelMenus.Add(new VoordeelMenu(newName, newVoorGerecht, newHoofdGerecht, newNaGerecht, newPrijs));
-            Serialize(VoordeelMenus, "voordeelmenu.json"); // Slaat het op.
-            ChangeInfoSucces("Voordeelmenu is succesvol opgeslagen.", AddMenu);
-        }
-
-        private static Dish MakeDishMenu(string dishType) // Maakt array met gegeven gerecht type en returned het gekozen gerecht.
+            return newPrijs;
+        } 
+        private static Dish MakeDishMenu(string dishType, Action func) // Maakt array met gegeven gerecht type en returned het gekozen gerecht.
         {
             List<string> allDishes = new List<string>();
             for (int i = 0; i < DishList.Count; i++)
@@ -320,7 +360,7 @@ namespace Reserveringssysteem
             string[] allDishesArray = allDishes.ToArray();
             var dishesMenu = new SelectionMenu(allDishesArray, Logo.GerechtenMenus, $"\nKies het {dishType.ToLower().Remove(dishType.Length - 2)}.\n");
             var chosen = dishesMenu.Show();
-            if (chosen == allDishesArray.Length - 1) AddMenu();
+            if (chosen == allDishesArray.Length - 1) func();
             if (chosen == allDishesArray.Length - 2)
             {
                 foreach (Dish dish in DishList)
