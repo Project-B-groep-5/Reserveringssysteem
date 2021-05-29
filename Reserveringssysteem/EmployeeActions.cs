@@ -477,7 +477,7 @@ namespace Reserveringssysteem
             Logo.PrintLogo(Logo.RestaurantGegevens);
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(text + "\nDruk op 'enter' om door te gaan");
-            Console.Read();
+            Console.ReadLine();
             func();
         }
 
