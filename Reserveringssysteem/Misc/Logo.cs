@@ -2,9 +2,9 @@
 
 namespace Reserveringssysteem
 {
-    static class Logo
+    public static class Logo
     {
-        public static string Welkom = @$" _       __     ____                 
+        public static string Welkom = @" _       __     ____                 
 | |     / /__  / / /______  ____ ___ 
 | | /| / / _ \/ / //_/ __ \/ __ `__ \
 | |/ |/ /  __/ / ,< / /_/ / / / / / /
@@ -82,10 +82,11 @@ __________________________________________________________";
 _______________________________________________________________________________________________";
         public static void PrintLogo(string logo)
         {
+            Console.CursorVisible = false;
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(logo + "\n");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Cyan;
         }
     }
 }

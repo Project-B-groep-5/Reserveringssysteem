@@ -9,7 +9,7 @@ namespace Reserveringssysteem
         public string ReservationId { get; set; }
         public string Name { get; set; }
         public string Date { get; set; }
-        public string Time { get; set; }
+        public string[] TimeSlot { get; set; }
         public int Size { get; set; }
         public string[] DiscountMenus { get; set; }
         public string Comments { get; set; }

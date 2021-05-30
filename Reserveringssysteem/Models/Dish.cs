@@ -1,10 +1,12 @@
-﻿namespace Reserveringssysteem
+﻿using System.Collections.Generic;
+
+namespace Reserveringssysteem
 {
     public class Dish
     {
         public string Name { get; set; }
         public double Price { get; set; }
-        public string[] Ingredients { get; set; }
+        public List<string> Ingredients { get; set; }
         public string Type { get; set; }
         public string[] Tags { get; set; }
 

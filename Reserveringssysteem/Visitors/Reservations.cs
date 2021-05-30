@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Linq;
 using static Reserveringssysteem.Json;
 
 namespace Reserveringssysteem
@@ -8,46 +10,65 @@ namespace Reserveringssysteem
     public static class Reservations
     {
         private static void ReservateTitle() => Logo.PrintLogo(Logo.Reserveren);
+
+        private static string _name;
+        private static int _people;
+        private static string _date;
+        private static string[] _times;
+        private static List<string> _timeSlot;
+        private static string[] _menus;
+        private static string _comment;
         public static void Reservate()
         {
-            string name = GetName();
-            if (name == "") return;
-            int amountPeople = GetAmountOfPeople();
-            string date = GetDate();
-
-            string[] times = new[] { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
-            string time = times[new SelectionMenu(times, Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show()];
-
-            if (Check(date, time, amountPeople))
-            {
-                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum en tijd, wat wilt u doen?\n");
-                switch (optionMenu.Show())
-                {
-                    case 0:
-                        Reservate();
-                        return;
-                    case 1:
-                        return;
-                }
-            }
-
-            string[] choices = GetDiscountMenus(amountPeople);
-            if (choices != null) FakePayment(choices);
-            string comments = AskForComments();
+            GetName();
+            GetAmountOfPeople();
+            GetDate();
+            GetTime();
+            GetDiscountMenus();
+            if (_menus != null) FakePayment();
+            AskForComments();
             
-            Reservation reservation = new Reservation { Name = name, Date = date, Time = time, Size = amountPeople, DiscountMenus = choices, Comments = comments};
+            Reservation reservation = new Reservation { Name = _name, Date = _date, TimeSlot = _timeSlot.ToArray(), Size = _people, DiscountMenus = _menus, Comments = _comment};
             
-            SendEmail(reservation.ReservationId, name, time, date);
-            
-            Console.WriteLine($"U heeft een reservering gemaakt op: {date} om {time} uur!\nUw reserveringscode is: {reservation.ReservationId}");
+            SendEmail(reservation.ReservationId, _name, _timeSlot[0], _date);
+
+            Console.Write($"U heeft een reservering gemaakt op: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(_date);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" om ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(_timeSlot[0]);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" uur!");
+            Console.Write("Uw reserveringscode is: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(reservation.ReservationId);
             reservation.Save();
 
-            Utils.Enter();
+            Utils.Enter(Program.Main);
         }
-        private static void FakePayment(string[] choices)
+
+        private static void GetTime()
+        {
+            var timesTitles = _times.ToList();
+            timesTitles[^1] += " \n";
+            timesTitles.Add("Terug");
+            int time = new SelectionMenu(timesTitles.ToArray(), Logo.Reserveren, "\nHoe laat wilt u komen eten?\n").Show();
+            if (time == timesTitles.Count - 1)
+            {
+                GetDate();
+                return;
+            }
+            _timeSlot = new List<string>();
+            for (int i = time; i <= time + 3 && i < _times.Length; i++)
+                _timeSlot.Add(_times[i]);
+        }
+
+        private static void FakePayment()
         {
             double price = 0.0;
-            foreach (string menu in choices)
+            foreach (string menu in _menus)
             {
                 for (int i = 0; i < VoordeelMenus.Count; i++)
                 {
@@ -65,18 +86,16 @@ namespace Reserveringssysteem
             {
                 var betaalKeuze = new SelectionMenu(betaalMethodes, Logo.Reserveren, "\nKies uw gewenste betaalmethode\n");
                 int betaalMethode = betaalKeuze.Show();
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine($"U heeft gekozen voor {betaalMethodes[betaalMethode]}.");
 
                 var correcteBetaalMethode = new SelectionMenu(check, Logo.Reserveren, $"\nU heeft gekozen voor {betaalMethodes[betaalMethode]}.\nKlopt dit?\n");
                 int betaalCheck = correcteBetaalMethode.Show();
                 if (check[betaalCheck] == "Nee") continue;
                 ReservateTitle();
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 if (betaalMethodes[betaalMethode] == "Afterpay") Console.WriteLine("U kunt achteraf betalen");
                 else
                 {
-                    var doorgaan = new SelectionMenu(check2, Logo.Reserveren, $"U betaald {price.ToString("0.00")} euro via {betaalMethodes[betaalMethode]}.\n");
+                    var doorgaan = new SelectionMenu(check2, Logo.Reserveren, $"U betaald €{price:0.00} via {betaalMethodes[betaalMethode]}.\n");
                     int index = doorgaan.Show();
                     if (check2[index] == "Terug") continue;
                     ReservateTitle();
@@ -87,28 +106,32 @@ namespace Reserveringssysteem
                 break;
             }
         }
-        private static string GetName()
+        private static void GetName()
         {
             ReservateTitle();
-            Console.CursorVisible = true;
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Wat is uw naam? Of druk op 'enter' om terug te gaan.\n");
-            Console.ForegroundColor = ConsoleColor.White;
-            string name = Console.ReadLine();
+            string name = Utils.Input("Wat is uw naam?");
+
+
+            if (name.Length == 0)
+            {
+                Utils.NoInput(GetName, Program.Main, Logo.Reserveren);
+
+            }
             Console.CursorVisible = false;
-            return name;
+            _name = name;
         }
-        private static int GetAmountOfPeople()
+        private static void GetAmountOfPeople()
         {
             int amountPeople = 0;
             ReservateTitle();
-            Console.CursorVisible = true;
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Voor hoeveel mensen wilt u een reservering maken?");
-            Console.ForegroundColor = ConsoleColor.White;
             while (amountPeople <= 0)
             {
-                var input = Console.ReadLine();
+                var input = Utils.Input("Voor hoeveel mensen wilt u een reservering maken?");
+                if (input.Length == 0)
+                {
+                    Utils.NoInput(GetAmountOfPeople, GetName, Logo.Reserveren);
+                    return;
+                }
                 try
                 {
                     amountPeople = int.Parse(input);
@@ -131,33 +154,62 @@ namespace Reserveringssysteem
             if (checkArr[i] == "Nee") GetAmountOfPeople();
 
             Console.CursorVisible = false;
-            return amountPeople;
+            _people = amountPeople;
         }
-        private static string GetDate()
-        {           
+        private static void GetDate()
+        {
             var datumVandaag = DateTime.Today.ToString("dd-MM-yyyy");
             ReservateTitle();
-            Console.CursorVisible = true;
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Voor wanneer wilt u reserveren?");
             Console.WriteLine("Gebruik alstublieft het format: dd-MM-jjjj");
-            Console.WriteLine($"\nDe datum van vandaag is {datumVandaag}");
-            Console.ForegroundColor = ConsoleColor.White;
-            var date = Console.ReadLine();
+            _date = Utils.Input($"\nDe datum van vandaag is {datumVandaag}");
             while (true)
             {
-                if (!DateTime.TryParse(date, out DateTime dDate) || DateTime.Parse(date) < DateTime.Parse(datumVandaag))
+                if (_date == "")
+                {
+                    Utils.NoInput(GetDate, GetAmountOfPeople, Logo.Reserveren);
+                }
+                else if (!DateTime.TryParse(_date, out DateTime dDate) || DateTime.Parse(_date) < DateTime.Parse(datumVandaag))
                 {
                     ReservateTitle();
-                    Console.WriteLine("Opgegeven datum is niet gelijk aan het format of in het verleden. Het format is : dd-MM-jjjj");
-                    date = Console.ReadLine();
+                    _date = Utils.Input("Opgegeven datum is niet gelijk aan het format of in het verleden.Het format is : dd - MM - jjjj");
                 }
                 else
                 {
                     Console.CursorVisible = false;
-                    return string.Format("{0:dd/MM/yyyy}", dDate);
+                    _date = string.Format("{0:dd/MM/yyyy}", dDate);
+                    break;
                 }
             }
+
+            _times = GetTimes();
+            if (_times == null)
+            {
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant is gesloten op de door uw gekozen datum, wat wilt u doen?\n");
+                switch (optionMenu.Show())
+                {
+                    case 0:
+                        GetDate();
+                        return;
+                    case 1:
+                        Program.Main();
+                        return;
+
+                }
+            }
+            else if (_times.Length == 0)
+            {
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant zit vol op de door uw gekozen datum, wat wilt u doen?\n");
+                switch (optionMenu.Show())
+                {
+                    case 0:
+                        GetDate();
+                        return;
+                    case 1:
+                        Program.Main();
+                        return;
+                }
+            }   
         }
         private static bool Check(string date, string time, int size)
         {
@@ -166,13 +218,28 @@ namespace Reserveringssysteem
             occupied += size;
             for (int i = 0; i < ReservationList.Count; i++)
             {
-                if (ReservationList[i].Date == date && ReservationList[i].Time == time)
+                if (ReservationList[i].Date == date && ReservationList[i].TimeSlot.Any(time.Contains))
                     occupied += ReservationList[i].Size;
             }
-            if (occupied <= capacity) return false;
+            if (occupied > capacity) return false;
             return true;
         }
-        private static string[] GetDiscountMenus(int amountPeople)
+        private static string[] GetTimes()
+        {
+            DateTime.TryParse(_date, out DateTime dDate);
+            var day = (int)dDate.DayOfWeek -1;
+            var times = new List<string>();
+            try
+            {
+                for (int i = int.Parse(Json.Restaurant.OpeningHours[day].Split(":")[0]); i < int.Parse(Json.Restaurant.OpeningHours[day].Split("-")[1].Split(":")[0]) - 1; i++)
+                    for (int j = 0; j <= 30; j += 30)
+                        if(Check(_date, $"{i}:{j:00}", _people))
+                            times.Add($"{i}:{j:00}");
+                return times.ToArray();
+            }
+            catch { return null; }
+        }
+        private static void GetDiscountMenus()
         {
             string[] Menus = new string[VoordeelMenus.Count + 1];
             for (int i = 0; i < VoordeelMenus.Count; i++)
@@ -180,33 +247,26 @@ namespace Reserveringssysteem
                 Menus[i] = VoordeelMenus[i].Name;
             }
             Menus[^1] = "Geen voordeelmenu";
-            var voordeelMenuKeuze = new SelectionMenu(new string[3] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "À la carte" }, Logo.Reserveren, "\nHet is voordeliger als u van tevoren kiest voor een voordeelmenu.\nU kunt nu kiezen om van tevoren een voordeelmenu te nemen of à la carte te eten.\n");
-            string[] choices;
+            var voordeelMenuKeuze = new SelectionMenu(new[] { "Voordeelmenu kiezen", "À la carte", "Terug" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
             while (true)
             {
                 switch (voordeelMenuKeuze.Show())
                 {
                     case 0:
-                        ReservateTitle();
-                        Console.WriteLine(MenuShow.VoordeelMenuShow());
-                        Utils.Enter();
-                        break;
-                    case 1:
-                        choices = new string[amountPeople];
-                        for (int i = 0; i < amountPeople; i++)
+                        _menus = new string[_people];
+                        for (int i = 0; i < _people; i++)
                         {
-                            var voordeelKeuzes = new SelectionMenu(Menus, Logo.Reserveren, $"\nKies voor persoon { i + 1 } het voordeelmenu\n");
-                            var keuze = voordeelKeuzes.Show();
-                            choices[i] = Menus[keuze];
+                            var keuze = SelectionMenu.Show(i+1);
+                            _menus[i] = Menus[keuze];
                         }
                         ReservateTitle();
                         string gekozen = "U heeft gekozen voor:\n";
                         foreach (var menu in Menus)
                         {
                             int count = 0;
-                            for (int i = 0; i < choices.Length; i++)
+                            for (int i = 0; i < _menus.Length; i++)
                             {
-                                if (menu == choices[i])
+                                if (menu == _menus[i])
                                     count++;
                             }
                             if (count > 0)
@@ -220,7 +280,7 @@ namespace Reserveringssysteem
                         if (keuzeCheckArr[keuzeCheck] == "Nee") continue;
 
                         bool emptyChoice = true;
-                        foreach (var str in choices)
+                        foreach (var str in _menus)
                         {
                             if (str != "Geen voordeelmenu")
                             {
@@ -228,55 +288,42 @@ namespace Reserveringssysteem
                                 break;                               
                             }
                         }
-                        if (emptyChoice) choices = null;
-                        return choices;
-                    case 2:
+                        if (emptyChoice) _menus = null;
+                        return;
+                    case 1:
                         string[] keuzeCheckArr2 = new string[2] { "Ja", "Nee" };
                         var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u à la carte wilt eten?\n");
                         var keuzeCheck2 = voordeelCheck2.Show();
                         if (keuzeCheckArr2[keuzeCheck2] == "Nee") continue;
-                        return null;
+                        return;
+                    case 2:
+                        GetTime();
+                        return;
                 }
             }
         }
-        private static string AskForComments()
+        private static void AskForComments()
         {
             ReservateTitle();
-            var OpmerkingenMenuKeuze = new SelectionMenu(new string[2] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
-            if (OpmerkingenMenuKeuze.Show() == 0)
+            var OpmerkingenMenuKeuze = new SelectionMenu(new[] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
+            var choice = OpmerkingenMenuKeuze.Show();
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
+            if (choice == 0)
             {
-                var comment = "";
-                while (true)
-                {
-                    ReservateTitle();
-
-                    Console.ForegroundColor = ConsoleColor.DarkMagenta;       
-                    Console.WriteLine("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.CursorVisible = true;
-                    comment = Console.ReadLine();
-                    if (comment == "") continue;
-                    break;
-                }
-                return comment;
+                ReservateTitle();
+                _comment = Utils.Input("Welke opmerking(en) wilt u nog geven aan het restaurant: \n");
             }
-            return null;
         }
         private static void SendEmail(string reservationCode, string name, string time, string date) // Method om de mail te sturen.
         {
             ReservateTitle();
-            Console.CursorVisible = true;
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen?: \n");
-            Console.ForegroundColor = ConsoleColor.White;
-            var emailAddress = Console.ReadLine();
+            var emailAddress = Utils.Input("Om uw reservering te bevestigen hebben wij uw mail adres nodig.\nNaar welk mail adres mogen wij de reservering sturen?: ");
             while (!Utils.IsValidEmail(emailAddress))
             {
                 ReservateTitle();
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                Console.WriteLine($"{emailAddress} is geen geldig mail adres.\nNaar welk mail adres mogen wij de reservering sturen?:\n");
-                Console.ForegroundColor = ConsoleColor.White;
-                emailAddress = Console.ReadLine();
+                Console.WriteLine();
+                emailAddress = Utils.Input($"{emailAddress} is geen geldig mail adres.\nNaar welk mail adres mogen wij de reservering sturen?:\n");
             }
             var checkArr = new string[2] { "Ja", "Nee" };
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -288,13 +335,11 @@ namespace Reserveringssysteem
                 SendEmail(reservationCode, name, time, date);                
             }
             Console.CursorVisible = false;
-            Console.Clear();
-            CancelTitle();
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("\nDe bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("De bevestigingsmail wordt nu verstuurd. Sluit dit menu nog niet af......");
             string mailMessage = @$"Beste {name},
 
-Hartelijk dank voor uw reservering bij Restaurant de Houten Vork op {date} om {time}.
+Hartelijk dank voor uw reservering bij Restaurant {Json.Restaurant.Name} op {date} om {time}.
 Uw reserveringscode is : {reservationCode} , bewaar deze code goed. 
 
 Tot dan!
@@ -315,17 +360,13 @@ Tot dan!
         {
             if (ReservationList.Count <= 0)
             {
-                Console.Clear();
                 CancelTitle();
                 Console.WriteLine("\nGeen reserveringen gevonden in het systeem.");
-                Utils.Enter();
+                Utils.Enter(Program.Main);
                 return;
             }
-            Console.CursorVisible = true;
-            Console.Clear();
             CancelTitle();
-            Console.WriteLine("\nVoer uw reserveringscode in of druk 'enter' om terug te gaan naar het vorige scherm\nUw reserveringscode bestaat uit vier symbolen en kan teruggevonden worden in de reserveringsmail:\n");
-            string input = Console.ReadLine();
+            string input = Utils.Input("Voer uw reserveringscode in.\nUw reserveringscode bestaat uit vier symbolen en kan teruggevonden worden in de reserveringsmail:\n");
             while (true)
             {
                 if (input.ToLower().Length == 4)
@@ -335,9 +376,8 @@ Tot dan!
                     {
                         if (ReservationList[i].ReservationId.ToLower() == input.ToLower())     //Als een match gevonden wordt...
                         {
-                            Console.Clear();
                             CancelTitle();
-                            if (Utils.Confirm(Logo.Annuleren, "\nWeet u zeker dat u de reservering wilt annuleren?\n") == 0)
+                            if (Utils.Confirm(Logo.Annuleren, "Weet u zeker dat u de reservering wilt annuleren?\n"))
                                 DeleteReservation(ReservationList[i]);
                             else
                                 Nee();
@@ -348,6 +388,7 @@ Tot dan!
                 }
                 else if (input == "")                                                             // Input = 'enter' 
                 {
+                    Utils.NoInput(CancelReservation, Program.Main, Logo.Annuleren);
                     return;
                 }
                 else                                                                              // Nieuwe input
@@ -360,32 +401,22 @@ Tot dan!
         private static void DeleteReservation(Reservation reservation)
         {
             ReservationList.Remove(reservation);
-            Console.Clear();
             CancelTitle();
             Serialize(ReservationList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
-            Console.WriteLine("\nDe reservering is verwijderd.");
-            Utils.Enter();
+            Console.WriteLine("De reservering is verwijderd.");
+            Utils.Enter(Program.Main);
         }
         private static void Nee()
         {
-            Console.Clear();
             CancelTitle();
-            Console.WriteLine("\nDe reservering is niet verwijderd.");
-            Utils.Enter();
+            Console.WriteLine("De reservering is niet verwijderd.");
+            Utils.Enter(Program.Main);
         }
         private static string InputAgain()
         {
-            Console.Clear();
             CancelTitle();
-            Console.WriteLine("\nReserveringscode onjuist. De reserveringscode bestaat uit vier karakters. \nVoer uw reserveringscode nogmaals in of ga terug met 'enter': \n");
-            string input = Console.ReadLine();
-            return input;
+            return Utils.Input("Reserveringscode onjuist. De reserveringscode bestaat uit vier karakters.\nVoer nogmaals uw reserveringscode in:\n");
         }
-        private static void CancelTitle() // Call deze method om de onderstaande header te krijgen
-        {
-            Console.ForegroundColor = ConsoleColor.Blue; // Maakt de kleur van header blauw
-            Console.WriteLine(Logo.Annuleren);
-            Console.ResetColor();
-        }
+        private static void CancelTitle() => Logo.PrintLogo(Logo.Annuleren);
     }
 }
