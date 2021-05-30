@@ -12,7 +12,7 @@ namespace Reserveringssysteem
 
         public string Allergie { get; set; }
 
-        public Dish(string name, double price, string[] ingredients, string type, string[] tags, string allergie)
+        public Dish(string name, double price, List<string> ingredients, string type, string[] tags, string allergie)
         {
             Name = name;
             Price = price;

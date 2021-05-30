@@ -47,7 +47,7 @@ namespace Reserveringssysteem
                     ChooseDate(sorted, TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
                     return;
                 case 3:
-                    EmployeeActions.Menu();
+                    EmployeeActions.MainMenu();
                     return;
             }
         }
@@ -65,8 +65,8 @@ namespace Reserveringssysteem
                 {
                     if (day == ReservationList[i].Date)
                     {
-                        ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)].Add(i);
-                        OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].Time)] += 1;
+                        ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])].Add(i);
+                        OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])] += 1;
                     }
                 }
                 ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
@@ -128,18 +128,6 @@ namespace Reserveringssysteem
                     Console.WriteLine($"                                           {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
 
-            }
-            Console.WriteLine("\nDruk op enter om terug te gaan");
-            Console.Read();
-            var optionMenu = new SelectionMenu(new string[2] { "Andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
-            switch (optionMenu.Show())
-            {
-                case 0:
-                    ChooseDate();
-                    return;
-                case 1:
-                    EmployeeActions.MainMenu();
-                    return;
             }
             Utils.Enter(EmployeeActions.MainMenu);
         }

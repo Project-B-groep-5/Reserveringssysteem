@@ -305,7 +305,7 @@ namespace Reserveringssysteem
                     Utils.Enter("om opnieuw te proberen");
                 }
             }
-            _dish = new Dish(naam, prijs, null, _category, null);
+            _dish = new Dish(naam, prijs, null, _category, null, null);
             DishList.Add(_dish);
             Serialize(DishList, "dishes.json");
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
