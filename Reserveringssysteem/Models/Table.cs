@@ -51,7 +51,7 @@ namespace Reserveringssysteem
 
         private static void RemoveTable(Table table, List<Table> Tables)
         {
-            if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?") == 0)
+            if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?"))
             {
                 if (Tables.Remove(table))
                     Serialize(Tables, "tables.json");
@@ -63,7 +63,7 @@ namespace Reserveringssysteem
 
         private static void ChangeTable(Table table, List<Table> Tables)
         {
-            if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt wijzigen?") == 0)
+            if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt wijzigen?"))
             {
                 Console.CursorVisible = true;
                 int size = 0;

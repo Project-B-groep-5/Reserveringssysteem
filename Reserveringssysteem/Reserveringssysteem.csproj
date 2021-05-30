@@ -10,19 +10,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="dishes.json">
+    <None Update="Assets\dishes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="reservations.json">
+    <None Update="Assets\reservations.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="restaurant.json">
+    <None Update="Assets\restaurant.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tables.json">
+    <None Update="Assets\tables.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="voordeelmenu.json">
+    <None Update="Assets\voordeelmenu.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

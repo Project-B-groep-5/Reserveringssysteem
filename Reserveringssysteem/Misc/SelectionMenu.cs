@@ -8,7 +8,7 @@ namespace Reserveringssysteem
         private readonly string _menuLogo;
         private readonly string _menuTitle;
 
-        public SelectionMenu(string[] array, string logo, string title = "\nKies een optie\n")
+        public SelectionMenu(string[] array, string logo, string title = "Kies een optie:\n")
         {
             _menuArray = array;
             _menuLogo = logo;
@@ -17,27 +17,22 @@ namespace Reserveringssysteem
 
         public int Show()
         {
-            var optionsCount = _menuArray.Length;
             var optionSelected = 0;
-            var done = false;
-            Console.CursorVisible = false;
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(_menuLogo);
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Logo.PrintLogo(_menuLogo);
             Console.WriteLine(_menuTitle);
             Console.ResetColor();
-            while (!done)
+            while (true)
             {
-                for (int i = 0; i < optionsCount; i++)
+                for (int i = 0; i < _menuArray.Length; i++)
                 {
                     if (optionSelected == i)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("   ");
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.Write("  ");
                     }
                     Console.WriteLine(_menuArray[i] + ' ');
@@ -50,28 +45,24 @@ namespace Reserveringssysteem
                         optionSelected = Math.Max(0, optionSelected - 1);
                         break;
                     case ConsoleKey.DownArrow:
-                        optionSelected = Math.Min(optionsCount - 1, optionSelected + 1);
+                        optionSelected = Math.Min(_menuArray.Length - 1, optionSelected + 1);
                         break;
                     case ConsoleKey.Enter:
-                        done = true;
-                        break;
+                        Console.Clear();
+                        while (Console.KeyAvailable)
+                            Console.ReadKey(true);
+                        return optionSelected;
                 }
-                Console.CursorTop = _menuLogo.Split('\n').Length + _menuTitle.Split('\n').Length;
+                Console.CursorTop = _menuLogo.Split('\n').Length + _menuTitle.Split('\n').Length + 1;
             }
-            Console.Clear();
-            while (Console.KeyAvailable)
-                Console.ReadKey(true);
-            return optionSelected;
+
         }
 
-        public static void Make(string[] titles, Action[] actions, string logo, string title = "\nKies een optie\n")
+        public static void Make(string[] titles, Action[] actions, string logo, string title = "Kies een optie:\n")
         {
             var menu = new SelectionMenu(titles, logo, title);
             var action = menu.Show();
-            if (actions[action] != null)
-            {
-                actions[action]();
-            }
+            actions[action]?.Invoke();
         }
     }
 }

@@ -17,11 +17,11 @@ namespace Reserveringssysteem
     
         public static void LoadJson()
         {
-            ReservationList = Deserialize<List<Reservation>>("reservations.json");
-            Restaurant = Deserialize<Restaurant>("restaurant.json");
-            DishList = Deserialize<List<Dish>>("dishes.json");
-            VoordeelMenus = Deserialize<List<VoordeelMenu>>("voordeelmenu.json");
-            Tables = Deserialize<List<Table>>("tables.json");
+            ReservationList = Deserialize<List<Reservation>>("Assets/reservations.json");
+            Restaurant = Deserialize<Restaurant>("Assets/restaurant.json");
+            DishList = Deserialize<List<Dish>>("Assets/dishes.json");
+            VoordeelMenus = Deserialize<List<VoordeelMenu>>("Assets/voordeelmenu.json");
+            Tables = Deserialize<List<Table>>("Assets/tables.json");
         }
     }
 }

@@ -22,19 +22,18 @@ namespace Reserveringssysteem
 			}
 
 			Header();
-			Console.WriteLine("Voer wachtwoord in:\nOf druk op 'enter' om terug te gaan.");
-			string ingevoerdWachtwoord = Console.ReadLine();
+			string ingevoerdWachtwoord = Utils.Input("Voer wachtwoord in:");
 
-			if (ingevoerdWachtwoord == "") Program.Main();
+			if (ingevoerdWachtwoord == "") Utils.NoInput(LogIn, Program.Main, Logo.Inloggen);
 			else if (ingevoerdWachtwoord == password)
 				EmployeeActions.MainMenu();
-			else 
-            {
+			else
+			{
 				Header();
 				Console.WriteLine("Incorrect wachtwoord.");
 				Utils.Enter("om opnieuw te proberen");
 				LogIn();
-            }
+			}
 
         }
 		
