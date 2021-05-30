@@ -147,7 +147,11 @@ namespace Reserveringssysteem
             _date = Utils.Input($"\nDe datum van vandaag is {datumVandaag}");
             while (true)
             {
-                if (!DateTime.TryParse(_date, out DateTime dDate) || DateTime.Parse(_date) < DateTime.Parse(datumVandaag))
+                if (_date == "")
+                {
+                    Utils.NoInput(GetDate, GetAmountOfPeople, Logo.Reserveren);
+                }
+                else if (!DateTime.TryParse(_date, out DateTime dDate) || DateTime.Parse(_date) < DateTime.Parse(datumVandaag))
                 {
                     ReservateTitle();
                     _date = Utils.Input("Opgegeven datum is niet gelijk aan het format of in het verleden.Het format is : dd - MM - jjjj");
