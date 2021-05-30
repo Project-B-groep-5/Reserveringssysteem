@@ -70,7 +70,7 @@ namespace Reserveringssysteem
             switch (optionMenu.Show())
             {
                 case 0:
-                    OverviewReservations.ChooseDate();
+                    ChooseDate();
                     return;
                 case 1:
                     EmployeeActions.MainMenu();
