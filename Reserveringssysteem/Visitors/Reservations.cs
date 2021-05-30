@@ -31,8 +31,19 @@ namespace Reserveringssysteem
             Reservation reservation = new Reservation { Name = _name, Date = _date, TimeSlot = _timeSlot.ToArray(), Size = _people, DiscountMenus = _menus, Comments = _comment};
             
             SendEmail(reservation.ReservationId, _name, _timeSlot[0], _date);
-            
-            Console.WriteLine($"U heeft een reservering gemaakt op: {_date} om {_timeSlot[0]} uur!\nUw reserveringscode is: {reservation.ReservationId}");
+
+            Console.Write($"U heeft een reservering gemaakt op: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(_date);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(" om ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(_timeSlot[0]);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(" uur!");
+            Console.Write("Uw reserveringscode is: ");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(reservation.ReservationId);
             reservation.Save();
 
             Utils.Enter(Program.Main);
@@ -229,22 +240,16 @@ namespace Reserveringssysteem
                 Menus[i] = VoordeelMenus[i].Name;
             }
             Menus[^1] = "Geen voordeelmenu";
-            var voordeelMenuKeuze = new SelectionMenu(new[] { "Voordeelmenu bekijken", "Voordeelmenu kiezen", "Geen voordeelmenu", "Terug" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
+            var voordeelMenuKeuze = new SelectionMenu(new[] { "Voordeelmenu kiezen", "À la carte", "Terug" }, Logo.Reserveren, "\nKies of u een voordeel menu neemt of bekijk het voordeel menu\n");
             while (true)
             {
                 switch (voordeelMenuKeuze.Show())
                 {
                     case 0:
-                        ReservateTitle();
-                        Console.WriteLine(MenuShow.VoordeelMenuShow());
-                        Utils.Enter();
-                        break;
-                    case 1:
                         _menus = new string[_people];
                         for (int i = 0; i < _people; i++)
                         {
-                            var voordeelKeuzes = new SelectionMenu(Menus, Logo.Reserveren, $"\nKies voor persoon { i + 1 } het voordeelmenu\n");
-                            var keuze = voordeelKeuzes.Show();
+                            var keuze = SelectionMenu.Show(i+1);
                             _menus[i] = Menus[keuze];
                         }
                         ReservateTitle();
@@ -278,13 +283,13 @@ namespace Reserveringssysteem
                         }
                         if (emptyChoice) _menus = null;
                         return;
-                    case 2:
+                    case 1:
                         string[] keuzeCheckArr2 = new string[2] { "Ja", "Nee" };
                         var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u geen voordeelmenu wilt kiezen?\n");
                         var keuzeCheck2 = voordeelCheck2.Show();
                         if (keuzeCheckArr2[keuzeCheck2] == "Nee") continue;
                         return;
-                    case 3:
+                    case 2:
                         GetTime();
                         return;
                 }
@@ -295,6 +300,8 @@ namespace Reserveringssysteem
             ReservateTitle();
             var OpmerkingenMenuKeuze = new SelectionMenu(new[] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
             var choice = OpmerkingenMenuKeuze.Show();
+            while (Console.KeyAvailable)
+                Console.ReadKey(true);
             if (choice == 0)
             {
                 ReservateTitle();
