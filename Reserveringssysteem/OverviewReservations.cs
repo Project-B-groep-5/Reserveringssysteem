@@ -34,7 +34,7 @@ namespace Reserveringssysteem
             {
                 ReservationsPerTimeslot.Add(new List<int>());
             }
-            var optionMenu = new SelectionMenu(new string[4] { "Reserveringen voor vandaag bekijken", "Reserveringen voor morgen bekijken","Reserveringen andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u doen?\n");
+            var optionMenu = new SelectionMenu(new string[4] { "Reserveringen voor vandaag bekijken", "Reserveringen voor morgen bekijken","Reserveringen andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u bekijken? \n");
             switch (optionMenu.Show())
             {
                 case 0:
@@ -72,7 +72,7 @@ namespace Reserveringssysteem
                 ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
 
             }
-            else Console.WriteLine("Er zijn geen reserveringen.\nDruk op enter om terug te gaan");
+            else Console.WriteLine("Er zijn geen reserveringen. \nDruk op enter om terug te gaan");
             Console.Read();
             Overview();
         }   
@@ -96,7 +96,7 @@ namespace Reserveringssysteem
             {
                 if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
                 {
-                    Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ\n");
+                    Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ \n");
                     date = Console.ReadLine();
                 }
                 else
@@ -117,7 +117,7 @@ namespace Reserveringssysteem
         }
         public static void ShowReservations(List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
         {
-            Console.WriteLine("\nTijdsloten      Aantal reserveringen      Reserveringen");
+            Console.WriteLine("\nTijdsloten      Aantal reserveringen       Reserveringen");
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 if (ReservationsPerTimeslot[i].Count > 0)
