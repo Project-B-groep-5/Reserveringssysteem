@@ -13,12 +13,11 @@ namespace Reserveringssysteem
         public int Size { get; set; }
         public string[] DiscountMenus { get; set; }
         public string Comments { get; set; }
-        public string OrderStatus { get; set; }
+        public Table AssignedTable { get; set; }
 
         public Reservation()
         {
             ReservationId = GenerateReservationCode();
-            OrderStatus = "ACCEPTED";
         }
 
         private static string GenerateReservationCode()

@@ -57,7 +57,7 @@ namespace Reserveringssysteem
 
         public static void NoInput(Action over, Action back, string logo)
         {
-            SelectionMenu.Make(new[] { "Opnieuw proberen", "Terug" }, new Action[] { over, back }, logo, "Niks ingevult.\n\nKies een optie:\n");
+            SelectionMenu.Make(new[] { "Opnieuw proberen", "Terug" }, new Action[] { over, back }, logo, "Niks ingevuld.\n\nKies een optie:\n");
         }
     }
 }
