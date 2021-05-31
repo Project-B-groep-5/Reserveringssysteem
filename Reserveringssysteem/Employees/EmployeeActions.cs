@@ -587,7 +587,11 @@ namespace Reserveringssysteem
             var menu = new SelectionMenu(choices, Logo.RestaurantGegevens); // Wordt gevraagd wat veranderd moet worden.
             var chosen = menu.Show();
 
-            if (choices[chosen] == "Terug") ChangeRestaurantInfo(); 
+            if (choices[chosen] == "Terug")
+            {
+                ChangeRestaurantInfo();
+                return;
+            }
             else if (choices[chosen] == "Straatnaam")
             {
                 ChangeStreet();
@@ -604,6 +608,9 @@ namespace Reserveringssysteem
             {
                 ChangeCity();
             }
+            var latLong = Location.GetLatLong($"{Json.Restaurant.Address.StreetName} {Json.Restaurant.Address.HouseNumber}, {Json.Restaurant.Address.City}");
+            Json.Restaurant.Address.Latitude = latLong.Item1;
+            Json.Restaurant.Address.Longitude = latLong.Item2;
             Serialize(Json.Restaurant, "Assets/restaurant.json");
             ChangeInfoSucces("Adres van het restaurant is aangepast", ChangeRestaurantAddress);
         }
