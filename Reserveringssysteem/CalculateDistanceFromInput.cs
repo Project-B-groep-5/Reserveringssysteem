@@ -161,7 +161,7 @@ namespace Reserveringssysteem
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write("\nPostcode wordt niet gevonden of afstand is groter dan");
+                    Console.Write("\nPostcode wordt niet gevonden of afstand is groter dan ");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write("300");
                     Console.ForegroundColor = ConsoleColor.Cyan;

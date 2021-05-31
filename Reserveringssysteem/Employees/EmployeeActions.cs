@@ -467,7 +467,7 @@ namespace Reserveringssysteem
                 {
                     if (newPrijsStr == "")
                     {
-                        var menu = new SelectionMenu(new[] { "Opnieuw proberen", "Terug" }, Logo.GerechtenMenus, "Niks ingevult.\n\nKies een optie:\n");
+                        var menu = new SelectionMenu(new[] { "Opnieuw proberen", "Terug" }, Logo.GerechtenMenus, "Niks ingevuld.\n\nKies een optie:\n");
                         if (menu.Show() == 0)
                             PriceChange(func);
                         else
