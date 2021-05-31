@@ -35,17 +35,14 @@ namespace Reserveringssysteem
             if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met postcode")
             {
                 CallTitle();
-                Console.WriteLine("\nVul uw postcode in: \n");
-                string postcode = Console.ReadLine();
+                string postcode = Utils.Input("\nVul uw postcode in: \n");
                 while (true)
                 {
                     isIntString = postcode.Any(letter => char.IsDigit(letter));
                     if (!isIntString)
                     {
                         CallTitle();
-                        Console.WriteLine("\nGraag de postcode.. Inclusief de letters op het eind.");
-                        Console.WriteLine("\nVul uw postcode in: \n");
-                        postcode = Console.ReadLine();
+                        postcode = Utils.Input("\nGraag de postcode.. Inclusief de letters op het eind.\n\nVul uw postcode in:\n");
                     }
                     else
                         break;
@@ -59,13 +56,39 @@ namespace Reserveringssysteem
                 double afstandDouble = Double.Parse(afstand); 
                 if (afstandDouble < 300)
                 {
-                    Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {postcode}.....\n");
-                    Console.WriteLine($"\nDe Afstand vanaf {postcode} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write($"\nAfstand tot restaurant ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(Json.Restaurant.Name);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" berekenen vanaf ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(postcode);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("...");
+                    Console.Write($"\nDe Afstand tussen ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(postcode);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" en restaurant ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(Json.Restaurant.Name);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" is: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(CalculateDistance(location, Json.Restaurant.Address));
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(" kilometer");
                     Utils.Enter();
                 }
                 else
                 {
-                    Console.WriteLine("\nPostcode wordt niet gevonden of afstand is groter dan 300 kilometer. \nProbeer het opnieuw door het invullen van de straatnaam + woonplaats\n");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\nPostcode wordt niet gevonden of afstand is groter dan");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("300");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(" kilometer. \nProbeer het opnieuw door het invullen van de straatnaam + woonplaats\n");
                     Utils.Enter();
                 }
 
@@ -75,17 +98,14 @@ namespace Reserveringssysteem
                 if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats \n")
                 {
                     CallTitle();
-                    Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-                    string adres = Console.ReadLine();
+                    string adres = Utils.Input("\nVul uw straatnaam en huisnummer in: \n");
                     while (true)
                     {
                         isIntString = adres.Any(letter => char.IsDigit(letter));
                         if (!isIntString)
                         {
                             CallTitle();
-                            Console.WriteLine("\nGraag de straatnaam met huisnummer");
-                            Console.WriteLine("\nVul uw straatnaam en huisnummer in: \n");
-                            adres = Console.ReadLine();
+                            adres = Utils.Input("\nGraag de straatnaam met huisnummer\n\nVul uw straatnaam en huisnummer in:\n");
                         }
                         else
                             break;
@@ -93,18 +113,15 @@ namespace Reserveringssysteem
                 string[] temp = adres.Split(' ');
                 string huisnummer = temp[^1];
                 string straatnaam = string.Join(' ', temp).Replace($" {huisnummer}", "");
-                Console.WriteLine("\nVul uw plaatsnaam in: \n");
                 isIntString = true;
-                string plaatsnaam = Console.ReadLine();
+                string plaatsnaam = Utils.Input("\nVul uw plaatsnaam in: \n");
                 while (isIntString == true)
                 {
                     isIntString = plaatsnaam.Any(letter => char.IsDigit(letter));
                     if (isIntString == true)
                     {
                         CallTitle();
-                        Console.WriteLine("\nGraag enkel de plaatsnaam, zonder integers");
-                        Console.WriteLine("\nVul uw plaatsnaam in: \n");
-                        plaatsnaam = Console.ReadLine();
+                        plaatsnaam = Utils.Input("\nGraag enkel de plaatsnaam, zonder integers\n\nVul uw plaatsnaam in: \n");
                     }
                     else
                         break;
@@ -116,13 +133,39 @@ namespace Reserveringssysteem
                 double afstandDouble = Double.Parse(afstand);
                 if (afstandDouble < 300)
                 {
-                    Console.WriteLine($"\nAfstand tot restaurant {Json.Restaurant.Name} berekenen vanaf {adres}, {plaatsnaam}.....\n");
-                    Console.WriteLine($"\nDe Afstand vanaf {adres}, {plaatsnaam} en restaurant {Json.Restaurant.Name} is: " + CalculateDistance(location, Json.Restaurant.Address) + " kilometer");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write($"\nAfstand tot restaurant ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(Json.Restaurant.Name);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" berekenen vanaf ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"{adres}, {plaatsnaam}");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("...");
+                    Console.Write($"\nDe Afstand tussen ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"{adres}, {plaatsnaam}");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" en restaurant ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(Json.Restaurant.Name);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" is: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(CalculateDistance(location, Json.Restaurant.Address));
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(" kilometer");
                     Utils.Enter();
                 }
                 else
                 {
-                    Console.WriteLine("\nAdres wordt niet gevonden of afstand is groter dan 300 kilometer. \nVerander het adres of probeer het met een postcode");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("\nPostcode wordt niet gevonden of afstand is groter dan");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("300");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine(" kilometer. \nProbeer het opnieuw door het invullen van de straatnaam + woonplaats\n");
                     Utils.Enter();
                 }
                 }
