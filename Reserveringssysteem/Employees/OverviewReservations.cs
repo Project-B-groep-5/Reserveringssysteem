@@ -11,7 +11,7 @@ namespace Reserveringssysteem
         public static void Overview()
         {
             var DaysWithOccupation = new List<string>();
-            var TimeSlots = new List<string> { "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00" };
+            var TimeSlots = new List<string> { "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00","20:30" };
             var ReservationsPerTimeslot = new List<List<int>>();
             var OccupationPerTimeslot = new int[TimeSlots.Count];            
             var string_today = DateTime.Today.ToString("dd-MM-yyyy");           
@@ -59,6 +59,7 @@ namespace Reserveringssysteem
                 Console.WriteLine($"Dit zijn de reserveringen voor vandaag {day}:");
             else if (day == DateTime.Today.AddDays(1).ToString("dd-MM-yyyy"))
                 Console.WriteLine($"Dit zijn de reserveringen voor morgen {day}:");
+            Console.ForegroundColor = ConsoleColor.White;
             if (sorted.Contains(day))
             {
                 for (int i = 0; i < ReservationList.Count; i++)
@@ -83,12 +84,12 @@ namespace Reserveringssysteem
             Console.CursorVisible = true;
                       
             Console.WriteLine("Op deze dagen is gereserveerd:");
-
+            Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < sorted.Count; i++)
             {
                 Console.WriteLine(sorted[i]);
             }
-            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nVul een datum in om per tijdsslot het aantal mensen te zien die komen.");
             Console.ForegroundColor = ConsoleColor.White;
             string date = Console.ReadLine();
