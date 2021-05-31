@@ -100,7 +100,7 @@ namespace Reserveringssysteem
 					SelectDish();
 					return;
 			}
-			Serialize(DishList, "dishes.json");
+			Serialize(DishList, "Assets/dishes.json");
 		}
 
         private static void RemoveDish()
@@ -218,7 +218,7 @@ namespace Reserveringssysteem
             if (Utils.Confirm(Logo.Dashboard, $"Weet u zeker dat u een ingrediënt met de naam: {_ingredient} wilt verwijderen?\n"))
             {
                 _dish.Ingredients.Remove(_ingredient);
-                Serialize(DishList, "dishes.json");
+                Serialize(DishList, "Assets/dishes.json");
                 Logo.PrintLogo(Logo.Dashboard);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(_ingredient);
@@ -243,7 +243,7 @@ namespace Reserveringssysteem
 			{
 				var ingredientInt = _dish.Ingredients.IndexOf(_ingredient);
 				_dish.Ingredients[ingredientInt] = name;
-				Serialize(DishList, "dishes.json");
+				Serialize(DishList, "Assets/dishes.json");
 				Logo.PrintLogo(Logo.Dashboard);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(_ingredient);
@@ -269,7 +269,7 @@ namespace Reserveringssysteem
 			if (Utils.Confirm(Logo.Dashboard, $"Weet u zeker dat een ingrediënt met de naam: {name} wilt toevoegen?\n"))
 			{
 				_dish.Ingredients.Add(name);
-				Serialize(DishList, "dishes.json");
+				Serialize(DishList, "Assets/dishes.json");
 				Logo.PrintLogo(Logo.Dashboard);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(name);
@@ -307,7 +307,7 @@ namespace Reserveringssysteem
             }
             _dish = new Dish(naam, prijs, null, _category, null, null);
             DishList.Add(_dish);
-            Serialize(DishList, "dishes.json");
+            Serialize(DishList, "Assets/dishes.json");
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
         }
         private static VoordeelMenu _menu;
@@ -364,7 +364,7 @@ namespace Reserveringssysteem
                 ChangeMenus();
                 return;
             }
-            Serialize(VoordeelMenus, "voordeelmenu.json");
+            Serialize(VoordeelMenus, "Assets/voordeelmenu.json");
             ChangeInfoSucces("Voordeelmenu is succesvol aangepast", ChangeMenus);
         }
 
@@ -429,7 +429,7 @@ namespace Reserveringssysteem
         {
             SelectionMenu.Make(new[] { "Ja", "Nee" }, new Action[] { null, ChangeMenus }, Logo.GerechtenMenus, $"\nWeet u zeker dat u het voordeelmenu: \"{_menu.Name}\", wilt verwijderen?\n"); // check
             VoordeelMenus.Remove(_menu); // -1 omdat de eerste keuze in de array de optie "toevoegen" was.
-            Serialize(VoordeelMenus, "voordeelmenu.json");
+            Serialize(VoordeelMenus, "Assets/voordeelmenu.json");
             ChangeInfoSucces("Voordeelmenu is succesvol verwijderd", ChangeMenus);
         }
 
@@ -449,7 +449,7 @@ namespace Reserveringssysteem
                 $"Het voordeelmenu wordt toegevoegd. Wilt u doorgaan?\n"))
             {
                 VoordeelMenus.Add(new VoordeelMenu(newName, newVoorGerecht, newHoofdGerecht, newNaGerecht, newPrijs));
-                Serialize(VoordeelMenus, "voordeelmenu.json"); // Slaat het op.
+                Serialize(VoordeelMenus, "Assets/voordeelmenu.json"); // Slaat het op.
                 ChangeInfoSucces("Voordeelmenu is succesvol opgeslagen.", ChangeMenus);
                 return;
             }
@@ -533,7 +533,7 @@ namespace Reserveringssysteem
             if(Utils.Confirm(Logo.RestaurantGegevens, $"\nWeet u zeker dat u de naam van het restaurant naar \"{newName}\" wil veranderen?\n"))
             {
                 Json.Restaurant.Name = newName;
-                Serialize(Json.Restaurant, "restaurant.json"); // Slaat het op.
+                Serialize(Json.Restaurant, "Assets/restaurant.json"); // Slaat het op.
                 ChangeInfoSucces($"Naam succesvol is veranderd naar \"{newName}\"", ChangeRestaurantInfo);
                 return;
             }
@@ -552,7 +552,7 @@ namespace Reserveringssysteem
             if (Utils.Confirm(Logo.RestaurantGegevens, $"\nDe nieuwe beschrijving van het restaurant wordt:\n\n{newDescription}\n\nWilt u deze verandering toepassen?\n"))
             {
                 Json.Restaurant.Description = newDescription;
-                Serialize(Json.Restaurant, "restaurant.json");
+                Serialize(Json.Restaurant, "Assets/restaurant.json");
                 ChangeInfoSucces("Beschrijving is succesvol veranderd.", ChangeRestaurantInfo);
                 return;
             }
@@ -582,7 +582,7 @@ namespace Reserveringssysteem
             {
                 ChangeCity();
             }
-            Serialize(Json.Restaurant, "restaurant.json");
+            Serialize(Json.Restaurant, "Assets/restaurant.json");
             ChangeInfoSucces("Adres van het restaurant is aangepast", ChangeRestaurantAddress);
         }
 
@@ -674,7 +674,7 @@ namespace Reserveringssysteem
                 if (Utils.Confirm(Logo.RestaurantGegevens, $"\nWeet u zeker dat u {(_days[_day] != "Zondag \n" ? _days[_day].ToLower() : _days[_day].Remove(_days[_day].Length - 2).ToLower())} op gesloten wil zetten?\n"))
                 {
                     Json.Restaurant.OpeningHours[_day] = "Gesloten";
-                    Serialize(Json.Restaurant, "restaurant.json");
+                    Serialize(Json.Restaurant, "Assets/restaurant.json");
                     ChangeInfoSucces($"{_days[_day]} is succesvol veranderd naar 'Gesloten'.", ChangeRestaurantHours);
                     return;
                 }
@@ -721,7 +721,7 @@ namespace Reserveringssysteem
             if (Utils.Confirm(Logo.RestaurantGegevens, $"De nieuwe openings- en sluitingstijden op {_days[_day].ToLower()} worden:\n{_openingHour}-{newClosingHour}\nWilt u deze verandering toepassen?\n"))
             {
                 Json.Restaurant.OpeningHours[_day] = $"{_openingHour}-{newClosingHour}";
-                Serialize(Json.Restaurant, "restaurant.json"); // Slaat het op
+                Serialize(Json.Restaurant, "Assets/restaurant.json"); // Slaat het op
                 ChangeInfoSucces("Openings- en sluitings tijden zijn veranderd.", ChangeRestaurantHours);
                 return;
             }
@@ -746,7 +746,7 @@ namespace Reserveringssysteem
             {
                 ChangePhone();
             }
-            Serialize(Json.Restaurant, "restaurant.json");
+            Serialize(Json.Restaurant, "Assets/restaurant.json");
             ChangeInfoSucces("Contactinformatie is succesvol aangepast", ChangeRestaurantContactInfo);
         }
 

@@ -46,7 +46,7 @@ namespace Reserveringssysteem
         public void Save()
         {
             ReservationList.Add(this);
-            Serialize(ReservationList, "reservations.json");
+            Serialize(ReservationList, "Assets/reservations.json");
         }
     }
 }

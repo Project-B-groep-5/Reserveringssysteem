@@ -54,7 +54,7 @@ namespace Reserveringssysteem
             if (Utils.Confirm(Logo.Tafels, $"\n\nWeet u zeker dat u tafel {table.TableId} wilt verwijderen?"))
             {
                 if (Tables.Remove(table))
-                    Serialize(Tables, "tables.json");
+                    Serialize(Tables, "Assets/tables.json");
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel verwijderd.");
             }
@@ -96,7 +96,7 @@ namespace Reserveringssysteem
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel gewijzigd");
                 Utils.Enter(TableManager);
-                Serialize(Tables, "tables.json");
+                Serialize(Tables, "Assets/tables.json");
             }
         }
 
@@ -163,7 +163,7 @@ namespace Reserveringssysteem
             Logo.PrintLogo(Logo.Tafels);
             Console.WriteLine("Tafel toegevoegd.");
             Utils.Enter(TableManager);
-            Serialize(Tables, "tables.json");
+            Serialize(Tables, "Assets/tables.json");
         }
     }
 }

@@ -402,7 +402,7 @@ Tot dan!
         {
             ReservationList.Remove(reservation);
             CancelTitle();
-            Serialize(ReservationList, "reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
+            Serialize(ReservationList, "Assets/reservations.json");                   // Slaat de JSON opnieuw op na de aanpassing
             Console.WriteLine("De reservering is verwijderd.");
             Utils.Enter(Program.Main);
         }
