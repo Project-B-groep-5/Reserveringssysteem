@@ -14,6 +14,8 @@ namespace Reserveringssysteem
         private static string _name;
         private static int _people;
         private static string _date;
+        private static List<List<Table>> _tables = new List<List<Table>>();
+        private static Table _table;
         private static string[] _times;
         private static List<string> _timeSlot;
         private static string[] _menus;
@@ -21,14 +23,11 @@ namespace Reserveringssysteem
         public static void Reservate()
         {
             GetName();
-            GetAmountOfPeople();
-            GetDate();
-            GetTime();
-            GetDiscountMenus();
+            
             if (_menus != null) FakePayment();
             AskForComments();
             
-            Reservation reservation = new Reservation { Name = _name, Date = _date, TimeSlot = _timeSlot.ToArray(), Size = _people, DiscountMenus = _menus, Comments = _comment};
+            Reservation reservation = new Reservation { Name = _name, Date = _date, TimeSlot = _timeSlot.ToArray(), Size = _people, DiscountMenus = _menus, Comments = _comment, AssignedTable = _table};
             
             SendEmail(reservation.ReservationId, _name, _timeSlot[0], _date);
 
@@ -60,9 +59,17 @@ namespace Reserveringssysteem
                 GetDate();
                 return;
             }
+            _table = GetTable(time);
             _timeSlot = new List<string>();
             for (int i = time; i <= time + 3 && i < _times.Length; i++)
                 _timeSlot.Add(_times[i]);
+            GetDiscountMenus();
+        }
+
+        private static Table GetTable(int time)
+        {
+            var tables = _tables[time].OrderBy(table => table.Size).ToList();
+            return tables[0];
         }
 
         private static void FakePayment()
@@ -119,6 +126,7 @@ namespace Reserveringssysteem
             }
             Console.CursorVisible = false;
             _name = name;
+            GetAmountOfPeople();
         }
         private static void GetAmountOfPeople()
         {
@@ -155,6 +163,7 @@ namespace Reserveringssysteem
 
             Console.CursorVisible = false;
             _people = amountPeople;
+            GetDate();
         }
         private static void GetDate()
         {
@@ -168,6 +177,7 @@ namespace Reserveringssysteem
                 if (_date == "")
                 {
                     Utils.NoInput(GetDate, GetAmountOfPeople, Logo.Reserveren);
+                    return;
                 }
                 else if (!DateTime.TryParse(_date, out DateTime dDate) || DateTime.Parse(_date) < DateTime.Parse(datumVandaag))
                 {
@@ -209,32 +219,57 @@ namespace Reserveringssysteem
                         Program.Main();
                         return;
                 }
-            }   
+            }
+            GetTime();
         }
         private static bool Check(string date, string time, int size)
         {
-            int capacity = Json.Restaurant.Capacity;
-            int occupied = 0;
-            occupied += size;
-            for (int i = 0; i < ReservationList.Count; i++)
+            var availableTables = Tables.ToList();
+            foreach (var table in Tables)
             {
-                if (ReservationList[i].Date == date && ReservationList[i].TimeSlot.Any(time.Contains))
-                    occupied += ReservationList[i].Size;
+                if (table.Size < size)
+                {
+                    availableTables.Remove(table);
+                    continue;
+                }
+                foreach (var reservation in ReservationList)
+                    if (reservation.Date == date && reservation.TimeSlot.Contains(time) && reservation.AssignedTable.TableId == table.TableId)
+                    {
+                        availableTables.Remove(table);
+                        break;
+                    }
             }
-            if (occupied > capacity) return false;
-            return true;
+            if (availableTables.Count > 0)
+            {
+                _tables.Add(availableTables);
+                return true;
+            }
+            return false;
         }
         private static string[] GetTimes()
         {
             DateTime.TryParse(_date, out DateTime dDate);
             var day = (int)dDate.DayOfWeek -1;
             var times = new List<string>();
+            var allTimes = new List<string>();
             try
             {
                 for (int i = int.Parse(Json.Restaurant.OpeningHours[day].Split(":")[0]); i < int.Parse(Json.Restaurant.OpeningHours[day].Split("-")[1].Split(":")[0]) - 1; i++)
                     for (int j = 0; j <= 30; j += 30)
-                        if(Check(_date, $"{i}:{j:00}", _people))
-                            times.Add($"{i}:{j:00}");
+                        allTimes.Add($"{i}:{j:00}");
+                for (int i = 0; i < allTimes.Count; i++)
+                {
+                    bool add = true;
+                    for (int j = 0; j < 3; j++)
+                        if (i + j < allTimes.Count)
+                            if (!Check(_date, allTimes[i+j], _people))
+                            {
+                                add = false;
+                                break;
+                            }
+                    if(add)
+                        times.Add(allTimes[i]);
+                }
                 return times.ToArray();
             }
             catch { return null; }

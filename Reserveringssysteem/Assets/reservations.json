@@ -1,17 +1,3 @@
 [
-  {
-    "ReservationId": "PYP9",
-    "Name": "Os",
-    "Date": "01-06-2021",
-    "TimeSlot": [
-      "20:30"
-    ],
-    "Size": 2,
-    "DiscountMenus": [
-      "Vegetarisch menu",
-      "Cheeseburger menu"
-    ],
-    "Comments": null,
-    "OrderStatus": "ACCEPTED"
-  }
+
 ]

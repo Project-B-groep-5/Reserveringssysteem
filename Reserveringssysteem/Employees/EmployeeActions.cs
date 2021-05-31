@@ -283,28 +283,50 @@ namespace Reserveringssysteem
 
         private static void AddDish()
         {
-            Logo.PrintLogo(Logo.Dashboard);
-            Console.WriteLine($"Wat wordt de naam voor dit item?\n");
-            var naam = Console.ReadLine();
-            double prijs;
-            while (true)
+            static string GetName()
             {
-                string input = "";
-                try
+                Logo.PrintLogo(Logo.Dashboard);
+                var naam = Utils.Input($"Wat wordt de naam voor dit item?\n");
+                while(naam == "")
                 {
-                    Logo.PrintLogo(Logo.Dashboard);
-                    Console.WriteLine($"Wat wordt de prijs voor {naam}?\n");
-                    input = Console.ReadLine();
-                    prijs = double.Parse(input);
-                    break;
+                    Utils.NoInput(() => { naam = Utils.Input($"Wat wordt de naam voor dit item?\n"); }, SelectDish, Logo.Dashboard);
                 }
-                catch
+                return naam;
+            }
+            var naam = GetName();
+            static double GetPrice(string naam)
+            {
+                double prijs;
+                while (true)
                 {
-                    Logo.PrintLogo(Logo.Dashboard);
-                    Console.WriteLine($"{input} is geen correcte waarde voor een prijs.\nPrijzen zijn bijvoorbeeld genoteerd als volgt: 19.5 of 19");
-                    Utils.Enter("om opnieuw te proberen");
+                    string input = "";
+                    try
+                    {
+                        Logo.PrintLogo(Logo.Dashboard);
+                        input = Utils.Input($"Wat wordt de prijs voor {naam}?\n");
+                        bool con = false;
+                        if (input == "")
+                        {
+                            Utils.NoInput(() => { con = true; }, AddDish, Logo.Dashboard);
+                            if (con)
+                                continue;
+                            else
+                                return 0;
+                        }
+                        prijs = double.Parse(input);
+                        return prijs;
+                    }
+                    catch
+                    {
+                        Logo.PrintLogo(Logo.Dashboard);
+                        Console.WriteLine($"{input} is geen correcte waarde voor een prijs.\nPrijzen zijn bijvoorbeeld genoteerd als volgt: 19.5 of 19");
+                        Utils.Enter("om opnieuw te proberen");
+                    }
                 }
             }
+            var prijs = GetPrice(naam);
+            if (prijs == 0)
+                return;
             _dish = new Dish(naam, prijs, null, _category, null, null);
             DishList.Add(_dish);
             Serialize(DishList, "Assets/dishes.json");

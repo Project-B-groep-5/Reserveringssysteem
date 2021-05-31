@@ -95,8 +95,8 @@ namespace Reserveringssysteem
                 table.Size = size;
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Tafel gewijzigd");
-                Utils.Enter(TableManager);
                 Serialize(Tables, "Assets/tables.json");
+                Utils.Enter(TableManager);
             }
         }
 
@@ -109,7 +109,7 @@ namespace Reserveringssysteem
             {
                 Logo.PrintLogo(Logo.Tafels);
                 Console.WriteLine("Wat is het nieuwe nummer van de tafel?");
-                id = Console.ReadLine();
+                id = Utils.Input();
                 if (id == "")
                 {
                     Logo.PrintLogo(Logo.Tafels);
@@ -142,7 +142,7 @@ namespace Reserveringssysteem
                     Console.WriteLine("Hoeveel mensen moeten er aan deze tafel kunnen zitten?");
                     try
                     {
-                        size = int.Parse(Console.ReadLine());
+                        size = int.Parse(Utils.Input());
                         break;
                     }
                     catch
@@ -162,8 +162,8 @@ namespace Reserveringssysteem
             Tables.Add(new Table(id, size));
             Logo.PrintLogo(Logo.Tafels);
             Console.WriteLine("Tafel toegevoegd.");
-            Utils.Enter(TableManager);
             Serialize(Tables, "Assets/tables.json");
+            Utils.Enter(TableManager);
         }
     }
 }
