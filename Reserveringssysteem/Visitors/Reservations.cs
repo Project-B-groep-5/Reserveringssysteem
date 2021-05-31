@@ -247,7 +247,7 @@ namespace Reserveringssysteem
                 Menus[i] = VoordeelMenus[i].Name;
             }
             Menus[^1] = "Geen voordeelmenu";
-            var voordeelMenuKeuze = new SelectionMenu(new[] { "Voordeelmenu kiezen", "À la carte", "Terug" }, Logo.Reserveren, "\nKies of u een voordeelmenu neemt of à la carte komt eten\n");
+            var voordeelMenuKeuze = new SelectionMenu(new[] { "Voordeelmenu kiezen", "À la carte \n", "Terug" }, Logo.Reserveren, "Het is voordeliger als u van tevoren kiest voor een voordeelmenu.\nKies of u een voordeelmenu neemt of à la carte komt eten\n");
             while (true)
             {
                 switch (voordeelMenuKeuze.Show())

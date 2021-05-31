@@ -17,7 +17,7 @@
       "Gluten",
       "Burger"
     ],
-    "Allergie":  "product bevat gluten"
+    "Allergie":  "Gerecht bevat gluten"
   },
 
   {
@@ -143,7 +143,7 @@
       "Lactose",
       "Zoet"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Appelsap",
@@ -187,7 +187,7 @@
       "Warme dranken",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Espresso",
@@ -209,7 +209,7 @@
       "Zoet",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Latte Machiato",
@@ -220,7 +220,7 @@
       "Warme dranken",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Koffie verkeerd",
@@ -231,7 +231,7 @@
       "Warme dranken",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Heineken (0%)",
@@ -362,7 +362,7 @@
       "Salade",
       "Noten"
     ],
-    "Allergie": "product bevat sporen van noten"
+    "Allergie": "Bevat noten(Kan zonder pijnboompitten besteld worden)"
   },
   {
     "Name": "Kogelbiefstuk",
@@ -403,7 +403,7 @@
       "Gluten",
       "Lactose"
     ],
-    "Allergie": "product bevat gluten en lactose"
+    "Allergie": "Gerecht bevat gluten en lactose"
   },
   {
     "Name": "Spareribs",
@@ -441,7 +441,7 @@
       "Voorgerecht",
       "Gluten"
     ],
-    "Allergie": "product bevat gluten"
+    "Allergie": "Bevat gluten"
   },
   {
     "Name": "Carpaccio",
@@ -461,7 +461,7 @@
       "Voorgerecht",
       "Noten"
     ],
-    "Allergie": "product bevat sporen van noten"
+    "Allergie": "Bevat noten(Kan zonder pijnboompitten besteld worden)"
   },
   {
     "Name": "Cheesecake",
@@ -481,7 +481,7 @@
       "Dessert",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   },
   {
     "Name": "Dame Blanche",
@@ -502,6 +502,6 @@
       "Chocola",
       "Lactose"
     ],
-    "Allergie": "product bevat lactose"
+    "Allergie": "Bevat lactose"
   }
 ]

@@ -38,6 +38,8 @@ namespace Reserveringssysteem
                     if (dish.Ingredients.Count > 0)
                         printDishProperty("Ingredienten: ", string.Join(", ", dish.Ingredients));
                     printDishProperty("Type: ", dish.Type);
+                    if (dish.Allergie.Length > 0)
+                        printDishProperty("Allergieën: ", string.Join(", ", dish.Allergie));
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("__________________________________________________________");
                     count++;
