@@ -177,7 +177,7 @@ namespace Reserveringssysteem
                 else
                 {
                     Console.CursorVisible = false;
-                    _date = string.Format("{0:dd/MM/yyyy}", dDate);
+                    _date = string.Format("{0:dd-MM-yyyy}", dDate);
                     break;
                 }
             }
