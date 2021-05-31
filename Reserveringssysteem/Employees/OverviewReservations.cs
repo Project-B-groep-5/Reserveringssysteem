@@ -76,59 +76,63 @@ namespace Reserveringssysteem
             else Console.WriteLine("Er zijn geen reserveringen. \nDruk op enter om terug te gaan");
             Console.Read();
             Overview();
-        }   
-        
+        }
+
         public static void ChooseDate(List<string> sorted, List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
-        {                      
+        {
             Header();
             Console.CursorVisible = true;
-                      
-            Console.WriteLine("Op deze dagen is gereserveerd:");
-            Console.ForegroundColor = ConsoleColor.White;
-            for (int i = 0; i < sorted.Count; i++)
+            if (ReservationList.Count > 0)
             {
-                Console.WriteLine(sorted[i]);
-            }
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\nVul een datum in om per tijdsslot het aantal mensen te zien die komen.");
-            Console.ForegroundColor = ConsoleColor.White;
-            string date = Console.ReadLine();
-            while (true)
-            {
-                if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
+                Console.WriteLine("Op deze dagen is gereserveerd:");
+                Console.ForegroundColor = ConsoleColor.White;
+                for (int i = 0; i < sorted.Count; i++)
                 {
-                    Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ \n");
-                    date = Console.ReadLine();
+                    Console.WriteLine(sorted[i]);
                 }
-                else
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\nVul een datum in om per tijdsslot het aantal mensen te zien die komen.");
+                Console.ForegroundColor = ConsoleColor.White;
+                string date = Console.ReadLine();
+                while (true)
                 {
-                    string.Format("{0:dd/MM/yyyy}", dDate);
-                    break;
+                    if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
+                    {
+                        Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ \n");
+                        date = Console.ReadLine();
+                    }
+                    else
+                    {
+                        string.Format("{0:dd/MM/yyyy}", dDate);
+                        break;
+                    }
                 }
-            }
-            for (int i = 0; i < ReservationList.Count; i++)
-            {
-                if (date == ReservationList[i].Date)
+                for (int i = 0; i < ReservationList.Count; i++)
                 {
-                    ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])].Add(i);
-                    OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])] += 1;
+                    if (DateTime.Parse(date) == DateTime.Parse(ReservationList[i].Date))
+                    {
+                        ReservationsPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])].Add(i);
+                        OccupationPerTimeslot[TimeSlots.IndexOf(ReservationList[i].TimeSlot[0])] += 1;
+                    }
                 }
+                ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
             }
-            ShowReservations(TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
+            else Utils.Enter(EmployeeActions.MainMenu, "Om terug te gaan, er zijn geen reserveringen");
         }
         public static void ShowReservations(List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
         {
-            Console.WriteLine("\nTijdsloten      Aantal reserveringen       Reserveringen");
+            Console.WriteLine("\nTijdsloten  |   Aantal reserveringen   |   Reserveringen");
+            Console.WriteLine("------------|--------------------------|-----------------------------------------------------------------------");
             for (int i = 0; i < TimeSlots.Count; i++)
             {
                 if (ReservationsPerTimeslot[i].Count > 0)
-                    Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]}                 {ReservationList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][0]].ReservationId}");
-                else Console.WriteLine($"  {TimeSlots[i]}                  {OccupationPerTimeslot[i]} ");
+                    Console.WriteLine($"  {TimeSlots[i]}     |             {OccupationPerTimeslot[i]}            |   {ReservationList[ReservationsPerTimeslot[i][0]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][0]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][0]].ReservationId}");
+                else Console.WriteLine($"  {TimeSlots[i]}     |             {OccupationPerTimeslot[i]}            | ");
                 for (int a = 1; a < OccupationPerTimeslot[i]; a++)
                 {
-                    Console.WriteLine($"                                           {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
+                    Console.WriteLine($"            |                          |   {ReservationList[ReservationsPerTimeslot[i][a]].Name} heeft gereserveerd voor {ReservationList[ReservationsPerTimeslot[i][a]].Size}. ID = {ReservationList[ReservationsPerTimeslot[i][a]].ReservationId}");
                 }
-
+                Console.WriteLine("------------|--------------------------|-----------------------------------------------------------------------");
             }
             Utils.Enter(EmployeeActions.MainMenu);
         }
