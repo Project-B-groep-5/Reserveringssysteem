@@ -4,7 +4,7 @@ namespace Reserveringssysteem
 {
     class Program
     {
-        public static void DishMenu() => SelectionMenu.Make(new[] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { DishFilter.SecondMenuScreen, DishFilter.Search, Main }, Logo.MenuKaart);
+        public static void DishMenu() => SelectionMenu.Make(new[] { "Bekijk de menukaart", "Zoeken op ingrediënten of allergieën \n", "Terug" }, new Action[] { DishFilter.SecondMenuScreen, DishFilter.ThirdMenuScreen, Main }, Logo.MenuKaart);
         
         public static void Main()
         {
