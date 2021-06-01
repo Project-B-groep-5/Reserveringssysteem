@@ -122,7 +122,7 @@ namespace Reserveringssysteem
         {
             Logo.PrintLogo(Logo.Dashboard);
             var naam = _dish.Name;
-            Console.Write("De nieuwe naam voor");
+            Console.Write("De nieuwe naam voor ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(naam);
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -137,7 +137,7 @@ namespace Reserveringssysteem
                 Console.Write("veranderd in: ");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(_dish.Name);
-                Utils.Enter("om verder te gaan.");
+                Utils.Enter(ChangeDish, "om verder te gaan.");
                 return;
             }
             Utils.NoInput(ChangeName, ChangeDish, Logo.Dashboard);
@@ -153,7 +153,7 @@ namespace Reserveringssysteem
                 {
                     Logo.PrintLogo(Logo.Dashboard);
                     Console.WriteLine($"De nieuwe prijs voor {_dish.Name} is: \n");
-                    input = Console.ReadLine();
+                    input = Utils.Input();
                     if (input == "")
                     {
                         Utils.NoInput(ChangePrice, ChangeDish, Logo.Dashboard);
@@ -164,7 +164,7 @@ namespace Reserveringssysteem
                     {
                         _dish.Price = newPrice;
                         Console.WriteLine($"Prijs voor {_dish.Name} veranderd van {prijs} naar {_dish.Price}");
-                        Utils.Enter("om verder te gaan.");
+                        Utils.Enter(ChangeDish, "om verder te gaan.");
                         return;
                     }
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -233,7 +233,7 @@ namespace Reserveringssysteem
         private static void ChangeIngredient()
         {
             Console.WriteLine($"Waar wilt u {_ingredient} in veranderen?\nVoer de nieuwe naam in:");
-			var name = Console.ReadLine();
+			var name = Utils.Input();
 			if (name == "")
 			{
                 Utils.NoInput(ChangeIngredient, ChangeIngredientMenu, Logo.Dashboard);
