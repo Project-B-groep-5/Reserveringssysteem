@@ -108,8 +108,7 @@ namespace Reserveringssysteem
                     ReservateTitle();
                     Console.WriteLine("U heeft succesvol betaald!");
                 }
-                Console.WriteLine("\nKlik  op 'enter' om door te gaan.");
-                Console.Read();
+                Utils.Enter("om door te gaan");
                 break;
             }
         }
@@ -249,7 +248,7 @@ namespace Reserveringssysteem
         private static string[] GetTimes()
         {
             DateTime.TryParse(_date, out DateTime dDate);
-            var day = (int)dDate.DayOfWeek -1;
+            var day = (7 + ((int)dDate.DayOfWeek) - 1) % 7;
             var times = new List<string>();
             var allTimes = new List<string>();
             try
@@ -262,12 +261,12 @@ namespace Reserveringssysteem
                     bool add = true;
                     for (int j = 0; j < 3; j++)
                         if (i + j < allTimes.Count)
-                            if (!Check(_date, allTimes[i+j], _people))
+                            if (!Check(_date, allTimes[i + j], _people))
                             {
                                 add = false;
                                 break;
                             }
-                    if(add)
+                    if (add)
                         times.Add(allTimes[i]);
                 }
                 return times.ToArray();
@@ -342,8 +341,6 @@ namespace Reserveringssysteem
             ReservateTitle();
             var OpmerkingenMenuKeuze = new SelectionMenu(new[] { "Ja", "Nee" }, Logo.Reserveren, "\nHeeft u nog opmerkingen voor het restaurant of over de reservering?: \n");
             var choice = OpmerkingenMenuKeuze.Show();
-            while (Console.KeyAvailable)
-                Console.ReadKey(true);
             if (choice == 0)
             {
                 ReservateTitle();

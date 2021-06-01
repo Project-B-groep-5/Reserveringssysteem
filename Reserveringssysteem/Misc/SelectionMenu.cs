@@ -120,11 +120,9 @@ namespace Reserveringssysteem
                         break;
                     case ConsoleKey.Enter:
                         Console.Clear();
-                        while (Console.KeyAvailable)
-                            Console.ReadKey(true);
                         return optionSelected;
                 }
-                Console.CursorTop = Console.CursorTop - Menus.Length;
+                Console.CursorTop -= Menus.Length;
             }
         }
 
