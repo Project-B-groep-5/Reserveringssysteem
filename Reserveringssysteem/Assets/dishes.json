@@ -9,6 +9,7 @@
       "Ui",
       "Ketchup",
       "Tomaat",
+      "Lactosevrij",
       "Brood"
     ],
     "Type": "Hoofdgerechten",
@@ -358,7 +359,9 @@
     "Type": "Hoofdgerechten",
     "Tags": [
       "Vegan",
+      "Vegetarisch",
       "Veganistisch",
+      "Lactosevrij",
       "Salade",
       "Noten"
     ],
@@ -379,7 +382,9 @@
       "Patat",
       "Friet",
       "Rund",
-      "Rundvlees"
+      "Rundvlees",
+      "Lactosevrij",
+      "Glutenvrij"
     ],
     "Allergie": ""
   },
@@ -415,7 +420,9 @@
       "Knoflook",
       "Tomatenpuree",
       "Rozemarijn",
-      "Worcestersaus"
+      "Worcestersaus",
+      "Glutenvrij",
+      "Lactosevrij"
     ],
     "Type": "Hoofdgerechten",
     "Tags": [
@@ -439,7 +446,9 @@
     "Tags": [
       "Brood",
       "Voorgerecht",
-      "Gluten"
+      "Gluten",
+      "Vegetarisch",
+      "Lactosevrij"
     ],
     "Allergie": "Bevat gluten"
   },
@@ -453,7 +462,9 @@
       "Pijnboompitten",
       "Rucola",
       "Peper",
-      "Zout"
+      "Zout",
+      "Lactosevrij",
+      "Glutenvrij"
     ],
     "Type": "Voorgerechten",
     "Tags": [
@@ -473,7 +484,8 @@
       "Suiker",
       "Zure room",
       "Eieren",
-      "Vanille"
+      "Vanille",
+      "Glutenvrij"
     ],
     "Type": "Nagerechten",
     "Tags": [
@@ -493,7 +505,8 @@
       "Creme chantilly",
       "Slagroom",
       "Chocola",
-      "Chocoladesaus"
+      "Chocoladesaus",
+      "Glutenvrij"
     ],
     "Type": "Nagerechten",
     "Tags": [

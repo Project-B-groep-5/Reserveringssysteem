@@ -84,5 +84,21 @@ namespace Reserveringssysteem
                 Utils.Enter(SecondMenuScreen);
             }
         }
+        public static void ThirdMenuScreen()
+        {
+            var categories = new[] { "Vegetarisch", "Veganistisch", "Glutenvrij", "Lactosevrij" };
+            var titles = categories.ToList<string>();
+            titles[^1] += " \n";
+            titles.Add("Terug");
+            var menu = new SelectionMenu(titles.ToArray(), Logo.MenuKaart);
+            var choice = menu.Show();
+            if (choice == titles.Count - 1) Program.DishMenu();
+            else
+            {
+                Logo.PrintLogo(Logo.MenuKaart);
+                Search(categories[choice]);
+                Utils.Enter(ThirdMenuScreen);
+            }
+        }
     }
 }
