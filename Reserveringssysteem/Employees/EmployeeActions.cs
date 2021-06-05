@@ -671,7 +671,7 @@ namespace Reserveringssysteem
                 Utils.NoInput(ChangeStreet, ChangeRestaurantAddress, Logo.RestaurantGegevens);
                 return;
             }
-            if (Utils.Confirm(Logo.RestaurantGegevens, $"\nWeet u zeker dat u de straatnaam wil vernaderen naar { newStreetName}?\n"))
+            if (Utils.Confirm(Logo.RestaurantGegevens, $"\nWeet u zeker dat u de straatnaam wil veranderen naar { newStreetName}?\n"))
             {
                 Json.Restaurant.Address.StreetName = newStreetName;
                 return;

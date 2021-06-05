@@ -164,7 +164,16 @@ namespace Reserveringssysteem
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write(CalculateDistance(location, Json.Restaurant.Address));
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(" kilometer");
+                    Console.Write($" kilometer hemelsbreed\nEen gemiddelde fietser die");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" 12 ");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("kilometer per uur fietst doet hier ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"{(afstandDouble / 12):0.00}");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(" uur over!\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                     Utils.Enter();
                 }
                 else
