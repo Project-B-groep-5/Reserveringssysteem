@@ -107,6 +107,7 @@ namespace Reserveringssysteem
         {
             if (Utils.Confirm(Logo.Dashboard, $"Weet u zeker dat u een gerecht met de naam: {_dish.Name} wilt verwijderen?\n"))
             {
+                Logo.PrintLogo(Logo.Dashboard);
                 DishList.Remove(_dish);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(_dish.Name);
@@ -330,7 +331,9 @@ namespace Reserveringssysteem
             _dish = new Dish(naam, prijs, null, _category, null, null);
             DishList.Add(_dish);
             Serialize(DishList, "Assets/dishes.json");
+            Logo.PrintLogo(Logo.Dashboard);
             Console.WriteLine($"{naam} toegevoegd aan {_category}.");
+            Utils.Enter(SelectDish);
         }
         private static VoordeelMenu _menu;
         private static void ChangeMenus() // Om een voordeelmenu te veranderen / toe te voegen.
