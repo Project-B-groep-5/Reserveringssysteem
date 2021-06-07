@@ -36,10 +36,10 @@ namespace Reserveringssysteem
                 switch (menu.Show())
                 {
                     case 0:
-                        ChangeTable(Tables[choice], Tables);
+                        ChangeTable(Tables[choice-1], Tables);
                         return;
                     case 1:
-                        RemoveTable(Tables[choice], Tables);
+                        RemoveTable(Tables[choice-1], Tables);
                         return;
                     case 2:
                         TableManager();
