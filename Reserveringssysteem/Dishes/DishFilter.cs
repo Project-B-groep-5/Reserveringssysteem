@@ -13,20 +13,22 @@ namespace Reserveringssysteem
             {
                 bool printDish = false;
                 if (!(dish.Name.ToLower().Contains(keyWord.ToLower()) || dish.Type.ToLower().Contains(keyWord.ToLower())))
-                {
-                    foreach (var tag in dish.Tags)
-                        if (tag.ToLower().Contains(keyWord.ToLower()))
-                        { 
-                            printDish = true; 
-                            break; 
-                        }
+                {   
+                    if(dish.Tags != null)
+                        foreach (var tag in dish.Tags)
+                            if (tag.ToLower().Contains(keyWord.ToLower()))
+                            { 
+                                printDish = true; 
+                                break; 
+                            }
                     if (!printDish)
-                        foreach (var ingredient in dish.Ingredients)
-                            if (ingredient.ToLower().Contains(keyWord.ToLower()))
-                            {
-                                printDish = true;
-                                break;
-                            }   
+                        if(dish.Ingredients != null)
+                            foreach (var ingredient in dish.Ingredients)
+                                if (ingredient.ToLower().Contains(keyWord.ToLower()))
+                                {
+                                    printDish = true;
+                                    break;
+                                }   
                 }
                 else
                     printDish = true;
