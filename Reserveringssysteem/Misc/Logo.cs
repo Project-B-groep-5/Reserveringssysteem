@@ -4,13 +4,13 @@ namespace Reserveringssysteem
 {
     public static class Logo
     {
-        public static string Welkom = @$" _       __     ____                 
+        public static string Welkom { get => @$" _       __     ____                 
 | |     / /__  / / /______  ____ ___ 
 | | /| / / _ \/ / //_/ __ \/ __ `__ \
 | |/ |/ /  __/ / ,< / /_/ / / / / / /
 |__/|__/\___/_/_/|_|\____/_/ /_/ /_/           
 __________________________________________________________
-Bij restaurant {Json.Restaurant.Name}";
+Bij restaurant {Json.Restaurant.Name}"; }
 
         public static string Reserveren = @"    ____                                               
    / __ \___  ________  ______   _____  ________  ____ 
