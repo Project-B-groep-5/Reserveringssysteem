@@ -11,7 +11,7 @@ namespace Reserveringssysteem
             Console.CursorVisible = false;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Json.LoadJson();
-            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons", "Afstand tot restaurant berekenen \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, DishMenu, InfoScherm.ShowInfo, CalculateDistanceFromInput.Calculate,LogInEmployee.LogIn, Close}, Logo.Welkom);
+            SelectionMenu.Make(new []{ "Reservering maken", "Reservering annuleren", "Bekijk de menukaart", "Informatie over ons \n", "Medewerkers Dashboard \n", "Afsluiten" }, new Action[] { Reservations.Reservate, Reservations.CancelReservation, DishMenu, InfoScherm.ShowInfo, LogInEmployee.LogIn, Close}, Logo.Welkom);
           Main();
         }
 

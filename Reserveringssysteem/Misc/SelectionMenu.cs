@@ -8,18 +8,23 @@ namespace Reserveringssysteem
         private readonly string[] _menuArray;
         private readonly string _menuLogo;
         private readonly string _menuTitle;
+        private readonly Action _menuAction;
 
-        public SelectionMenu(string[] array, string logo, string title = "Kies een optie:\n")
+        public SelectionMenu(string[] array, string logo = null, string title = "Kies een optie:\n", Action action = null)
         {
             _menuArray = array;
             _menuLogo = logo;
             _menuTitle = title;
+            _menuAction = action;
         }
 
         public int Show()
         {
             var optionSelected = 0;
-            Logo.PrintLogo(_menuLogo);
+            if(_menuLogo != null)
+                Logo.PrintLogo(_menuLogo);
+            _menuAction?.Invoke();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(_menuTitle);
             Console.ResetColor();
             while (true)
@@ -54,7 +59,7 @@ namespace Reserveringssysteem
                             Console.ReadKey(true);
                         return optionSelected;
                 }
-                Console.CursorTop = _menuLogo.Split('\n').Length + _menuTitle.Split('\n').Length + 1;
+                Console.CursorTop -= string.Join("\n", _menuArray).Split("\n").Length;
             }
 
         }

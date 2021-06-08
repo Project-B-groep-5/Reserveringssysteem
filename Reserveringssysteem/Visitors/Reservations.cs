@@ -194,7 +194,7 @@ namespace Reserveringssysteem
             _times = GetTimes();
             if (_times == null)
             {
-                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant is gesloten op de door uw gekozen datum, wat wilt u doen?\n");
+                var optionMenu = new SelectionMenu(new string[2] { "Opnieuw proberen", "Stoppen" }, Logo.Reserveren, "\nHet restaurant is gesloten op de door uw gekozen datum, wat wilt u doen?\n", InfoScherm.PrintDates);
                 switch (optionMenu.Show())
                 {
                     case 0:

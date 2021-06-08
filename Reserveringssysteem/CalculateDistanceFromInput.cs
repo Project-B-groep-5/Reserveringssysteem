@@ -53,7 +53,7 @@ namespace Reserveringssysteem
                 CallTitle();
                 var restaurant = Json.Restaurant;
                 string afstand = CalculateDistance(location, Json.Restaurant.Address);
-                double afstandDouble = Double.Parse(afstand); 
+                double afstandDouble = Double.Parse(afstand);
                 if (afstandDouble < 300)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -80,7 +80,7 @@ namespace Reserveringssysteem
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write($" kilometer hemelsbreed\nEen gemiddelde fietser die");
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write(  " 12 ");
+                    Console.Write(" 12 ");
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("kilometer per uur fietst doet hier ");
                     Console.ForegroundColor = ConsoleColor.White;
@@ -101,24 +101,27 @@ namespace Reserveringssysteem
                     Utils.Enter();
                 }
 
-                }
-                if (keuzeCheckArr2[keuzeCheck2] == "Terug")
-                    return;
-                if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats \n")
+            }
+            if (keuzeCheckArr2[keuzeCheck2] == "Terug")
+            {
+                InfoScherm.ShowInfo();
+                return;
+            }
+            if (keuzeCheckArr2[keuzeCheck2] == "Afstand berekenen met straatnaam, huisnummer en woonplaats \n")
+            {
+                CallTitle();
+                string adres = Utils.Input("\nVul uw straatnaam en huisnummer in: \n");
+                while (true)
                 {
-                    CallTitle();
-                    string adres = Utils.Input("\nVul uw straatnaam en huisnummer in: \n");
-                    while (true)
+                    isIntString = adres.Any(letter => char.IsDigit(letter));
+                    if (!isIntString)
                     {
-                        isIntString = adres.Any(letter => char.IsDigit(letter));
-                        if (!isIntString)
-                        {
-                            CallTitle();
-                            adres = Utils.Input("\nGraag de straatnaam met huisnummer\n\nVul uw straatnaam en huisnummer in:\n");
-                        }
-                        else
-                            break;
+                        CallTitle();
+                        adres = Utils.Input("\nGraag de straatnaam met huisnummer\n\nVul uw straatnaam en huisnummer in:\n");
                     }
+                    else
+                        break;
+                }
                 string[] temp = adres.Split(' ');
                 string huisnummer = temp[^1];
                 string straatnaam = string.Join(' ', temp).Replace($" {huisnummer}", "");
@@ -186,8 +189,7 @@ namespace Reserveringssysteem
                     Console.WriteLine(" kilometer. \nProbeer het opnieuw door het invullen van de straatnaam + woonplaats\n");
                     Utils.Enter();
                 }
-                }
             }
-
         }
     }
+}

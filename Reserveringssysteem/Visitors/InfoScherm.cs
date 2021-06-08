@@ -6,10 +6,22 @@ namespace Reserveringssysteem
     {
         public static void ShowInfo()
         {
+            var menu = new SelectionMenu(new[] { "Afstand berekenen tot restaurant \n", "Terug" }, action: PrintInfo, title: "\nKies een optie:\n");
+            switch(menu.Show())
+            {
+                case 0:
+                    CalculateDistanceFromInput.Calculate();
+                    break;
+                case 1:
+                    Program.Main();
+                    break;
+            }
+        }
+        private static void PrintInfo()
+        {
             Logo.PrintLogo(Logo.OverOns);
             Restaurant restaurant = Json.Restaurant;
             Location address = restaurant.Address;
-            string[] openingHours = restaurant.OpeningHours;
             Console.WriteLine($"{restaurant.Name}\n\n{restaurant.Description}");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("\nAdress: ");
@@ -22,18 +34,22 @@ namespace Reserveringssysteem
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.Write("E-mail: ");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(restaurant.ContactInformation[0]);
+            Console.WriteLine(restaurant.ContactInformation[0] + '\n');
+            PrintDates();
+        }
+
+        public static void PrintDates()
+        {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\nOpeningstijden:");
+            Console.WriteLine("Openingstijden:");
             var dagen = new[] { "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag" };
             for (int i = 0; i < dagen.Length; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write(dagen[i] + ": ");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(openingHours[i]);
-            }            
-            Utils.Enter(Program.Main);
+                Console.WriteLine(Json.Restaurant.OpeningHours[i]);
+            }
         }
     }
 }
