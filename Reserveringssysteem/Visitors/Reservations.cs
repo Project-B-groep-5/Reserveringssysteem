@@ -329,6 +329,7 @@ namespace Reserveringssysteem
                         var voordeelCheck2 = new SelectionMenu(keuzeCheckArr2, Logo.Reserveren, "\nWeet u zeker dat u à la carte wilt eten?\n");
                         var keuzeCheck2 = voordeelCheck2.Show();
                         if (keuzeCheckArr2[keuzeCheck2] == "Nee") continue;
+                        _menus = null;
                         return;
                     case 2:
                         GetTime();
