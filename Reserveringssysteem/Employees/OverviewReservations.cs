@@ -11,7 +11,7 @@ namespace Reserveringssysteem
         public static void Overview()
         {
             var DaysWithOccupation = new List<string>();
-            var TimeSlots = new List<string> { "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00","20:30" };
+            var TimeSlots = GetTimes();
             var ReservationsPerTimeslot = new List<List<int>>();
             var OccupationPerTimeslot = new int[TimeSlots.Count];            
             var string_today = DateTime.Today.ToString("dd-MM-yyyy");           
@@ -34,7 +34,7 @@ namespace Reserveringssysteem
             {
                 ReservationsPerTimeslot.Add(new List<int>());
             }
-            var optionMenu = new SelectionMenu(new string[4] { "Reserveringen voor vandaag bekijken", "Reserveringen voor morgen bekijken","Reserveringen andere datum bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u bekijken? \n");
+            var optionMenu = new SelectionMenu(new string[4] { "Reserveringen voor vandaag bekijken", "Reserveringen voor morgen bekijken","Andere dagen van deze maand met reserveringen bekijken", "Terug naar dashboard" }, Logo.Reserveringen, "\nWat wilt u bekijken? \n");
             switch (optionMenu.Show())
             {
                 case 0:
@@ -44,13 +44,30 @@ namespace Reserveringssysteem
                     ShowDay(sorted, TimeSlots, ReservationsPerTimeslot, string_tomorrow, OccupationPerTimeslot);
                     return;
                 case 2:
-                    ChooseDate(sorted, TimeSlots, ReservationsPerTimeslot, OccupationPerTimeslot);
+                    ChooseDate();
                     return;
                 case 3:
                     EmployeeActions.MainMenu();
                     return;
             }
         }
+        public static List<string> GetTimes()
+        {
+          var allTimes = new List<string>();
+            for (int a = 0; a < 7; a++)
+                if (Json.Restaurant.OpeningHours[a] != "Gesloten")
+                {
+                    for (int i = int.Parse(Json.Restaurant.OpeningHours[a].Split(":")[0]); i < int.Parse(Json.Restaurant.OpeningHours[a].Split("-")[1].Split(":")[0]) - 1; i++)
+                        for (int j = 0; j <= 30; j += 30)
+                        {
+                            string temp = $"{i}:{j:00}";
+                            if (!allTimes.Contains(temp))
+                                allTimes.Add(temp);
+                        }
+                }
+            return allTimes;
+        }
+ 
         public static void ShowDay(List<string> sorted,List<string> TimeSlots,List<List<int>> ReservationsPerTimeslot,string day, int[] OccupationPerTimeslot)
         {                   
             Header();
@@ -78,8 +95,32 @@ namespace Reserveringssysteem
             Overview();
         }
 
-        public static void ChooseDate(List<string> sorted, List<string> TimeSlots, List<List<int>> ReservationsPerTimeslot, int[] OccupationPerTimeslot)
+        public static void ChooseDate()
         {
+            var DaysWithOccupation = new List<string>();
+            var TimeSlots = GetTimes();
+            var ReservationsPerTimeslot = new List<List<int>>();
+            var OccupationPerTimeslot = new int[TimeSlots.Count];
+            var string_today = DateTime.Today.ToString("dd-MM-yyyy");
+            string string_tomorrow = DateTime.Today.AddDays(1).ToString("dd-MM-yyyy");
+
+            for (int i = 0; i < ReservationList.Count; i++)
+            {
+                if (!DaysWithOccupation.Contains(ReservationList[i].Date))
+                {
+                    DaysWithOccupation.Add(ReservationList[i].Date);
+                }
+
+            }
+            List<string> sorted = DaysWithOccupation.OrderBy(x =>
+            {
+                DateTime.TryParse(x, out DateTime dt);
+                return dt;
+            }).ToList();
+            for (int i = 0; i < TimeSlots.Count; i++)
+            {
+                ReservationsPerTimeslot.Add(new List<int>());
+            }
             Header();
             Console.CursorVisible = true;
             if (ReservationList.Count > 0)
@@ -88,7 +129,9 @@ namespace Reserveringssysteem
                 Console.ForegroundColor = ConsoleColor.White;
                 for (int i = 0; i < sorted.Count; i++)
                 {
-                    Console.WriteLine(sorted[i]);
+                    var temp = DateTime.Parse(sorted[i]);
+                    if (temp.Month == DateTime.Today.Month && temp.Year == DateTime.Today.Year)
+                        Console.WriteLine(sorted[i]);
                 }
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\nVul een datum in om per tijdsslot het aantal mensen te zien die komen.");
@@ -96,7 +139,12 @@ namespace Reserveringssysteem
                 string date = Console.ReadLine();
                 while (true)
                 {
-                    if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
+                    if (date == "")
+                    {
+                        Utils.NoInput(ChooseDate, Overview, Logo.Reserveringen);
+                        return;
+                    }
+                    else if (!DateTime.TryParse(date, out DateTime dDate) || !sorted.Contains(date))
                     {
                         Console.WriteLine("\nOpgegeven datum staat niet in de lijst of is niet gelijk aan het format. Het format is: DD-MM-JJJJ \n");
                         date = Console.ReadLine();
@@ -134,7 +182,7 @@ namespace Reserveringssysteem
                 }
                 Console.WriteLine("------------|--------------------------|-----------------------------------------------------------------------");
             }
-            Utils.Enter(EmployeeActions.MainMenu);
+            Utils.Enter(Overview);
         }
     }
 }
